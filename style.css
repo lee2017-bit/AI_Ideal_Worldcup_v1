@@ -8,29 +8,190 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: #121212;
     color: #ffffff;
-    text-align: center;
-    padding: 20px;
+    display: flex;
+    min-height: 100vh;
 }
 
-header {
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background-color: #1a1a2e;
+    border-right: 1px solid #333;
+    padding: 20px 15px;
+    padding-top: 65px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-title {
+    font-size: 1.3rem;
+    text-align: center;
     margin-bottom: 2rem;
+    color: #e0e0e0;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+.category-list {
+    list-style: none;
+    flex: 1;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.category-item.active {
+    background-color: #16213e;
+    border: 1px solid #007bff;
+    color: #ffffff;
+}
+
+.category-item.active:hover {
+    background-color: #1a2745;
+}
+
+.category-item.disabled {
+    background-color: #2a2a2a;
+    color: #666;
+    cursor: not-allowed;
+    border: 1px solid #333;
+}
+
+.category-icon {
+    font-size: 1.5rem;
+}
+
+.coming-soon {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 0.6rem;
+    background-color: #555;
+    color: #aaa;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* ===== Top Bar ===== */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0d0d1a;
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+    z-index: 100;
+    text-align: center;
+}
+
+.lang-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
 }
 
 .lang-selector button {
     background-color: #1e1e1e;
     color: #ffffff;
     border: 1px solid #333;
-    padding: 10px 15px;
-    margin: 0 5px;
+    padding: 8px 14px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 0.85rem;
 }
 
-.lang-selector button:hover, .lang-selector button.active {
+.lang-selector button:hover,
+.lang-selector button.active {
     background-color: #007bff;
 }
 
+/* ===== Main Content ===== */
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 30px;
+    padding-top: 65px;
+    text-align: center;
+}
+
+/* ===== Landing Page ===== */
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.landing-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.landing-subtitle {
+    color: #aaa;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 800px;
+    margin-bottom: 2rem;
+}
+
+.preview-item {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #333;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.preview-item:hover {
+    border-color: #007bff;
+    transform: scale(1.03);
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #ffffff;
+    border: none;
+    padding: 15px 50px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* ===== Tournament ===== */
 #round-title {
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -75,6 +236,7 @@ header {
     border-radius: 5px;
 }
 
+/* ===== Winner ===== */
 .winner-container {
     display: none;
     flex-direction: column;
@@ -125,7 +287,38 @@ header {
     background-color: #0056b3;
 }
 
-footer {
-    margin-top: 3rem;
-    color: #888;
+#submit-feedback:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.feedback-status {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+}
+
+.feedback-status.success {
+    color: #4caf50;
+}
+
+.feedback-status.error {
+    color: #f44336;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        margin-left: 200px;
+    }
+    .preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .image-wrapper img {
+        max-width: 250px;
+        max-height: 250px;
+    }
 }

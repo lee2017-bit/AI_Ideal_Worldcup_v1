@@ -5,37 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 이상형 월드컵</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 </head>
 <body>
-    <header>
+    <header class="top-bar">
         <div class="lang-selector">
-            <button data-lang="ko">한국어</button>
-            <button data-lang="en">English</button>
-            <button data-lang="ja">日本語</button>
-            <button data-lang="zh">中文</button>
+            <button data-lang="ko" class="active"><span class="fi fi-kr"></span> 한국어</button>
+            <button data-lang="en"><span class="fi fi-us"></span> English</button>
+            <button data-lang="ja"><span class="fi fi-jp"></span> 日本語</button>
+            <button data-lang="zh"><span class="fi fi-cn"></span> 中文</button>
         </div>
     </header>
 
-    <main>
-        <h2 id="round-title"></h2>
-        <div id="tournament-container" class="tournament-container">
-            </div>
+    <nav class="sidebar">
+        <h2 class="sidebar-title">AI 이상형 월드컵</h2>
+        <ul class="category-list">
+            <li class="category-item active" id="category-female">
+                <span class="category-icon">👩</span>
+                <span class="category-label">여자 AI 애니메이션<br>이상형월드컵</span>
+            </li>
+            <li class="category-item disabled" id="category-male">
+                <span class="category-icon">👨</span>
+                <span class="category-label">남자 AI 애니메이션<br>이상형월드컵</span>
+                <span class="coming-soon">준비중</span>
+            </li>
+        </ul>
+    </nav>
 
-        <div id="winner-container" class="winner-container" style="display: none;">
-            <h2 id="winner-title"></h2>
-            <img id="winner-img" src="" alt="Final Winner">
-            <p id="winner-ai"></p>
-            <div id="feedback-form">
-                <h3>피드백</h3>
-                <textarea id="feedback-text" placeholder="왜 이 이미지를 선택하셨나요?"></textarea>
-                <button id="submit-feedback">제출</button>
+    <div class="main-content">
+        <div id="landing-page" class="landing-page">
+            <h1 class="landing-title">여자 AI 애니메이션 이상형월드컵</h1>
+            <p class="landing-subtitle">8명의 AI 애니메이션 캐릭터 중 나의 이상형을 골라보세요!</p>
+            <div class="preview-grid">
+                <div class="preview-item"><img src="images/1.gif" alt="1"></div>
+                <div class="preview-item"><img src="images/2.gif" alt="2"></div>
+                <div class="preview-item"><img src="images/3.gif" alt="3"></div>
+                <div class="preview-item"><img src="images/4.gif" alt="4"></div>
+                <div class="preview-item"><img src="images/5.gif" alt="5"></div>
+                <div class="preview-item"><img src="images/6.gif" alt="6"></div>
+                <div class="preview-item"><img src="images/7.gif" alt="7"></div>
+                <div class="preview-item"><img src="images/8.gif" alt="8"></div>
             </div>
+            <button id="start-btn" class="start-btn">시작하기</button>
         </div>
-    </main>
 
-    <footer>
-        <p>&copy; 2024 AI GIF Tournament</p>
-    </footer>
+        <main id="game-area" style="display: none;">
+            <h2 id="round-title"></h2>
+            <div id="tournament-container" class="tournament-container"></div>
+
+            <div id="winner-container" class="winner-container" style="display: none;">
+                <h2 id="winner-title"></h2>
+                <img id="winner-img" src="" alt="Final Winner">
+                <p id="winner-ai"></p>
+                <div id="feedback-form">
+                    <h3>피드백</h3>
+                    <textarea id="feedback-text" placeholder="왜 이 이미지를 선택하셨나요?"></textarea>
+                    <button id="submit-feedback">제출</button>
+                    <div id="feedback-status" class="feedback-status"></div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script src="main.js"></script>
 </body>

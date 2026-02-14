@@ -1,14 +1,42 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 이상형 월드컵</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <header>
+        <div class="lang-selector">
+            <button data-lang="ko">한국어</button>
+            <button data-lang="en">English</button>
+            <button data-lang="ja">日本語</button>
+            <button data-lang="zh">中文</button>
+        </div>
+    </header>
+
+    <main>
+        <h2 id="round-title"></h2>
+        <div id="tournament-container" class="tournament-container">
+            </div>
+
+        <div id="winner-container" class="winner-container" style="display: none;">
+            <h2 id="winner-title"></h2>
+            <img id="winner-img" src="" alt="Final Winner">
+            <p id="winner-ai"></p>
+            <div id="feedback-form">
+                <h3>피드백</h3>
+                <textarea id="feedback-text" placeholder="왜 이 이미지를 선택하셨나요?"></textarea>
+                <button id="submit-feedback">제출</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI GIF Tournament</p>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>

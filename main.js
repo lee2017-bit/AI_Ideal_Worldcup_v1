@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             action: 'vote',
             winner: winnerFile,
             ai: winner.ai,
+            lang: currentLang,
         });
         fetch(SCRIPT_URL + '?' + voteParams.toString(), { mode: 'no-cors' }).catch(() => {});
     }

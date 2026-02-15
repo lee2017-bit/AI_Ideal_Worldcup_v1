@@ -37,14 +37,14 @@
             <h1 class="landing-title">여자 AI 애니메이션 이상형월드컵</h1>
             <p class="landing-subtitle">8명의 AI 애니메이션 캐릭터 중 나의 이상형을 골라보세요!</p>
             <div class="preview-grid">
-                <div class="preview-item"><img src="images/1.gif" alt="1"></div>
-                <div class="preview-item"><img src="images/2.gif" alt="2"></div>
-                <div class="preview-item"><img src="images/3.gif" alt="3"></div>
-                <div class="preview-item"><img src="images/4.gif" alt="4"></div>
-                <div class="preview-item"><img src="images/5.gif" alt="5"></div>
-                <div class="preview-item"><img src="images/6.gif" alt="6"></div>
-                <div class="preview-item"><img src="images/7.gif" alt="7"></div>
-                <div class="preview-item"><img src="images/8.gif" alt="8"></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/1.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/2.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/3.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/4.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/5.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/6.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/7.mp4" type="video/mp4"></video></div>
+                <div class="preview-item"><video autoplay loop muted playsinline><source src="videos/8.mp4" type="video/mp4"></video></div>
             </div>
             <button id="start-btn" class="start-btn">시작하기</button>
         </div>
@@ -55,7 +55,9 @@
 
             <div id="winner-container" class="winner-container" style="display: none;">
                 <h2 id="winner-title"></h2>
-                <img id="winner-img" src="" alt="Final Winner">
+                <video id="winner-video" autoplay loop muted playsinline>
+                    <source src="" type="video/mp4">
+                </video>
                 <p id="winner-ai"></p>
                 <div id="feedback-form">
                     <h3>피드백</h3>

@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const images = [
-        { id: 1, src: 'images/1.gif', ai: 'Nano Banana' },
-        { id: 2, src: 'images/2.gif', ai: 'DALL-E' },
-        { id: 3, src: 'images/3.gif', ai: 'Nano Banana' },
-        { id: 4, src: 'images/4.gif', ai: 'DALL-E' },
-        { id: 5, src: 'images/5.gif', ai: 'Nano Banana' },
-        { id: 6, src: 'images/6.gif', ai: 'DALL-E' },
-        { id: 7, src: 'images/7.gif', ai: 'Nano Banana' },
-        { id: 8, src: 'images/8.gif', ai: 'DALL-E' },
+        { id: 1, src: 'videos/1.mp4', ai: 'Nano Banana' },
+        { id: 2, src: 'videos/2.mp4', ai: 'DALL-E' },
+        { id: 3, src: 'videos/3.mp4', ai: 'Nano Banana' },
+        { id: 4, src: 'videos/4.mp4', ai: 'DALL-E' },
+        { id: 5, src: 'videos/5.mp4', ai: 'Nano Banana' },
+        { id: 6, src: 'videos/6.mp4', ai: 'DALL-E' },
+        { id: 7, src: 'videos/7.mp4', ai: 'Nano Banana' },
+        { id: 8, src: 'videos/8.mp4', ai: 'DALL-E' },
     ];
 
     const i18n = {
@@ -177,7 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const wrapper = document.createElement('div');
             wrapper.className = 'image-wrapper';
             wrapper.innerHTML = `
-                <img src="${image.src}" alt="AI Image">
+                <video autoplay loop muted playsinline>
+                    <source src="${image.src}" type="video/mp4">
+                </video>
                 <p>${image.ai}</p>
             `;
             wrapper.addEventListener('click', () => selectWinner(image));
@@ -202,7 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function showWinner(winner) {
         tournamentContainer.style.display = 'none';
         winnerContainer.style.display = 'flex';
-        document.getElementById('winner-img').src = winner.src;
+        const winnerVideo = document.getElementById('winner-video');
+        winnerVideo.querySelector('source').src = winner.src;
+        winnerVideo.load();
         document.getElementById('winner-ai').textContent = `Created by: ${winner.ai}`;
         document.getElementById('winner-title').textContent = i18n[currentLang].winnerTitle;
     }
@@ -212,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('submit-feedback').addEventListener('click', async () => {
         const feedback = document.getElementById('feedback-text').value.trim();
-        const winnerImg = document.getElementById('winner-img');
+        const winnerVideo = document.getElementById('winner-video');
         const winnerAi = document.getElementById('winner-ai').textContent;
         const statusEl = document.getElementById('feedback-status');
 
@@ -227,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusEl.textContent = '제출 중...';
         statusEl.className = 'feedback-status';
 
-        const winnerSrc = winnerImg.src.split('/').pop();
+        const winnerSrc = winnerVideo.querySelector('source').src.split('/').pop();
 
         try {
             const params = new URLSearchParams({

@@ -406,10 +406,12 @@ body {
         margin-bottom: 1rem;
     }
     .tournament-container {
-        gap: 10px;
+        flex-direction: column;
+        gap: 15px;
     }
     .image-wrapper {
-        max-width: 45vw;
+        max-width: 85vw;
+        flex: none;
     }
     .image-wrapper p {
         bottom: 5px;

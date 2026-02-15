@@ -258,9 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
 
             const sorted = data.sort((a, b) => b.wins - a.wins);
+            const totalWins = sorted.reduce((sum, item) => sum + item.wins, 0);
 
             rankingsList.innerHTML = sorted.map((item, idx) => {
                 const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
+                const pct = totalWins > 0 ? Math.round((item.wins / totalWins) * 100) : 0;
                 return `
                     <div class="ranking-item">
                         <span class="ranking-rank">${medal}</span>
@@ -270,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </video>
                         </div>
                         <span class="ranking-ai">${item.ai}</span>
-                        <span class="ranking-wins">${item.wins}${lang.rankingWins}</span>
+                        <span class="ranking-wins">${item.wins}${lang.rankingWins}(${pct}%)</span>
                     </div>
                 `;
             }).join('');

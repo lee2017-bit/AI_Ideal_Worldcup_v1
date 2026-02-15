@@ -410,7 +410,7 @@ body {
         gap: 15px;
     }
     .image-wrapper {
-        max-width: 85vw;
+        max-width: 92vw;
         flex: none;
     }
     .image-wrapper p {
@@ -419,8 +419,8 @@ body {
         padding: 3px 8px;
     }
     .winner-container video {
-        max-width: 90%;
-        max-height: 400px;
+        max-width: 95%;
+        max-height: none;
     }
     #feedback-form {
         max-width: 100%;
@@ -440,7 +440,7 @@ body {
         gap: 5px;
     }
     .image-wrapper {
-        max-width: 44vw;
+        max-width: 92vw;
     }
     .lang-selector {
         gap: 4px;

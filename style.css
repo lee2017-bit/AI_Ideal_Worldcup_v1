@@ -322,8 +322,15 @@ body {
 }
 
 /* ===== Rankings ===== */
-.rankings-btn {
+.rankings-buttons {
+    display: flex;
+    gap: 10px;
     margin-top: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.rankings-btn {
     background: linear-gradient(135deg, #ff9800, #f57c00);
     color: #ffffff;
     border: none;
@@ -337,6 +344,14 @@ body {
 .rankings-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+}
+
+.rankings-btn-lang {
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+}
+
+.rankings-btn-lang:hover {
+    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
 }
 
 .rankings-container {

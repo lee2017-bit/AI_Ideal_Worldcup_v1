@@ -27,8 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: '여자 AI 애니메이션\n이상형월드컵',
             categoryMale: '남자 AI 애니메이션\n이상형월드컵',
             comingSoon: '준비중',
-            showRankings: '랭킹보기',
-            rankingsTitle: '전체 랭킹',
+            showRankingsAll: '전체 랭킹보기',
+            showRankingsLang: '언어별 랭킹보기',
+            rankingsAllTitle: '전체 랭킹',
+            rankingsLangTitle: '언어별 랭킹',
             rankingWins: '회',
             rankingLoading: '랭킹 로딩 중...',
             rankingError: '랭킹을 불러올 수 없습니다.',
@@ -49,8 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: 'Female AI Animation\nIdeal Worldcup',
             categoryMale: 'Male AI Animation\nIdeal Worldcup',
             comingSoon: 'Coming Soon',
-            showRankings: 'View Rankings',
-            rankingsTitle: 'Overall Rankings',
+            showRankingsAll: 'Overall Rankings',
+            showRankingsLang: 'Language Rankings',
+            rankingsAllTitle: 'Overall Rankings',
+            rankingsLangTitle: 'Language Rankings',
             rankingWins: 'wins',
             rankingLoading: 'Loading rankings...',
             rankingError: 'Failed to load rankings.',
@@ -71,8 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: '女性AIアニメ\n理想ワールドカップ',
             categoryMale: '男性AIアニメ\n理想ワールドカップ',
             comingSoon: '準備中',
-            showRankings: 'ランキングを見る',
-            rankingsTitle: '全体ランキング',
+            showRankingsAll: '全体ランキング',
+            showRankingsLang: '言語別ランキング',
+            rankingsAllTitle: '全体ランキング',
+            rankingsLangTitle: '言語別ランキング',
             rankingWins: '回',
             rankingLoading: 'ランキング読み込み中...',
             rankingError: 'ランキングを読み込めません。',
@@ -93,15 +99,17 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: '女性AI动画\n理想世界杯',
             categoryMale: '男性AI动画\n理想世界杯',
             comingSoon: '即将推出',
-            showRankings: '查看排名',
-            rankingsTitle: '总排名',
+            showRankingsAll: '总排名',
+            showRankingsLang: '语言排名',
+            rankingsAllTitle: '总排名',
+            rankingsLangTitle: '语言排名',
             rankingWins: '次',
             rankingLoading: '排名加载中...',
             rankingError: '无法加载排名。',
         },
     };
 
-    let currentLang = 'ko';
+    let currentLang = 'en';
     let currentRound = 8;
     let contenders = [...images];
     let winners = [];
@@ -140,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('feedback-form').querySelector('h3').textContent = lang.feedbackTitle;
         document.getElementById('feedback-text').placeholder = lang.feedbackPlaceholder;
         document.getElementById('submit-feedback').textContent = lang.submit;
-        document.getElementById('show-rankings').textContent = lang.showRankings;
-        document.getElementById('rankings-title').textContent = lang.rankingsTitle;
+        document.getElementById('show-rankings-all').textContent = lang.showRankingsAll;
+        document.getElementById('show-rankings-lang').textContent = lang.showRankingsLang;
 
         langButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === currentLang);
@@ -248,18 +256,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxk_FMxH9b4-HyPU3aC7p7XR3LSCb_zK0yiU-GnnLQ0hrE5jSFmR_WjNYWvDMymZ833/exec';
 
     // Rankings
-    async function loadRankings() {
+    async function loadRankings(filterByLang) {
         const lang = i18n[currentLang];
         const rankingsList = document.getElementById('rankings-list');
+        const rankingsTitle = document.getElementById('rankings-title');
         rankingsList.innerHTML = `<p class="rankings-loading">${lang.rankingLoading}</p>`;
+        rankingsTitle.textContent = filterByLang ? lang.rankingsLangTitle : lang.rankingsAllTitle;
         document.getElementById('rankings-container').style.display = 'block';
 
         try {
-            const res = await fetch(SCRIPT_URL + '?action=getRankings&lang=' + currentLang);
+            let url = SCRIPT_URL + '?action=getRankings';
+            if (filterByLang) url += '&lang=' + currentLang;
+            const res = await fetch(url);
             const data = await res.json();
 
             const sorted = data.sort((a, b) => b.wins - a.wins);
             const totalWins = sorted.reduce((sum, item) => sum + item.wins, 0);
+
+            if (sorted.length === 0) {
+                rankingsList.innerHTML = `<p class="rankings-loading">No data yet.</p>`;
+                return;
+            }
 
             rankingsList.innerHTML = sorted.map((item, idx) => {
                 const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
@@ -282,7 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.getElementById('show-rankings').addEventListener('click', loadRankings);
+    document.getElementById('show-rankings-all').addEventListener('click', () => loadRankings(false));
+    document.getElementById('show-rankings-lang').addEventListener('click', () => loadRankings(true));
 
     document.getElementById('submit-feedback').addEventListener('click', async () => {
         const feedback = document.getElementById('feedback-text').value.trim();

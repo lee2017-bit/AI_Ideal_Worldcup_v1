@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,8 @@
 <body>
     <header class="top-bar">
         <div class="lang-selector">
-            <button data-lang="ko" class="active"><span class="fi fi-kr"></span> 한국어</button>
-            <button data-lang="en"><span class="fi fi-us"></span> English</button>
+            <button data-lang="ko"><span class="fi fi-kr"></span> 한국어</button>
+            <button data-lang="en" class="active"><span class="fi fi-us"></span> English</button>
             <button data-lang="ja"><span class="fi fi-jp"></span> 日本語</button>
             <button data-lang="zh"><span class="fi fi-cn"></span> 中文</button>
         </div>
@@ -66,9 +66,12 @@
                     <div id="feedback-status" class="feedback-status"></div>
                     <p class="feedback-notice">여러분의 피드백을 반영하여 2탄을 제작할 예정입니다.</p>
                 </div>
-                <button id="show-rankings" class="rankings-btn">랭킹보기</button>
+                <div class="rankings-buttons">
+                    <button id="show-rankings-all" class="rankings-btn">Overall Rankings</button>
+                    <button id="show-rankings-lang" class="rankings-btn rankings-btn-lang">Language Rankings</button>
+                </div>
                 <div id="rankings-container" class="rankings-container" style="display: none;">
-                    <h3 id="rankings-title">전체 랭킹</h3>
+                    <h3 id="rankings-title">Overall Rankings</h3>
                     <div id="rankings-list" class="rankings-list"></div>
                 </div>
             </div>

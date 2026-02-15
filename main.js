@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: '여자 AI 애니메이션\n이상형월드컵',
             categoryMale: '남자 AI 애니메이션\n이상형월드컵',
             comingSoon: '준비중',
+            showRankings: '랭킹보기',
+            rankingsTitle: '전체 랭킹',
+            rankingWins: '회',
+            rankingLoading: '랭킹 로딩 중...',
+            rankingError: '랭킹을 불러올 수 없습니다.',
         },
         en: {
             round: (round) => `Round of ${round}`,
@@ -44,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: 'Female AI Animation\nIdeal Worldcup',
             categoryMale: 'Male AI Animation\nIdeal Worldcup',
             comingSoon: 'Coming Soon',
+            showRankings: 'View Rankings',
+            rankingsTitle: 'Overall Rankings',
+            rankingWins: 'wins',
+            rankingLoading: 'Loading rankings...',
+            rankingError: 'Failed to load rankings.',
         },
         ja: {
             round: (round) => `ベスト${round}`,
@@ -61,6 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: '女性AIアニメ\n理想ワールドカップ',
             categoryMale: '男性AIアニメ\n理想ワールドカップ',
             comingSoon: '準備中',
+            showRankings: 'ランキングを見る',
+            rankingsTitle: '全体ランキング',
+            rankingWins: '回',
+            rankingLoading: 'ランキング読み込み中...',
+            rankingError: 'ランキングを読み込めません。',
         },
         zh: {
             round: (round) => `${round}强赛`,
@@ -78,6 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFemale: '女性AI动画\n理想世界杯',
             categoryMale: '男性AI动画\n理想世界杯',
             comingSoon: '即将推出',
+            showRankings: '查看排名',
+            rankingsTitle: '总排名',
+            rankingWins: '次',
+            rankingLoading: '排名加载中...',
+            rankingError: '无法加载排名。',
         },
     };
 
@@ -120,6 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('feedback-form').querySelector('h3').textContent = lang.feedbackTitle;
         document.getElementById('feedback-text').placeholder = lang.feedbackPlaceholder;
         document.getElementById('submit-feedback').textContent = lang.submit;
+        document.getElementById('show-rankings').textContent = lang.showRankings;
+        document.getElementById('rankings-title').textContent = lang.rankingsTitle;
 
         langButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === currentLang);
@@ -209,10 +231,55 @@ document.addEventListener('DOMContentLoaded', () => {
         winnerVideo.load();
         document.getElementById('winner-ai').textContent = `Created by: ${winner.ai}`;
         document.getElementById('winner-title').textContent = i18n[currentLang].winnerTitle;
+        document.getElementById('rankings-container').style.display = 'none';
+
+        // Send vote
+        const winnerFile = winner.src.split('/').pop();
+        const voteParams = new URLSearchParams({
+            action: 'vote',
+            winner: winnerFile,
+            ai: winner.ai,
+        });
+        fetch(SCRIPT_URL + '?' + voteParams.toString(), { mode: 'no-cors' }).catch(() => {});
     }
 
     // Google Apps Script
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEtFaEVyYMtREvOayYL0Hh4b_CD32efUFxgIXYKqpUb_EWRYyeQlNrvG-1AbZdf3Fm/exec';
+
+    // Rankings
+    async function loadRankings() {
+        const lang = i18n[currentLang];
+        const rankingsList = document.getElementById('rankings-list');
+        rankingsList.innerHTML = `<p class="rankings-loading">${lang.rankingLoading}</p>`;
+        document.getElementById('rankings-container').style.display = 'block';
+
+        try {
+            const res = await fetch(SCRIPT_URL + '?action=getRankings');
+            const data = await res.json();
+
+            const sorted = data.sort((a, b) => b.wins - a.wins);
+
+            rankingsList.innerHTML = sorted.map((item, idx) => {
+                const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
+                return `
+                    <div class="ranking-item">
+                        <span class="ranking-rank">${medal}</span>
+                        <div class="ranking-video-wrap">
+                            <video autoplay loop muted playsinline>
+                                <source src="videos/${item.winner}" type="video/mp4">
+                            </video>
+                        </div>
+                        <span class="ranking-ai">${item.ai}</span>
+                        <span class="ranking-wins">${item.wins}${lang.rankingWins}</span>
+                    </div>
+                `;
+            }).join('');
+        } catch (err) {
+            rankingsList.innerHTML = `<p class="rankings-error">${lang.rankingError}</p>`;
+        }
+    }
+
+    document.getElementById('show-rankings').addEventListener('click', loadRankings);
 
     document.getElementById('submit-feedback').addEventListener('click', async () => {
         const feedback = document.getElementById('feedback-text').value.trim();
@@ -235,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const params = new URLSearchParams({
+                action: 'feedback',
                 winner: winnerSrc,
                 ai: winnerAi,
                 feedback: feedback,

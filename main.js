@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Google Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWUvSNzwsmUqF--ljvf_jSw_gr0-LatbcaJRcuEYhmfTiMT6ope4V8DYVEeghcdIE/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-qyHIywRrXGXS111OR5_JqAHwdVeTF3mjw26SHK3M5vNbmwL72Cf2KQEQQgG-9BHf/exec';
 
     // Rankings
     async function loadRankings() {

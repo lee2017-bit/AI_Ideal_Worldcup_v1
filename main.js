@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('rankings-container').style.display = 'block';
 
         try {
-            const res = await fetch(SCRIPT_URL + '?action=getRankings');
+            const res = await fetch(SCRIPT_URL + '?action=getRankings&lang=' + currentLang);
             const data = await res.json();
 
             const sorted = data.sort((a, b) => b.wins - a.wins);

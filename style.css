@@ -531,8 +531,8 @@ body {
         margin-bottom: 1.5rem;
     }
     .preview-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 5px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
         max-width: 100%;
     }
     .preview-item {
@@ -544,16 +544,20 @@ body {
         margin-top: 0.5rem;
     }
     #round-title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
     }
     .tournament-container {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
     }
     .image-wrapper {
         max-width: 92vw;
         flex: none;
+    }
+    .image-wrapper video {
+        max-height: 35vh;
+        object-fit: cover;
     }
     .image-wrapper p {
         bottom: 5px;

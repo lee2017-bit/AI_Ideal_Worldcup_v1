@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: '회',
             rankingLoading: '랭킹 로딩 중...',
             rankingError: '랭킹을 불러올 수 없습니다.',
+            feedbackNotice: '여러분의 피드백을 반영하여 2탄을 제작할 예정입니다.',
         },
         en: {
             round: (round) => `Round of ${round}`,
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: 'wins',
             rankingLoading: 'Loading rankings...',
             rankingError: 'Failed to load rankings.',
+            feedbackNotice: 'We plan to create a second edition based on your feedback.',
         },
         ja: {
             round: (round) => `ベスト${round}`,
@@ -133,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: '回',
             rankingLoading: 'ランキング読み込み中...',
             rankingError: 'ランキングを読み込めません。',
+            feedbackNotice: '皆さんのフィードバックを反映して第2弾を制作する予定です。',
         },
         zh: {
             round: (round) => `${round}强赛`,
@@ -157,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: '次',
             rankingLoading: '排名加载中...',
             rankingError: '无法加载排名。',
+            feedbackNotice: '我们计划根据您的反馈制作第二期。',
         },
     };
 
@@ -201,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('submit-feedback').textContent = lang.submit;
         document.getElementById('show-rankings-all').textContent = lang.showRankingsAll;
         document.getElementById('show-rankings-lang').textContent = lang.showRankingsLang;
+        document.querySelector('.feedback-notice').textContent = lang.feedbackNotice;
 
         langButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === currentLang);

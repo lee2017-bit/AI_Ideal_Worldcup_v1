@@ -86,6 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingLoading: '랭킹 로딩 중...',
             rankingError: '랭킹을 불러올 수 없습니다.',
             feedbackNotice: '여러분의 피드백을 반영하여 2탄을 제작할 예정입니다.',
+            feedbackEmpty: '피드백을 입력해주세요.',
+            feedbackSubmitting: '제출 중...',
+            feedbackSuccess: '피드백이 제출되었습니다!',
+            feedbackFail: '제출에 실패했습니다. 다시 시도해주세요.',
         },
         en: {
             round: (round) => `Round of ${round}`,
@@ -111,6 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingLoading: 'Loading rankings...',
             rankingError: 'Failed to load rankings.',
             feedbackNotice: 'We plan to create a second edition based on your feedback.',
+            feedbackEmpty: 'Please enter your feedback.',
+            feedbackSubmitting: 'Submitting...',
+            feedbackSuccess: 'Feedback submitted successfully!',
+            feedbackFail: 'Submission failed. Please try again.',
         },
         ja: {
             round: (round) => `ベスト${round}`,
@@ -136,6 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingLoading: 'ランキング読み込み中...',
             rankingError: 'ランキングを読み込めません。',
             feedbackNotice: '皆さんのフィードバックを反映して第2弾を制作する予定です。',
+            feedbackEmpty: 'フィードバックを入力してください。',
+            feedbackSubmitting: '送信中...',
+            feedbackSuccess: 'フィードバックが送信されました！',
+            feedbackFail: '送信に失敗しました。もう一度お試しください。',
         },
         zh: {
             round: (round) => `${round}强赛`,
@@ -161,6 +173,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingLoading: '排名加载中...',
             rankingError: '无法加载排名。',
             feedbackNotice: '我们计划根据您的反馈制作第二期。',
+            feedbackEmpty: '请输入您的反馈。',
+            feedbackSubmitting: '提交中...',
+            feedbackSuccess: '反馈提交成功！',
+            feedbackFail: '提交失败，请重试。',
         },
     };
 
@@ -376,14 +392,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const statusEl = document.getElementById('feedback-status');
 
         if (!feedback) {
-            statusEl.textContent = '피드백을 입력해주세요.';
+            statusEl.textContent = i18n[currentLang].feedbackEmpty;
             statusEl.className = 'feedback-status error';
             return;
         }
 
         const submitBtn = document.getElementById('submit-feedback');
         submitBtn.disabled = true;
-        statusEl.textContent = '제출 중...';
+        statusEl.textContent = i18n[currentLang].feedbackSubmitting;
         statusEl.className = 'feedback-status';
 
         const winnerSrc = winnerVideo.querySelector('source').src.split('/').pop();
@@ -398,11 +414,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 lang: currentLang,
             });
             await fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' });
-            statusEl.textContent = '피드백이 제출되었습니다!';
+            statusEl.textContent = i18n[currentLang].feedbackSuccess;
             statusEl.className = 'feedback-status success';
             document.getElementById('feedback-text').value = '';
         } catch (err) {
-            statusEl.textContent = '제출에 실패했습니다. 다시 시도해주세요.';
+            statusEl.textContent = i18n[currentLang].feedbackFail;
             statusEl.className = 'feedback-status error';
         } finally {
             submitBtn.disabled = false;

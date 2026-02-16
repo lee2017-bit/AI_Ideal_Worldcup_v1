@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentRound = 8;
     let contenders = [...images];
     let winners = [];
+    let currentWinner = null;
 
     const landingPage = document.getElementById('landing-page');
     const gameArea = document.getElementById('game-area');
@@ -234,6 +235,23 @@ document.addEventListener('DOMContentLoaded', () => {
         langButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === currentLang);
         });
+
+        if (currentWinner) {
+            updateWinnerTexts();
+        }
+    }
+
+    function updateWinnerTexts() {
+        if (!currentWinner) return;
+        document.getElementById('winner-ai').textContent = `${i18n[currentLang].createdBy} ${currentWinner.ai}`;
+        const descEl = document.getElementById('winner-description');
+        const desc = winnerDescriptions[currentWinner.ai];
+        if (desc) {
+            descEl.textContent = desc[currentLang] || desc['en'];
+            descEl.style.display = 'block';
+        } else {
+            descEl.style.display = 'none';
+        }
     }
 
     function showLanding() {
@@ -247,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameArea.style.display = 'block';
         contenders = [...images];
         currentRound = 8;
+        currentWinner = null;
         winnerContainer.style.display = 'none';
         tournamentContainer.style.display = 'flex';
         nextRound();
@@ -312,25 +331,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinner(winner) {
+        currentWinner = winner;
         tournamentContainer.style.display = 'none';
         winnerContainer.style.display = 'flex';
         const winnerVideo = document.getElementById('winner-video');
         winnerVideo.querySelector('source').src = winner.src;
         winnerVideo.load();
-        document.getElementById('winner-ai').textContent = `${i18n[currentLang].createdBy} ${winner.ai}`;
-        document.getElementById('winner-title').textContent = i18n[currentLang].winnerTitle;
         document.getElementById('rankings-container').style.display = 'none';
-
-        // Show winner personality description
-        const descEl = document.getElementById('winner-description');
-        const desc = winnerDescriptions[winner.ai];
-        if (desc) {
-            const lang = (currentLang === 'ko' || currentLang === 'en') ? currentLang : (currentLang === 'ja' ? 'ja' : 'zh');
-            descEl.textContent = desc[lang] || desc['en'];
-            descEl.style.display = 'block';
-        } else {
-            descEl.style.display = 'none';
-        }
+        updateWinnerTexts();
 
         // Send vote
         const winnerFile = winner.src.split('/').pop();

@@ -530,13 +530,15 @@ body {
         padding: 0 10px;
         margin-bottom: 1.5rem;
     }
-    .landing-page {
-        display: flex;
-        flex-direction: column;
+    .landing-subtitle {
+        order: 1;
     }
     .start-btn {
-        order: -1;
+        order: 2;
         margin-bottom: 1rem;
+    }
+    .preview-grid {
+        order: 3;
     }
     .preview-grid {
         grid-template-columns: repeat(2, 1fr);

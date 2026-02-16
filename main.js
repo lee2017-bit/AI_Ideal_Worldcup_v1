@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: '회',
             rankingLoading: '랭킹 로딩 중...',
             rankingError: '랭킹을 불러올 수 없습니다.',
+            createdBy: '제작:',
             feedbackNotice: '여러분의 피드백을 반영하여 2탄을 제작할 예정입니다.',
             feedbackEmpty: '피드백을 입력해주세요.',
             feedbackSubmitting: '제출 중...',
@@ -114,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: 'wins',
             rankingLoading: 'Loading rankings...',
             rankingError: 'Failed to load rankings.',
+            createdBy: 'Created by:',
             feedbackNotice: 'We plan to create a second edition based on your feedback.',
             feedbackEmpty: 'Please enter your feedback.',
             feedbackSubmitting: 'Submitting...',
@@ -143,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: '回',
             rankingLoading: 'ランキング読み込み中...',
             rankingError: 'ランキングを読み込めません。',
+            createdBy: '制作:',
             feedbackNotice: '皆さんのフィードバックを反映して第2弾を制作する予定です。',
             feedbackEmpty: 'フィードバックを入力してください。',
             feedbackSubmitting: '送信中...',
@@ -172,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingWins: '次',
             rankingLoading: '排名加载中...',
             rankingError: '无法加载排名。',
+            createdBy: '制作:',
             feedbackNotice: '我们计划根据您的反馈制作第二期。',
             feedbackEmpty: '请输入您的反馈。',
             feedbackSubmitting: '提交中...',
@@ -309,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const winnerVideo = document.getElementById('winner-video');
         winnerVideo.querySelector('source').src = winner.src;
         winnerVideo.load();
-        document.getElementById('winner-ai').textContent = `Created by: ${winner.ai}`;
+        document.getElementById('winner-ai').textContent = `${i18n[currentLang].createdBy} ${winner.ai}`;
         document.getElementById('winner-title').textContent = i18n[currentLang].winnerTitle;
         document.getElementById('rankings-container').style.display = 'none';
 

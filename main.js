@@ -1,14 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
     const images = [
-        { id: 1, src: 'videos/1.mp4', ai: 'Nano Banana' },
-        { id: 2, src: 'videos/2.mp4', ai: 'DALL-E' },
-        { id: 3, src: 'videos/3.mp4', ai: 'Nano Banana' },
-        { id: 4, src: 'videos/4.mp4', ai: 'DALL-E' },
-        { id: 5, src: 'videos/5.mp4', ai: 'Nano Banana' },
-        { id: 6, src: 'videos/6.mp4', ai: 'DALL-E' },
-        { id: 7, src: 'videos/7.mp4', ai: 'Nano Banana' },
-        { id: 8, src: 'videos/8.mp4', ai: 'DALL-E' },
+        { id: 1, src: 'videos/Female AI Animation Ideal Worldcup/GPT-image.mp4', ai: 'GPT Image' },
+        { id: 2, src: 'videos/Female AI Animation Ideal Worldcup/nanobanana_pro.mp4', ai: 'NanoBanana Pro' },
+        { id: 3, src: 'videos/Female AI Animation Ideal Worldcup/Hunyuan.mp4', ai: 'Hunyuan' },
+        { id: 4, src: 'videos/Female AI Animation Ideal Worldcup/seedream.mp4', ai: 'Seedream' },
+        { id: 5, src: 'videos/Female AI Animation Ideal Worldcup/flux2.pro.mp4', ai: 'Flux 2 Pro' },
+        { id: 6, src: 'videos/Female AI Animation Ideal Worldcup/Recraft.mp4', ai: 'Recraft' },
+        { id: 7, src: 'videos/Female AI Animation Ideal Worldcup/Reve.mp4', ai: 'Reve' },
+        { id: 8, src: 'videos/Female AI Animation Ideal Worldcup/Grok.mp4', ai: 'Grok' },
     ];
+
+    const winnerDescriptions = {
+        'GPT Image': {
+            ko: '당신은 안정적인 완성도와 밸런스를 가장 중요하게 여기는 사람입니다.\n과하지 않지만 깔끔한 미감, 누구나 공감할 수 있는 정돈된 아름다움을 선호하죠.\n"잘 만든 정공법"에 신뢰를 두는 타입입니다.',
+            en: 'You value balance and reliable quality above everything else.\nClean composition and polished beauty matter more than extreme style.\nYou trust well-made, classic approaches.',
+            ja: 'あなたは安定した完成度とバランスを最も大切にする人です。\n派手すぎないけれど洗練された美しさ、誰もが共感できる整った美しさを好みます。\n「王道の完成形」を信頼するタイプです。',
+            zh: '你是一个最看重稳定完成度和平衡感的人。\n不过分但干净的美感，任何人都能共鸣的整洁之美。\n你信赖"精心打造的正统派"。',
+        },
+        'NanoBanana Pro': {
+            ko: '당신은 선명한 캐릭터성과 직관적인 매력에 끌리는 사람입니다.\n한눈에 들어오는 표정과 또렷한 인상이 중요하죠.\n"캐릭터는 기억에 남아야 한다"고 생각하는 타입입니다.',
+            en: 'You are drawn to clear character identity and instant appeal.\nStrong expressions and memorable faces matter to you.\nYou believe a character should stand out immediately.',
+            ja: 'あなたは鮮明なキャラクター性と直感的な魅力に惹かれる人です。\n一目で分かる表情とはっきりした印象が大切です。\n「キャラクターは記憶に残るべき」と考えるタイプです。',
+            zh: '你是一个被鲜明角色特性和直观魅力所吸引的人。\n一眼就能看到的表情和清晰的印象很重要。\n你认为"角色应该让人记住"。',
+        },
+        'Hunyuan': {
+            ko: '당신은 부드럽고 감성적인 분위기를 사랑하는 사람입니다.\n조용하지만 깊은 여운, 은은한 감정을 느끼는 순간을 선호하죠.\n이미지에서 "공기감"을 읽는 타입입니다.',
+            en: 'You appreciate soft, emotional atmospheres.\nSubtle feelings and gentle moods resonate with you.\nYou enjoy images that feel calm yet meaningful.',
+            ja: 'あなたは柔らかく感性的な雰囲気を愛する人です。\n静かだけど深い余韻、穏やかな感情を感じる瞬間を好みます。\nイメージから「空気感」を読み取るタイプです。',
+            zh: '你是一个热爱柔和感性氛围的人。\n安静但有深深余韵，喜欢感受淡淡情感的瞬间。\n你是能从图像中读出"氛围感"的类型。',
+        },
+        'Seedream': {
+            ko: '당신은 몽환적이고 서정적인 세계관에 끌리는 사람입니다.\n현실과 꿈의 경계 같은 분위기를 좋아하죠.\n이미지를 보며 이야기를 상상하는 타입입니다.',
+            en: 'You are attracted to dreamlike and poetic visuals.\nYou enjoy worlds that feel like a quiet fantasy.\nImages spark stories in your imagination.',
+            ja: 'あなたは夢幻的で叙情的な世界観に惹かれる人です。\n現実と夢の境界のような雰囲気が好きです。\nイメージを見ながら物語を想像するタイプです。',
+            zh: '你是一个被梦幻般诗意世界观所吸引的人。\n喜欢现实与梦境交界处般的氛围。\n你是看着图像想象故事的类型。',
+        },
+        'Flux 2 Pro': {
+            ko: '당신은 강한 스타일과 현대적인 감각을 선호하는 사람입니다.\n디자인적인 임팩트와 개성을 중요하게 보죠.\n"평범한 건 재미없다"고 느끼는 타입입니다.',
+            en: 'You prefer bold style and modern aesthetics.\nVisual impact and uniqueness matter to you.\nYou\'re not interested in anything ordinary.',
+            ja: 'あなたは強いスタイルと現代的なセンスを好む人です。\nデザイン的なインパクトと個性を重視します。\n「平凡なものはつまらない」と感じるタイプです。',
+            zh: '你是一个偏爱强烈风格和现代感的人。\n设计冲击力和个性对你很重要。\n你觉得"平凡的东西没意思"。',
+        },
+        'Recraft': {
+            ko: '당신은 그래픽 디자인 감각과 구조적인 미를 중시하는 사람입니다.\n정돈된 선, 또렷한 형태, 아이콘 같은 이미지를 좋아하죠.\n디자이너 성향이 강한 타입입니다.',
+            en: 'You value graphic clarity and structural beauty.\nClean lines and icon-like visuals appeal to you.\nYou have a strong designer mindset.',
+            ja: 'あなたはグラフィックデザインのセンスと構造的な美を重視する人です。\n整った線、はっきりした形、アイコンのようなイメージが好きです。\nデザイナー気質が強いタイプです。',
+            zh: '你是一个重视平面设计感和结构美的人。\n整齐的线条、清晰的形态、像图标一样的图像。\n你有很强的设计师倾向。',
+        },
+        'Reve': {
+            ko: '당신은 부드러운 현실감과 인간적인 표정을 좋아하는 사람입니다.\n과한 연출보다 자연스러운 매력을 선호하죠.\n"진짜 사람 같은 캐릭터"에 끌리는 타입입니다.',
+            en: 'You prefer natural expressions and human-like realism.\nSubtle charm feels more attractive than exaggeration.\nYou\'re drawn to characters that feel real.',
+            ja: 'あなたは柔らかなリアリティと人間的な表情が好きな人です。\n過剰な演出より自然な魅力を好みます。\n「本物の人みたいなキャラクター」に惹かれるタイプです。',
+            zh: '你是一个喜欢柔和真实感和人性化表情的人。\n比起过度演绎更偏爱自然魅力。\n你被"像真人一样的角色"所吸引。',
+        },
+        'Grok': {
+            ko: '당신은 강렬한 분위기와 독특한 개성을 추구하는 사람입니다.\n일반적인 미감보다는 실험적인 감각에 끌리죠.\n취향이 확실한 타입입니다.',
+            en: 'You seek strong atmosphere and unconventional style.\nExperimental visuals appeal more than mainstream beauty.\nYou have a very distinct taste.',
+            ja: 'あなたは強烈な雰囲気と独特な個性を追求する人です。\n一般的な美感より実験的なセンスに惹かれます。\n好みがはっきりしているタイプです。',
+            zh: '你是一个追求强烈氛围和独特个性的人。\n比起一般审美更被实验性的感觉所吸引。\n你是品味非常明确的类型。',
+        },
+    };
 
     const i18n = {
         ko: {
@@ -240,6 +291,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('winner-ai').textContent = `Created by: ${winner.ai}`;
         document.getElementById('winner-title').textContent = i18n[currentLang].winnerTitle;
         document.getElementById('rankings-container').style.display = 'none';
+
+        // Show winner personality description
+        const descEl = document.getElementById('winner-description');
+        const desc = winnerDescriptions[winner.ai];
+        if (desc) {
+            const lang = (currentLang === 'ko' || currentLang === 'en') ? currentLang : (currentLang === 'ja' ? 'ja' : 'zh');
+            descEl.textContent = desc[lang] || desc['en'];
+            descEl.style.display = 'block';
+        } else {
+            descEl.style.display = 'none';
+        }
 
         // Send vote
         const winnerFile = winner.src.split('/').pop();

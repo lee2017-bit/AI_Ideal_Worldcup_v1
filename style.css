@@ -530,6 +530,14 @@ body {
         padding: 0 10px;
         margin-bottom: 1.5rem;
     }
+    .landing-page {
+        display: flex;
+        flex-direction: column;
+    }
+    .start-btn {
+        order: -1;
+        margin-bottom: 1rem;
+    }
     .preview-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;

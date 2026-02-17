@@ -194,6 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '영화',
             signUp: '가입하기',
             signUpRequired: '가입이 필요합니다. (Coming soon)',
+            // Community
+            community: '커뮤니티',
+            communityTitle: '커뮤니티',
+            communityBack: '돌아가기',
             // Contact
             contact: '문의',
             contactTitle: '문의하기',
@@ -263,6 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: 'Movie',
             signUp: 'Sign Up',
             signUpRequired: 'Sign-in required. (Coming soon)',
+            community: 'Community',
+            communityTitle: 'Community',
+            communityBack: 'Back',
             contact: 'Contact',
             contactTitle: 'Contact Us',
             contactMsg: 'Please send your inquiries to the email below.',
@@ -330,6 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '映画',
             signUp: '新規登録',
             signUpRequired: 'ログインが必要です。（Coming soon）',
+            community: 'コミュニティ',
+            communityTitle: 'コミュニティ',
+            communityBack: '戻る',
             contact: 'お問い合わせ',
             contactTitle: 'お問い合わせ',
             contactMsg: 'お問い合わせは下記メールアドレスまでお送りください。',
@@ -397,6 +407,9 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '电影',
             signUp: '注册',
             signUpRequired: '需要登录。（Coming soon）',
+            community: '社区',
+            communityTitle: '社区',
+            communityBack: '返回',
             contact: '联系我们',
             contactTitle: '联系我们',
             contactMsg: '请将您的问题发送至以下邮箱。',
@@ -469,6 +482,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
         document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
         document.getElementById('contact-btn').textContent = lang.contact;
+        document.getElementById('community-btn').textContent = lang.community;
+        document.getElementById('community-title').textContent = lang.communityTitle;
+        document.getElementById('community-back-btn').textContent = lang.communityBack;
+        document.getElementById('post-back-btn').textContent = lang.communityBack;
         document.getElementById('contact-modal-title').textContent = lang.contactTitle;
         document.getElementById('contact-msg').textContent = lang.contactMsg;
 
@@ -544,6 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showLanding() {
         landingPage.style.display = 'flex';
         gameArea.style.display = 'none';
+        document.getElementById('community-page').style.display = 'none';
         updateTexts();
     }
 
@@ -915,6 +933,79 @@ document.addEventListener('DOMContentLoaded', () => {
                 novelCopyBtn.textContent = lang.copy;
             }, 2000);
         }
+    });
+
+    // ===== Community =====
+    const communityPage = document.getElementById('community-page');
+    const communityList = document.getElementById('community-list');
+    const communityPost = document.getElementById('community-post');
+    let communityPosts = [];
+
+    function showCommunity() {
+        landingPage.style.display = 'none';
+        gameArea.style.display = 'none';
+        communityPage.style.display = 'block';
+        communityList.style.display = 'flex';
+        communityPost.style.display = 'none';
+        loadCommunityList();
+    }
+
+    function hideCommunity() {
+        communityPage.style.display = 'none';
+        showLanding();
+    }
+
+    async function loadCommunityList() {
+        try {
+            const res = await fetch('posts/index.json');
+            communityPosts = await res.json();
+            renderCommunityList();
+        } catch (err) {
+            communityList.innerHTML = '<p style="color:#aaa;">No posts yet.</p>';
+        }
+    }
+
+    function renderCommunityList() {
+        communityList.innerHTML = communityPosts.map(post => {
+            const title = post.title[currentLang] || post.title['en'];
+            const summary = post.summary[currentLang] || post.summary['en'];
+            return `
+                <div class="community-card" data-id="${post.id}">
+                    <div class="community-card-title">${title}</div>
+                    <div class="community-card-summary">${summary}</div>
+                    <div class="community-card-date">${post.date}</div>
+                </div>
+            `;
+        }).join('');
+
+        communityList.querySelectorAll('.community-card').forEach(card => {
+            card.addEventListener('click', () => openPost(card.dataset.id));
+        });
+    }
+
+    async function openPost(postId) {
+        const post = communityPosts.find(p => p.id === postId);
+        if (!post) return;
+
+        communityList.style.display = 'none';
+        communityPost.style.display = 'block';
+        document.getElementById('post-title').textContent = post.title[currentLang] || post.title['en'];
+        document.getElementById('post-date').textContent = post.date;
+
+        try {
+            const res = await fetch('posts/' + post.file);
+            const text = await res.text();
+            document.getElementById('post-content').textContent = text;
+        } catch (err) {
+            document.getElementById('post-content').textContent = 'Failed to load content.';
+        }
+    }
+
+    document.getElementById('community-btn').addEventListener('click', showCommunity);
+    document.getElementById('community-back-btn').addEventListener('click', hideCommunity);
+    document.getElementById('post-back-btn').addEventListener('click', () => {
+        communityPost.style.display = 'none';
+        communityList.style.display = 'flex';
     });
 
     // Contact modal

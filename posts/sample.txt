@@ -1,0 +1,13 @@
+AI 이상형 월드컵에 오신 것을 환영합니다!
+
+AI 이상형 월드컵은 다양한 AI 모델이 생성한 이미지와 영상을 비교하며 나만의 취향을 발견하는 토너먼트 게임입니다.
+
+현재 제공되는 카테고리:
+- AI 강아지 이상형월드컵: GPT Image, NanoBanana Pro, Higgsfield, KLING O1, Seedream 4.5, Reve, Wan 2.2, Grok 등 8개 AI 모델이 만든 귀여운 강아지들 중 내 취향을 골라보세요!
+- 여자 AI 애니메이션 이상형월드컵: GPT Image, NanoBanana Pro, Hunyuan, Seedream, Flux 2 Pro, Recraft, Reve, Grok 등 8개 AI 모델이 만든 애니메이션 캐릭터 중 나의 이상형을 찾아보세요!
+
+우승한 캐릭터로는 AI 소설까지 자동 생성할 수 있습니다. 장르, 유쾌도, 사이다, 개연성 등을 직접 조절하여 나만의 프롤로그를 만들어보세요.
+
+앞으로도 남자 AI 애니메이션 등 더 많은 카테고리가 추가될 예정이니 기대해주세요!
+
+문의: aiidealworldcup@gmail.com

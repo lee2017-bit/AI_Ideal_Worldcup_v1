@@ -892,6 +892,120 @@ body {
     color: #fff;
 }
 
+/* ===== Community Button (Top Bar) ===== */
+.community-btn {
+    position: absolute;
+    left: 130px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.community-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 2px 10px rgba(156, 39, 176, 0.4);
+}
+
+/* ===== Community Page ===== */
+.community-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.community-header h1 {
+    font-size: 1.8rem;
+}
+
+.community-back-btn {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.community-back-btn:hover {
+    background: #444;
+}
+
+.community-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.community-card {
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    text-align: left;
+}
+
+.community-card:hover {
+    border-color: #9c27b0;
+    transform: translateY(-2px);
+}
+
+.community-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.community-card-summary {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.community-card-date {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.community-post {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.post-title {
+    font-size: 1.6rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.post-date {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.post-content {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: #e0e0e0;
+    white-space: pre-line;
+}
+
 /* ===== Responsive: Tablet ===== */
 @media (max-width: 1024px) {
     .sidebar {
@@ -1059,6 +1173,22 @@ body {
     }
     .contact-btn:hover {
         transform: scale(1.05);
+    }
+    .community-btn {
+        position: static;
+        transform: none;
+        margin-bottom: 6px;
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+    .community-btn:hover {
+        transform: scale(1.05);
+    }
+    .community-header h1 {
+        font-size: 1.3rem;
+    }
+    .community-card {
+        padding: 15px 18px;
     }
     .studio-buttons {
         gap: 6px;

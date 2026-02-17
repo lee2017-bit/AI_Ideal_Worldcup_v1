@@ -12,6 +12,7 @@
 <body>
     <header class="top-bar">
         <button class="signup-btn-locked" id="signup-btn" disabled>Sign Up <span class="btn-lock-badge">🔒</span></button>
+        <button class="community-btn" id="community-btn">Community</button>
         <button class="contact-btn" id="contact-btn">Contact</button>
         <div class="lang-selector">
             <button data-lang="ko" class="active"><span class="fi fi-kr"></span> 한국어</button>
@@ -81,6 +82,21 @@
                 </div>
             </div>
         </main>
+
+        <!-- Community -->
+        <div id="community-page" style="display:none;">
+            <div class="community-header">
+                <h1 id="community-title">Community</h1>
+                <button class="community-back-btn" id="community-back-btn">Back</button>
+            </div>
+            <div id="community-list" class="community-list"></div>
+            <div id="community-post" class="community-post" style="display:none;">
+                <button class="community-back-btn" id="post-back-btn">Back</button>
+                <h2 id="post-title" class="post-title"></h2>
+                <p id="post-date" class="post-date"></p>
+                <div id="post-content" class="post-content"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Novel Generation Modal -->

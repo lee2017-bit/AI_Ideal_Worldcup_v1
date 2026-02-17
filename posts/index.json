@@ -1,0 +1,19 @@
+[
+    {
+        "id": "sample",
+        "file": "sample.txt",
+        "date": "2026-02-17",
+        "title": {
+            "ko": "AI 이상형 월드컵에 오신 것을 환영합니다!",
+            "en": "Welcome to AI Ideal Worldcup!",
+            "ja": "AI理想ワールドカップへようこそ！",
+            "zh": "欢迎来到AI理想世界杯！"
+        },
+        "summary": {
+            "ko": "AI가 만든 이미지와 영상으로 나만의 이상형을 찾아보세요.",
+            "en": "Find your ideal type with AI-generated images and videos.",
+            "ja": "AIが作った画像と映像で自分だけの理想のタイプを見つけよう。",
+            "zh": "用AI生成的图片和视频找到你的理想型。"
+        }
+    }
+]

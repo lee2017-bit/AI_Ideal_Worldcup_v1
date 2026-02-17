@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const images = [
-        { id: 1, src: 'videos/Female AI Animation Ideal Worldcup/GPT-image.mp4', ai: 'GPT Image' },
-        { id: 2, src: 'videos/Female AI Animation Ideal Worldcup/nanobanana_pro.mp4', ai: 'NanoBanana Pro' },
-        { id: 3, src: 'videos/Female AI Animation Ideal Worldcup/Hunyuan.mp4', ai: 'Hunyuan' },
-        { id: 4, src: 'videos/Female AI Animation Ideal Worldcup/seedream.mp4', ai: 'Seedream' },
-        { id: 5, src: 'videos/Female AI Animation Ideal Worldcup/flux2.pro.mp4', ai: 'Flux 2 Pro' },
-        { id: 6, src: 'videos/Female AI Animation Ideal Worldcup/Recraft.mp4', ai: 'Recraft' },
-        { id: 7, src: 'videos/Female AI Animation Ideal Worldcup/Reve.mp4', ai: 'Reve' },
-        { id: 8, src: 'videos/Female AI Animation Ideal Worldcup/Grok.mp4', ai: 'Grok' },
+        { id: 1, src: 'videos/Female AI Animation Ideal Worldcup/GPT-image.mp4', img: 'images/Female AI Animation Ideal Worldcup/GPT-image.png', ai: 'GPT Image' },
+        { id: 2, src: 'videos/Female AI Animation Ideal Worldcup/nanobanana_pro.mp4', img: 'images/Female AI Animation Ideal Worldcup/nanobanana_pro.png', ai: 'NanoBanana Pro' },
+        { id: 3, src: 'videos/Female AI Animation Ideal Worldcup/Hunyuan.mp4', img: 'images/Female AI Animation Ideal Worldcup/Hunyuan.jpg', ai: 'Hunyuan' },
+        { id: 4, src: 'videos/Female AI Animation Ideal Worldcup/seedream.mp4', img: 'images/Female AI Animation Ideal Worldcup/seedream.jpeg', ai: 'Seedream' },
+        { id: 5, src: 'videos/Female AI Animation Ideal Worldcup/flux2.pro.mp4', img: 'images/Female AI Animation Ideal Worldcup/Flux2.pro.png', ai: 'Flux 2 Pro' },
+        { id: 6, src: 'videos/Female AI Animation Ideal Worldcup/Recraft.mp4', img: 'images/Female AI Animation Ideal Worldcup/Recraft.png', ai: 'Recraft' },
+        { id: 7, src: 'videos/Female AI Animation Ideal Worldcup/Reve.mp4', img: 'images/Female AI Animation Ideal Worldcup/Reve.jpg', ai: 'Reve' },
+        { id: 8, src: 'videos/Female AI Animation Ideal Worldcup/Grok.mp4', img: 'images/Female AI Animation Ideal Worldcup/Grok.jpg', ai: 'Grok' },
     ];
 
     const winnerDescriptions = {
@@ -92,6 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackSubmitting: '제출 중...',
             feedbackSuccess: '피드백이 제출되었습니다!',
             feedbackFail: '제출에 실패했습니다. 다시 시도해주세요.',
+            // Novel
+            writeNovel: '소설 작성',
+            genre: '장르',
+            humor: '유쾌도',
+            catharsis: '사이다',
+            coherence: '개연성',
+            humorLeft: '유쾌함', humorRight: '진지함',
+            catharsisLeft: '담담함', catharsisRight: '통쾌함',
+            coherenceLeft: '파격적', coherenceRight: '개연성',
+            prologueFree: '프롤로그(무료)',
+            episode1Locked: '1화(가입 필요)',
+            episode1SigninMsg: '1화를 생성하려면 로그인이 필요합니다. (Coming soon)',
+            generate: '생성',
+            regenerate: '다시 생성',
+            copy: '복사',
+            copied: '복사됨!',
+            generating: '소설을 생성 중입니다...',
+            generateError: '생성에 실패했습니다. 다시 시도해주세요.',
+            length: '길이',
+            genreModernFantasy: '현대 판타지',
+            genreRomance: '로맨스',
+            genreMystery: '미스터리',
+            genreSF: 'SF',
+            genreHealing: '힐링',
         },
         en: {
             round: (round) => `Round of ${round}`,
@@ -123,6 +147,30 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackSubmitting: 'Submitting...',
             feedbackSuccess: 'Feedback submitted successfully!',
             feedbackFail: 'Submission failed. Please try again.',
+            // Novel
+            writeNovel: 'Write a Novel',
+            genre: 'Genre',
+            humor: 'Humor',
+            catharsis: 'Catharsis',
+            coherence: 'Coherence',
+            humorLeft: 'Lighthearted', humorRight: 'Serious',
+            catharsisLeft: 'Gentle', catharsisRight: 'Punchy',
+            coherenceLeft: 'Surreal', coherenceRight: 'Plausible',
+            prologueFree: 'Prologue (Free)',
+            episode1Locked: 'Episode 1 (Sign-in Required)',
+            episode1SigninMsg: 'Sign-in required to generate Episode 1. (Coming soon)',
+            generate: 'Generate',
+            regenerate: 'Regenerate',
+            copy: 'Copy',
+            copied: 'Copied!',
+            generating: 'Generating your novel...',
+            generateError: 'Generation failed. Please try again.',
+            length: 'Length',
+            genreModernFantasy: 'Modern Fantasy',
+            genreRomance: 'Romance',
+            genreMystery: 'Mystery',
+            genreSF: 'SF',
+            genreHealing: 'Healing',
         },
         ja: {
             round: (round) => `ベスト${round}`,
@@ -154,6 +202,30 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackSubmitting: '送信中...',
             feedbackSuccess: 'フィードバックが送信されました！',
             feedbackFail: '送信に失敗しました。もう一度お試しください。',
+            // Novel
+            writeNovel: '小説を書く',
+            genre: 'ジャンル',
+            humor: 'ユーモア',
+            catharsis: '爽快感（サイダー感）',
+            coherence: '整合性（納得感）',
+            humorLeft: '軽快', humorRight: 'シリアス',
+            catharsisLeft: '穏やか', catharsisRight: '爽快',
+            coherenceLeft: '破天荒', coherenceRight: '納得感',
+            prologueFree: 'プロローグ（無料）',
+            episode1Locked: '第1話（ログイン必須）',
+            episode1SigninMsg: '第1話を生成するにはログインが必要です。（Coming soon）',
+            generate: '生成',
+            regenerate: '再生成',
+            copy: 'コピー',
+            copied: 'コピーしました！',
+            generating: '小説を生成中...',
+            generateError: '生成に失敗しました。もう一度お試しください。',
+            length: '長さ',
+            genreModernFantasy: '現代ファンタジー',
+            genreRomance: 'ロマンス',
+            genreMystery: 'ミステリー',
+            genreSF: 'SF',
+            genreHealing: 'ヒーリング',
         },
         zh: {
             round: (round) => `${round}强赛`,
@@ -185,6 +257,30 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackSubmitting: '提交中...',
             feedbackSuccess: '反馈提交成功！',
             feedbackFail: '提交失败，请重试。',
+            // Novel
+            writeNovel: '写小说',
+            genre: '类型',
+            humor: '幽默感',
+            catharsis: '爽感（爽快度）',
+            coherence: '合理性（逻辑性）',
+            humorLeft: '轻松', humorRight: '严肃',
+            catharsisLeft: '平和', catharsisRight: '爽快',
+            coherenceLeft: '超现实', coherenceRight: '合理',
+            prologueFree: '序章（免费）',
+            episode1Locked: '第1话（需登录）',
+            episode1SigninMsg: '生成第1话需要登录。（Coming soon）',
+            generate: '生成',
+            regenerate: '重新生成',
+            copy: '复制',
+            copied: '已复制！',
+            generating: '正在生成小说...',
+            generateError: '生成失败，请重试。',
+            length: '长度',
+            genreModernFantasy: '现代奇幻',
+            genreRomance: '爱情',
+            genreMystery: '悬疑',
+            genreSF: '科幻',
+            genreHealing: '治愈',
         },
     };
 
@@ -231,6 +327,36 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('show-rankings-all').textContent = lang.showRankingsAll;
         document.getElementById('show-rankings-lang').textContent = lang.showRankingsLang;
         document.querySelector('.feedback-notice').textContent = lang.feedbackNotice;
+
+        // Novel modal texts
+        const novelModal = document.getElementById('novel-modal-overlay');
+        if (novelModal) {
+            document.getElementById('novel-modal-title').textContent = lang.writeNovel;
+            document.getElementById('write-novel-btn').textContent = lang.writeNovel;
+            document.getElementById('novel-genre-label').textContent = lang.genre;
+            document.getElementById('novel-humor-label').textContent = lang.humor;
+            document.getElementById('novel-catharsis-label').textContent = lang.catharsis;
+            document.getElementById('novel-coherence-label').textContent = lang.coherence;
+            document.getElementById('novel-humor-left').textContent = lang.humorLeft;
+            document.getElementById('novel-humor-right').textContent = lang.humorRight;
+            document.getElementById('novel-catharsis-left').textContent = lang.catharsisLeft;
+            document.getElementById('novel-catharsis-right').textContent = lang.catharsisRight;
+            document.getElementById('novel-coherence-left').textContent = lang.coherenceLeft;
+            document.getElementById('novel-coherence-right').textContent = lang.coherenceRight;
+            document.getElementById('novel-length-prologue-text').textContent = lang.prologueFree;
+            document.getElementById('novel-length-episode1-text').textContent = lang.episode1Locked;
+            document.getElementById('novel-generate-btn').textContent = lang.generate;
+            document.getElementById('novel-regenerate-btn').textContent = lang.regenerate;
+            document.getElementById('novel-copy-btn').textContent = lang.copy;
+            document.getElementById('novel-length-label').textContent = lang.length;
+            // Genre options
+            const genreSelect = document.getElementById('novel-genre');
+            const genreKeys = ['genreModernFantasy', 'genreRomance', 'genreMystery', 'genreSF', 'genreHealing'];
+            const genreValues = ['modern-fantasy', 'romance', 'mystery', 'sf', 'healing'];
+            genreSelect.querySelectorAll('option').forEach((opt, idx) => {
+                opt.textContent = lang[genreKeys[idx]];
+            });
+        }
 
         langButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === currentLang);
@@ -352,7 +478,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Google Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxk_FMxH9b4-HyPU3aC7p7XR3LSCb_zK0yiU-GnnLQ0hrE5jSFmR_WjNYWvDMymZ833/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyWvcndrRYa0qo0NZGiYNFdKkJu-k5v5Ng7x2yjGLU3Y_QlCCodDhEqcTrEXbmMM3wg/exec';
+
+    // 비디오 파일명 → 이미지 경로 매핑
+    function getImageFromVideo(videoFilename) {
+        const entry = images.find(item => item.src.endsWith(videoFilename));
+        return entry ? entry.img : null;
+    }
 
     // Rankings
     async function loadRankings(filterByLang) {
@@ -380,13 +512,15 @@ document.addEventListener('DOMContentLoaded', () => {
             rankingsList.innerHTML = sorted.map((item, idx) => {
                 const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
                 const pct = totalWins > 0 ? Math.round((item.wins / totalWins) * 100) : 0;
+                const imgSrc = getImageFromVideo(item.winner);
+                const thumbnail = imgSrc
+                    ? `<img src="${imgSrc}" alt="${item.ai}">`
+                    : `<video autoplay loop muted playsinline><source src="videos/${item.winner}" type="video/mp4"></video>`;
                 return `
                     <div class="ranking-item">
                         <span class="ranking-rank">${medal}</span>
-                        <div class="ranking-video-wrap">
-                            <video autoplay loop muted playsinline>
-                                <source src="videos/${item.winner}" type="video/mp4">
-                            </video>
+                        <div class="ranking-thumb-wrap">
+                            ${thumbnail}
                         </div>
                         <span class="ranking-ai">${item.ai}</span>
                         <span class="ranking-wins">${item.wins}${lang.rankingWins}(${pct}%)</span>
@@ -453,6 +587,139 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = button.dataset.lang;
             updateTexts();
         });
+    });
+
+    // ===== Novel Modal Logic =====
+    const novelModalOverlay = document.getElementById('novel-modal-overlay');
+    const novelGenerateBtn = document.getElementById('novel-generate-btn');
+    const novelRegenerateBtn = document.getElementById('novel-regenerate-btn');
+    const novelCopyBtn = document.getElementById('novel-copy-btn');
+    const novelResult = document.getElementById('novel-result');
+    const novelResultTitle = document.getElementById('novel-result-title');
+    const novelResultText = document.getElementById('novel-result-text');
+    const novelStatus = document.getElementById('novel-status');
+    const novelSigninMsg = document.getElementById('novel-signin-msg');
+
+    // Open modal
+    document.getElementById('write-novel-btn').addEventListener('click', () => {
+        novelModalOverlay.style.display = 'flex';
+    });
+
+    // Close modal
+    document.getElementById('novel-modal-close').addEventListener('click', () => {
+        novelModalOverlay.style.display = 'none';
+    });
+
+    // Close on overlay click
+    novelModalOverlay.addEventListener('click', (e) => {
+        if (e.target === novelModalOverlay) {
+            novelModalOverlay.style.display = 'none';
+        }
+    });
+
+    // Slider value display
+    ['humor', 'catharsis', 'coherence'].forEach(name => {
+        const slider = document.getElementById(`novel-${name}`);
+        const valueEl = document.getElementById(`novel-${name}-value`);
+        slider.addEventListener('input', () => {
+            valueEl.textContent = slider.value;
+        });
+    });
+
+    // Episode 1 click — show sign-in message
+    document.getElementById('novel-length-episode1').addEventListener('click', () => {
+        const lang = i18n[currentLang];
+        novelSigninMsg.textContent = lang.episode1SigninMsg;
+        novelSigninMsg.style.display = 'block';
+        setTimeout(() => {
+            novelSigninMsg.style.display = 'none';
+        }, 3000);
+    });
+
+    // Generate story
+    async function generateStory() {
+        if (!currentWinner) return;
+
+        const lang = i18n[currentLang];
+        const genre = document.getElementById('novel-genre').value;
+        const humor = document.getElementById('novel-humor').value;
+        const catharsis = document.getElementById('novel-catharsis').value;
+        const coherence = document.getElementById('novel-coherence').value;
+
+        // UI state: loading
+        novelGenerateBtn.disabled = true;
+        novelRegenerateBtn.style.display = 'none';
+        novelCopyBtn.style.display = 'none';
+        novelResult.style.display = 'none';
+        novelStatus.textContent = lang.generating;
+        novelStatus.className = 'novel-status generating';
+
+        try {
+            const params = new URLSearchParams({
+                action: 'generateStory',
+                winnerModelName: currentWinner.ai,
+                winnerImageUrl: currentWinner.src,
+                tournamentType: 'female-ai-animation',
+                language: currentLang,
+                genre: genre,
+                humor: humor,
+                catharsis: catharsis,
+                coherence: coherence,
+                lengthMode: 'prologue',
+            });
+
+            const res = await fetch(SCRIPT_URL + '?' + params.toString());
+            const data = await res.json();
+
+            if (data.title && data.storyText) {
+                novelResultTitle.textContent = data.title;
+                novelResultText.textContent = data.storyText;
+                novelResult.style.display = 'block';
+                novelRegenerateBtn.style.display = 'inline-block';
+                novelCopyBtn.style.display = 'inline-block';
+                novelStatus.textContent = '';
+                novelStatus.className = 'novel-status';
+            } else {
+                throw new Error('Invalid response');
+            }
+        } catch (err) {
+            novelStatus.textContent = lang.generateError;
+            novelStatus.className = 'novel-status error';
+        } finally {
+            novelGenerateBtn.disabled = false;
+        }
+    }
+
+    novelGenerateBtn.addEventListener('click', generateStory);
+    novelRegenerateBtn.addEventListener('click', generateStory);
+
+    // Copy story
+    novelCopyBtn.addEventListener('click', async () => {
+        const lang = i18n[currentLang];
+        const title = novelResultTitle.textContent;
+        const text = novelResultText.textContent;
+        const fullText = `${title}\n\n${text}`;
+
+        try {
+            await navigator.clipboard.writeText(fullText);
+            const originalText = novelCopyBtn.textContent;
+            novelCopyBtn.textContent = lang.copied;
+            setTimeout(() => {
+                novelCopyBtn.textContent = lang.copy;
+            }, 2000);
+        } catch (err) {
+            // Fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = fullText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            novelCopyBtn.textContent = lang.copied;
+            setTimeout(() => {
+                novelCopyBtn.textContent = lang.copy;
+            }, 2000);
+        }
     });
 
     // Show landing page on load

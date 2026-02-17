@@ -69,6 +69,7 @@
                     <div id="feedback-status" class="feedback-status"></div>
                     <p class="feedback-notice">We plan to create a second edition based on your feedback.</p>
                 </div>
+                <button id="write-novel-btn" class="write-novel-btn">Write a Novel</button>
                 <div class="rankings-buttons">
                     <button id="show-rankings-all" class="rankings-btn">Overall Rankings</button>
                     <button id="show-rankings-lang" class="rankings-btn rankings-btn-lang">Language Rankings</button>
@@ -79,6 +80,86 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Novel Generation Modal -->
+    <div id="novel-modal-overlay" class="novel-modal-overlay" style="display:none;">
+        <div class="novel-modal">
+            <div class="novel-modal-header">
+                <h2 id="novel-modal-title">Write a Novel</h2>
+                <button id="novel-modal-close" class="novel-modal-close">&times;</button>
+            </div>
+            <div class="novel-modal-body">
+                <!-- Genre -->
+                <div class="novel-field">
+                    <label id="novel-genre-label" for="novel-genre">Genre</label>
+                    <select id="novel-genre">
+                        <option value="modern-fantasy">Modern Fantasy</option>
+                        <option value="romance">Romance</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="sf">SF</option>
+                        <option value="healing">Healing</option>
+                    </select>
+                </div>
+                <!-- Humor Slider -->
+                <div class="novel-field novel-slider-field">
+                    <label id="novel-humor-label">Humor</label>
+                    <div class="novel-slider-wrap">
+                        <span class="novel-slider-left" id="novel-humor-left">Lighthearted</span>
+                        <input type="range" id="novel-humor" min="0" max="100" value="50">
+                        <span class="novel-slider-right" id="novel-humor-right">Serious</span>
+                    </div>
+                    <span class="novel-slider-value" id="novel-humor-value">50</span>
+                </div>
+                <!-- Catharsis Slider -->
+                <div class="novel-field novel-slider-field">
+                    <label id="novel-catharsis-label">Catharsis</label>
+                    <div class="novel-slider-wrap">
+                        <span class="novel-slider-left" id="novel-catharsis-left">Gentle</span>
+                        <input type="range" id="novel-catharsis" min="0" max="100" value="50">
+                        <span class="novel-slider-right" id="novel-catharsis-right">Punchy</span>
+                    </div>
+                    <span class="novel-slider-value" id="novel-catharsis-value">50</span>
+                </div>
+                <!-- Coherence Slider -->
+                <div class="novel-field novel-slider-field">
+                    <label id="novel-coherence-label">Coherence</label>
+                    <div class="novel-slider-wrap">
+                        <span class="novel-slider-left" id="novel-coherence-left">Surreal</span>
+                        <input type="range" id="novel-coherence" min="0" max="100" value="50">
+                        <span class="novel-slider-right" id="novel-coherence-right">Plausible</span>
+                    </div>
+                    <span class="novel-slider-value" id="novel-coherence-value">50</span>
+                </div>
+                <!-- Length Selection -->
+                <div class="novel-field">
+                    <label id="novel-length-label">Length</label>
+                    <div class="novel-length-options">
+                        <div class="novel-length-option selected" id="novel-length-prologue">
+                            <span class="novel-length-check">✅</span>
+                            <span id="novel-length-prologue-text">Prologue (Free)</span>
+                        </div>
+                        <div class="novel-length-option disabled" id="novel-length-episode1">
+                            <span class="novel-length-lock">🔒</span>
+                            <span id="novel-length-episode1-text">Episode 1 (Sign-in Required)</span>
+                        </div>
+                        <div class="novel-length-signin-msg" id="novel-signin-msg" style="display:none;"></div>
+                    </div>
+                </div>
+                <!-- Result Area -->
+                <div id="novel-result" class="novel-result" style="display:none;">
+                    <h3 id="novel-result-title" class="novel-result-title"></h3>
+                    <div id="novel-result-text" class="novel-result-text"></div>
+                </div>
+                <!-- Status -->
+                <div id="novel-status" class="novel-status"></div>
+            </div>
+            <div class="novel-modal-footer">
+                <button id="novel-generate-btn" class="novel-btn novel-btn-generate">Generate</button>
+                <button id="novel-regenerate-btn" class="novel-btn novel-btn-regenerate" style="display:none;">Regenerate</button>
+                <button id="novel-copy-btn" class="novel-btn novel-btn-copy" style="display:none;">Copy</button>
+            </div>
+        </div>
     </div>
 
     <script src="main.js"></script>

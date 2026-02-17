@@ -12,7 +12,7 @@
 <body>
     <header class="top-bar">
         <button class="signup-btn-locked" id="signup-btn" disabled>Sign Up <span class="btn-lock-badge">🔒</span></button>
-        <button class="contact-btn" id="contact-btn">Contact</button>
+        <a class="contact-btn" id="contact-btn" href="mailto:aiidealworldcup@gmail.com">Contact</a>
         <div class="lang-selector">
             <button data-lang="ko" class="active"><span class="fi fi-kr"></span> 한국어</button>
             <button data-lang="en"><span class="fi fi-us"></span> English</button>
@@ -167,30 +167,6 @@
                 <button id="novel-generate-btn" class="novel-btn novel-btn-generate">Generate</button>
                 <button id="novel-regenerate-btn" class="novel-btn novel-btn-regenerate" style="display:none;">Regenerate</button>
                 <button id="novel-copy-btn" class="novel-btn novel-btn-copy" style="display:none;">Copy</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
-    <div id="contact-modal-overlay" class="novel-modal-overlay" style="display:none;">
-        <div class="novel-modal contact-modal">
-            <div class="novel-modal-header">
-                <h2 id="contact-modal-title">Contact</h2>
-                <button id="contact-modal-close" class="novel-modal-close">&times;</button>
-            </div>
-            <div class="novel-modal-body">
-                <div class="novel-field">
-                    <label id="contact-subject-label" for="contact-subject">Subject</label>
-                    <input type="text" id="contact-subject" class="contact-input" placeholder="">
-                </div>
-                <div class="novel-field">
-                    <label id="contact-body-label" for="contact-body">Message</label>
-                    <textarea id="contact-body" class="contact-textarea" placeholder=""></textarea>
-                </div>
-                <div id="contact-status" class="novel-status"></div>
-            </div>
-            <div class="novel-modal-footer">
-                <button id="contact-submit-btn" class="novel-btn novel-btn-generate">Send</button>
             </div>
         </div>
     </div>

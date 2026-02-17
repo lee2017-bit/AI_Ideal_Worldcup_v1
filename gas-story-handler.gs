@@ -95,7 +95,17 @@ function handleGenerateStory(e) {
   var prompt = buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote, gender);
 
   try {
-    var result = callGLM(prompt, language);
+    // 최대 2회 시도 (빈 응답 시 재시도)
+    var result;
+    for (var attempt = 0; attempt < 2; attempt++) {
+      try {
+        result = callGLM(prompt, language);
+        break; // 성공하면 루프 탈출
+      } catch (retryErr) {
+        if (attempt === 1) throw retryErr; // 2번째도 실패하면 에러
+        Utilities.sleep(1000); // 1초 대기 후 재시도
+      }
+    }
     return ContentService
       .createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
@@ -193,11 +203,17 @@ function callGLM(systemPrompt, language) {
   }
 
   var json = JSON.parse(body);
+
+  if (!json.choices || json.choices.length === 0 || !json.choices[0].message) {
+    throw new Error('GLM invalid structure: ' + body.substring(0, 200));
+  }
+
   var content = json.choices[0].message.content;
 
   // 빈 응답 체크
   if (!content || content.trim().length === 0) {
-    throw new Error('GLM returned empty response');
+    var finishReason = json.choices[0].finish_reason || 'unknown';
+    throw new Error('GLM empty (finish: ' + finishReason + ')');
   }
 
   // 마크다운 기호 정리

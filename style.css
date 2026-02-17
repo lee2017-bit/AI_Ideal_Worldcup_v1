@@ -633,6 +633,54 @@ body {
     margin-top: 2px;
 }
 
+/* User Note (세부 설정) */
+.novel-usernote-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #121212;
+    border: 1px solid #444;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #aaa;
+    transition: border-color 0.2s;
+}
+
+.novel-usernote-toggle:hover {
+    border-color: #007bff;
+    color: #fff;
+}
+
+.novel-usernote-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+
+.novel-usernote-arrow.open {
+    transform: rotate(180deg);
+}
+
+.novel-usernote {
+    width: 100%;
+    height: 80px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: #121212;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.novel-usernote:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
 /* Length Options */
 .novel-length-options {
     display: flex;

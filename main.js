@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
             humorLeft: '유쾌함', humorRight: '진지함',
             catharsisLeft: '담담함', catharsisRight: '통쾌함',
             coherenceLeft: '파격적', coherenceRight: '개연성',
+            userNoteLabel: '세부 설정',
+            userNotePlaceholder: '원하는 설정을 직접 입력하세요. (예: 주인공이 마법사였으면 좋겠어요)',
             prologueFree: '프롤로그(무료)',
             episode1Locked: '1화(가입 필요)',
             episode1SigninMsg: '1화를 생성하려면 로그인이 필요합니다. (Coming soon)',
@@ -156,6 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
             humorLeft: 'Lighthearted', humorRight: 'Serious',
             catharsisLeft: 'Gentle', catharsisRight: 'Punchy',
             coherenceLeft: 'Surreal', coherenceRight: 'Plausible',
+            userNoteLabel: 'Detail Settings',
+            userNotePlaceholder: 'Describe your preferences. (e.g., I want the protagonist to be a wizard)',
             prologueFree: 'Prologue (Free)',
             episode1Locked: 'Episode 1 (Sign-in Required)',
             episode1SigninMsg: 'Sign-in required to generate Episode 1. (Coming soon)',
@@ -211,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
             humorLeft: '軽快', humorRight: 'シリアス',
             catharsisLeft: '穏やか', catharsisRight: '爽快',
             coherenceLeft: '破天荒', coherenceRight: '納得感',
+            userNoteLabel: '詳細設定',
+            userNotePlaceholder: 'ご希望の設定を入力してください。（例：主人公が魔法使いだったらいいな）',
             prologueFree: 'プロローグ（無料）',
             episode1Locked: '第1話（ログイン必須）',
             episode1SigninMsg: '第1話を生成するにはログインが必要です。（Coming soon）',
@@ -266,6 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
             humorLeft: '轻松', humorRight: '严肃',
             catharsisLeft: '平和', catharsisRight: '爽快',
             coherenceLeft: '超现实', coherenceRight: '合理',
+            userNoteLabel: '详细设定',
+            userNotePlaceholder: '请输入您想要的设定。（例如：希望主角是魔法师）',
             prologueFree: '序章（免费）',
             episode1Locked: '第1话（需登录）',
             episode1SigninMsg: '生成第1话需要登录。（Coming soon）',
@@ -343,6 +351,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('novel-catharsis-right').textContent = lang.catharsisRight;
             document.getElementById('novel-coherence-left').textContent = lang.coherenceLeft;
             document.getElementById('novel-coherence-right').textContent = lang.coherenceRight;
+            document.getElementById('novel-usernote-label').textContent = lang.userNoteLabel;
+            document.getElementById('novel-usernote').placeholder = lang.userNotePlaceholder;
             document.getElementById('novel-length-prologue-text').textContent = lang.prologueFree;
             document.getElementById('novel-length-episode1-text').textContent = lang.episode1Locked;
             document.getElementById('novel-generate-btn').textContent = lang.generate;
@@ -626,6 +636,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // User note toggle
+    document.getElementById('novel-usernote-toggle').addEventListener('click', () => {
+        const textarea = document.getElementById('novel-usernote');
+        const arrow = document.getElementById('novel-usernote-arrow');
+        const isHidden = textarea.style.display === 'none';
+        textarea.style.display = isHidden ? 'block' : 'none';
+        arrow.classList.toggle('open', isHidden);
+    });
+
     // Episode 1 click — show sign-in message
     document.getElementById('novel-length-episode1').addEventListener('click', () => {
         const lang = i18n[currentLang];
@@ -645,6 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const humor = document.getElementById('novel-humor').value;
         const catharsis = document.getElementById('novel-catharsis').value;
         const coherence = document.getElementById('novel-coherence').value;
+        const userNote = document.getElementById('novel-usernote').value.trim();
 
         // UI state: loading
         novelGenerateBtn.disabled = true;
@@ -667,6 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 coherence: coherence,
                 lengthMode: 'prologue',
             });
+            if (userNote) params.append('userNote', userNote);
 
             const res = await fetch(SCRIPT_URL + '?' + params.toString());
             const data = await res.json();

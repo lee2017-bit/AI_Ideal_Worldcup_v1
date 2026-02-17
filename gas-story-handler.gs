@@ -89,7 +89,8 @@ function handleGenerateStory(e) {
   var catharsis       = parseInt(p.catharsis) || 50;
   var coherence       = parseInt(p.coherence) || 50;
 
-  var prompt = buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence);
+  var userNote = p.userNote || '';
+  var prompt = buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote);
 
   try {
     var result = callGLM(prompt, language);
@@ -106,7 +107,7 @@ function handleGenerateStory(e) {
 // ============================================================
 // 프롬프트 빌드
 // ============================================================
-function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence) {
+function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote) {
   var langInstruction = {
     'ko': '한국어로 작성하세요.',
     'en': 'Write in English.',
@@ -159,6 +160,7 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
     '',
     langInstruction[language] || langInstruction['en'],
     '',
+    userNote ? 'ADDITIONAL USER REQUEST:\n' + userNote + '\n' : '',
     'OUTPUT FORMAT:',
     'First line: the story title (just the title text, no prefix).',
     'Then a blank line.',

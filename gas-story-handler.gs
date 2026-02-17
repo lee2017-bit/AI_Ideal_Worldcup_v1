@@ -17,22 +17,25 @@ function doGet(e) {
     var sheet = ss.getSheetByName('Rankings');
     if (!sheet) {
       sheet = ss.insertSheet('Rankings');
-      sheet.appendRow(['winner', 'ai', 'lang', 'wins']);
+      sheet.appendRow(['winner', 'ai', 'lang', 'wins', 'category']);
     }
     var winner = e.parameter.winner;
     var ai = e.parameter.ai;
     var lang = e.parameter.lang || 'ko';
+    var category = e.parameter.category || 'female-ai-animation';
     var data = sheet.getDataRange().getValues();
     var found = false;
+    // category 컬럼(index 4)이 없는 기존 데이터 호환
     for (var i = 1; i < data.length; i++) {
-      if (data[i][0] === winner && data[i][2] === lang) {
+      var rowCategory = data[i][4] || 'female-ai-animation';
+      if (data[i][0] === winner && data[i][2] === lang && rowCategory === category) {
         sheet.getRange(i + 1, 4).setValue(data[i][3] + 1);
         found = true;
         break;
       }
     }
     if (!found) {
-      sheet.appendRow([winner, ai, lang, 1]);
+      sheet.appendRow([winner, ai, lang, 1, category]);
     }
     return ContentService.createTextOutput('ok');
 
@@ -40,12 +43,18 @@ function doGet(e) {
   } else if (action === 'getRankings') {
     var sheet = ss.getSheetByName('Rankings');
     var filterLang = e.parameter.lang;
+    var filterCategory = e.parameter.category || '';
     var result = [];
     if (sheet && sheet.getLastRow() > 1) {
       var data = sheet.getDataRange().getValues();
       var totals = {};
       for (var i = 1; i < data.length; i++) {
         if (filterLang && data[i][2] !== filterLang) continue;
+        // category 필터링 (기존 데이터는 빈값 → female-ai-animation 취급)
+        if (filterCategory) {
+          var rowCategory = data[i][4] || 'female-ai-animation';
+          if (rowCategory !== filterCategory) continue;
+        }
         var key = data[i][0];
         if (!totals[key]) {
           totals[key] = { winner: data[i][0], ai: data[i][1], wins: 0 };
@@ -71,7 +80,8 @@ function doGet(e) {
       e.parameter.ai,
       e.parameter.feedback,
       e.parameter.timestamp,
-      e.parameter.lang
+      e.parameter.lang,
+      e.parameter.category || 'female-ai-animation'
     ]);
     return ContentService.createTextOutput('ok');
   }

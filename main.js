@@ -710,11 +710,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (userNote) params.append('userNote', userNote);
 
-            const res = await fetch(SCRIPT_URL + '?' + params.toString());
+            const res = await fetch(SCRIPT_URL + '?' + params.toString(), { redirect: 'follow' });
             const data = await res.json();
 
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
             if (data.title && data.storyText) {
-                novelResultTitle.textContent = data.title;
+                // 제목에서 마크다운 기호 제거
+                novelResultTitle.textContent = data.title.replace(/\*\*/g, '').replace(/^#+\s*/, '').replace(/^제목:\s*/i, '');
                 novelResultText.textContent = data.storyText;
                 novelResult.style.display = 'block';
                 novelGenerateBtn.style.display = 'none';

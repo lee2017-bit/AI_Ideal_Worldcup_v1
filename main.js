@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     };
 
-    let currentLang = 'en';
+    let currentLang = 'ko';
     let currentRound = 8;
     let contenders = [...images];
     let winners = [];

@@ -68,6 +68,16 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
 
+  // ===== 문의 (이메일 발송) =====
+  } else if (action === 'contact') {
+    var subject = e.parameter.subject || '(No Subject)';
+    var body = e.parameter.body || '(No Content)';
+    var lang = e.parameter.lang || 'ko';
+    var timestamp = e.parameter.timestamp || new Date().toISOString();
+    var emailBody = 'Language: ' + lang + '\nTime: ' + timestamp + '\n\n' + body;
+    MailApp.sendEmail('jaewon.lee2017@gmail.com', '[AI Ideal Worldcup] ' + subject, emailBody);
+    return ContentService.createTextOutput('ok');
+
   // ===== 소설 생성 (GLM-5) =====
   } else if (action === 'generateStory') {
     return handleGenerateStory(e);

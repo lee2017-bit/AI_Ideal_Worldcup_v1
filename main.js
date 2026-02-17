@@ -194,6 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '영화',
             signUp: '가입하기',
             signUpRequired: '가입이 필요합니다. (Coming soon)',
+            // Contact
+            contact: '문의',
+            contactTitle: '문의하기',
+            contactSubject: '제목',
+            contactBody: '내용',
+            contactSubjectPlaceholder: '문의 제목을 입력해주세요',
+            contactBodyPlaceholder: '문의 내용을 입력해주세요',
+            contactSend: '보내기',
+            contactSending: '전송 중...',
+            contactSuccess: '문의가 전송되었습니다!',
+            contactFail: '전송에 실패했습니다. 다시 시도해주세요.',
+            contactEmpty: '제목과 내용을 모두 입력해주세요.',
             // Category-specific landing
             landing: {
                 'dog-ai': { title: 'AI 강아지 이상형월드컵', subtitle: 'AI로 만든 8마리 강아지 중 내 취향인 강아지를 골라보세요!' },
@@ -259,6 +271,17 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: 'Movie',
             signUp: 'Sign Up',
             signUpRequired: 'Sign-in required. (Coming soon)',
+            contact: 'Contact',
+            contactTitle: 'Contact Us',
+            contactSubject: 'Subject',
+            contactBody: 'Message',
+            contactSubjectPlaceholder: 'Enter subject',
+            contactBodyPlaceholder: 'Enter your message',
+            contactSend: 'Send',
+            contactSending: 'Sending...',
+            contactSuccess: 'Message sent successfully!',
+            contactFail: 'Failed to send. Please try again.',
+            contactEmpty: 'Please fill in both subject and message.',
             landing: {
                 'dog-ai': { title: 'AI Dog Ideal Worldcup', subtitle: 'Pick your favorite among 8 AI-generated dogs!' },
                 'female-ai-animation': { title: 'Female AI Animation Ideal Worldcup', subtitle: 'Pick your ideal among 8 AI animation characters!' },
@@ -323,6 +346,17 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '映画',
             signUp: '新規登録',
             signUpRequired: 'ログインが必要です。（Coming soon）',
+            contact: 'お問い合わせ',
+            contactTitle: 'お問い合わせ',
+            contactSubject: '件名',
+            contactBody: '内容',
+            contactSubjectPlaceholder: '件名を入力してください',
+            contactBodyPlaceholder: '内容を入力してください',
+            contactSend: '送信',
+            contactSending: '送信中...',
+            contactSuccess: 'お問い合わせが送信されました！',
+            contactFail: '送信に失敗しました。もう一度お試しください。',
+            contactEmpty: '件名と内容を両方入力してください。',
             landing: {
                 'dog-ai': { title: 'AI犬 理想ワールドカップ', subtitle: 'AIが作った8匹の犬から好みの犬を選ぼう！' },
                 'female-ai-animation': { title: '女性AIアニメ理想ワールドカップ', subtitle: '8人のAIアニメキャラから理想のタイプを選ぼう！' },
@@ -387,6 +421,17 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '电影',
             signUp: '注册',
             signUpRequired: '需要登录。（Coming soon）',
+            contact: '联系我们',
+            contactTitle: '联系我们',
+            contactSubject: '主题',
+            contactBody: '内容',
+            contactSubjectPlaceholder: '请输入主题',
+            contactBodyPlaceholder: '请输入内容',
+            contactSend: '发送',
+            contactSending: '发送中...',
+            contactSuccess: '消息已发送！',
+            contactFail: '发送失败，请重试。',
+            contactEmpty: '请填写主题和内容。',
             landing: {
                 'dog-ai': { title: 'AI狗狗理想世界杯', subtitle: '从8只AI生成的狗狗中选出你最喜欢的！' },
                 'female-ai-animation': { title: '女性AI动画理想世界杯', subtitle: '从8位AI动画角色中选出你的理想型！' },
@@ -451,10 +496,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('show-rankings-lang').textContent = lang.showRankingsLang;
         document.querySelector('.feedback-notice').textContent = lang.feedbackNotice;
 
-        // Studio buttons & Sign Up
+        // Studio buttons & Sign Up & Contact
         document.getElementById('write-webtoon-btn').childNodes[0].textContent = lang.webtoon + ' ';
         document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
         document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
+        document.getElementById('contact-btn').textContent = lang.contact;
+        document.getElementById('contact-modal-title').textContent = lang.contactTitle;
+        document.getElementById('contact-subject-label').textContent = lang.contactSubject;
+        document.getElementById('contact-body-label').textContent = lang.contactBody;
+        document.getElementById('contact-subject').placeholder = lang.contactSubjectPlaceholder;
+        document.getElementById('contact-body').placeholder = lang.contactBodyPlaceholder;
+        document.getElementById('contact-submit-btn').textContent = lang.contactSend;
 
         // Novel modal texts
         const novelModal = document.getElementById('novel-modal-overlay');
@@ -898,6 +950,67 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 novelCopyBtn.textContent = lang.copy;
             }, 2000);
+        }
+    });
+
+    // ===== Contact Modal Logic =====
+    const contactModalOverlay = document.getElementById('contact-modal-overlay');
+    const contactSubmitBtn = document.getElementById('contact-submit-btn');
+    const contactStatus = document.getElementById('contact-status');
+
+    document.getElementById('contact-btn').addEventListener('click', () => {
+        contactModalOverlay.style.display = 'flex';
+    });
+
+    document.getElementById('contact-modal-close').addEventListener('click', () => {
+        contactModalOverlay.style.display = 'none';
+    });
+
+    contactModalOverlay.addEventListener('click', (e) => {
+        if (e.target === contactModalOverlay) {
+            contactModalOverlay.style.display = 'none';
+        }
+    });
+
+    contactSubmitBtn.addEventListener('click', async () => {
+        const lang = i18n[currentLang];
+        const subject = document.getElementById('contact-subject').value.trim();
+        const body = document.getElementById('contact-body').value.trim();
+
+        if (!subject || !body) {
+            contactStatus.textContent = lang.contactEmpty;
+            contactStatus.className = 'novel-status error';
+            return;
+        }
+
+        contactSubmitBtn.disabled = true;
+        contactStatus.textContent = lang.contactSending;
+        contactStatus.className = 'novel-status generating';
+
+        try {
+            const params = new URLSearchParams({
+                action: 'contact',
+                subject: subject,
+                body: body,
+                lang: currentLang,
+                timestamp: new Date().toISOString(),
+            });
+            await fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' });
+            contactStatus.textContent = lang.contactSuccess;
+            contactStatus.className = 'novel-status';
+            contactStatus.style.color = '#4caf50';
+            document.getElementById('contact-subject').value = '';
+            document.getElementById('contact-body').value = '';
+            setTimeout(() => {
+                contactModalOverlay.style.display = 'none';
+                contactStatus.textContent = '';
+                contactStatus.style.color = '';
+            }, 2000);
+        } catch (err) {
+            contactStatus.textContent = lang.contactFail;
+            contactStatus.className = 'novel-status error';
+        } finally {
+            contactSubmitBtn.disabled = false;
         }
     });
 

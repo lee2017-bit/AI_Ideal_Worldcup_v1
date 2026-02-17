@@ -1,5 +1,39 @@
 [
     {
+        "id": "inhibition-release",
+        "file": "억제_해제_버튼은_농담이었다_출판급_완전판.txt",
+        "date": "2026-02-17",
+        "title": {
+            "ko": "억제 해제 버튼은 농담이었다",
+            "en": "The Inhibition Release Button Was a Joke",
+            "ja": "抑制解除ボタンは冗談だった",
+            "zh": "抑制解除按钮是个玩笑"
+        },
+        "summary": {
+            "ko": "하이퍼 SF / 블랙코미디 / 스릴러 — 연작 단편(8화+에필로그)",
+            "en": "Hyper SF / Black Comedy / Thriller — Serial short stories (8 episodes + epilogue)",
+            "ja": "ハイパーSF / ブラックコメディ / スリラー — 連作短編（8話+エピローグ）",
+            "zh": "超级科幻 / 黑色喜剧 / 惊悚 — 连载短篇（8话+尾声）"
+        }
+    },
+    {
+        "id": "suitable",
+        "file": "(단편)적합.txt",
+        "date": "2026-02-17",
+        "title": {
+            "ko": "적합 (단편)",
+            "en": "Suitable (Short Story)",
+            "ja": "適合（短編）",
+            "zh": "适合（短篇）"
+        },
+        "summary": {
+            "ko": "무면허 수의사 김한수의 이야기. 작은 생명을 살리는 불법적이지만 절실한 손길.",
+            "en": "The story of Kim Hansu, an unlicensed veterinarian. An illegal but desperate hand saving small lives.",
+            "ja": "無免許獣医キム・ハンスの物語。小さな命を救う違法だが切実な手。",
+            "zh": "无证兽医金韩秀的故事。拯救小生命的非法但急切的双手。"
+        }
+    },
+    {
         "id": "sample",
         "file": "sample.txt",
         "date": "2026-02-17",

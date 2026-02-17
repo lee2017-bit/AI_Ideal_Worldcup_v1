@@ -138,45 +138,19 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
   else if (coherence > 70) coherenceDesc = 'Ensure all plot elements are logical and plausible. Clear cause-and-effect, grounded world-building, no unexplained jumps.';
   else coherenceDesc = 'Keep the story mostly grounded but allow some creative liberties. Balance realism with imagination.';
 
-  var systemPrompt = [
-    'You are a creative fiction writer specializing in short-form web novels.',
-    'You must NEVER use real celebrity names, real IP characters, or copyrighted characters.',
-    'The protagonist is a character inspired by the AI model named "' + winnerModelName + '". Turn this into an original fictional character:',
-    '- Give them a unique name fitting the genre.',
-    '- Their personality should reflect the aesthetic and vibe of the AI model (creative, mysterious, bold, gentle, etc.).',
-    '',
-    'CRITICAL LENGTH RULES:',
-    '- The TOTAL output (title + intro + prologue) must NEVER exceed 2000 characters. This is a hard limit.',
-    '- Structure:',
-    '  1) Title (one line)',
-    '  2) 【주인공 & 세계관】 section: 200-300 characters. Introduce protagonist name, personality, role/job, and the world setting in 3-5 sentences.',
-    '  3) 【프롤로그】 section: 600-900 characters. The actual story prologue.',
-    '- Do NOT write Episode 1 or beyond.',
-    '- Start the prologue with an engaging hook.',
-    '- End with a cliffhanger that makes readers want Episode 1.',
-    '- Make sure the story reaches a natural pause point. NEVER cut off mid-sentence.',
-    '',
-    'TONE INSTRUCTIONS:',
-    '- ' + humorDesc,
-    '- ' + catharsisDesc,
-    '- ' + coherenceDesc,
-    '',
-    'GENRE: ' + (genreMap[genre] || genre),
-    '',
-    langInstruction[language] || langInstruction['en'],
-    '',
-    userNote ? 'ADDITIONAL USER REQUEST:\n' + userNote + '\n' : '',
-    'OUTPUT FORMAT (follow this exactly):',
-    'Line 1: the story title (just the title text, no label/prefix).',
-    'Blank line.',
-    '【주인공 & 세계관】',
-    '(Character and world introduction paragraph here)',
-    'Blank line.',
-    '【프롤로그】',
-    '(Prologue text here)',
-    '',
-    'IMPORTANT: Use the section headers 【주인공 & 세계관】 and 【프롤로그】 exactly as shown regardless of language.'
-  ].join('\n');
+  var systemPrompt = '짧은 웹소설 작가. 실존 인물/IP 캐릭터 사용 금지.\n' +
+    '"' + winnerModelName + '"에서 영감받은 독창적 주인공을 만들어.\n' +
+    '장르: ' + (genreMap[genre] || genre) + '\n' +
+    '톤: ' + humorDesc + ' ' + catharsisDesc + ' ' + coherenceDesc + '\n' +
+    (userNote ? '추가 요청: ' + userNote + '\n' : '') +
+    (langInstruction[language] || langInstruction['en']) + '\n\n' +
+    '아래 형식을 반드시 지켜서 출력해. 총 800자 이내로 짧게 써.\n\n' +
+    '제목\n\n' +
+    '【주인공 & 세계관】\n' +
+    '주인공 이름, 성격, 직업, 세계관을 2~3문장으로 소개. (100~150자)\n\n' +
+    '【프롤로그】\n' +
+    '짧은 프롤로그. 흥미로운 도입 → 클리프행어로 끝. (400~600자)\n' +
+    '절대 문장 중간에 끊지 말 것.';
 
   return systemPrompt;
 }
@@ -185,19 +159,14 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
 // GLM-5 API 호출
 // ============================================================
 function callGLM(systemPrompt, language) {
-  var userMsg = 'Please write the prologue now.';
-  if (language === 'ko') userMsg = '프롤로그를 작성해 주세요.';
-  else if (language === 'ja') userMsg = 'プロローグを書いてください。';
-  else if (language === 'zh') userMsg = '请写序章。';
-
   var payload = {
     model: GLM_MODEL,
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: userMsg }
+      { role: 'user', content: '작성해줘.' }
     ],
-    temperature: 0.85,
-    max_tokens: 4000
+    temperature: 0.8,
+    max_tokens: 1200
   };
 
   var options = {

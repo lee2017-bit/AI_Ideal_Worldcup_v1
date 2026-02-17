@@ -196,6 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
             signUpRequired: '가입이 필요합니다. (Coming soon)',
             // Contact
             contact: '문의',
+            contactTitle: '문의하기',
+            contactMsg: '문의 내용은 아래 이메일로 보내주세요.',
             // Category-specific landing
             landing: {
                 'dog-ai': { title: 'AI 강아지 이상형월드컵', subtitle: 'AI로 만든 8마리 강아지 중 내 취향인 강아지를 골라보세요!' },
@@ -262,6 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
             signUp: 'Sign Up',
             signUpRequired: 'Sign-in required. (Coming soon)',
             contact: 'Contact',
+            contactTitle: 'Contact Us',
+            contactMsg: 'Please send your inquiries to the email below.',
             landing: {
                 'dog-ai': { title: 'AI Dog Ideal Worldcup', subtitle: 'Pick your favorite among 8 AI-generated dogs!' },
                 'female-ai-animation': { title: 'Female AI Animation Ideal Worldcup', subtitle: 'Pick your ideal among 8 AI animation characters!' },
@@ -327,6 +331,8 @@ document.addEventListener('DOMContentLoaded', () => {
             signUp: '新規登録',
             signUpRequired: 'ログインが必要です。（Coming soon）',
             contact: 'お問い合わせ',
+            contactTitle: 'お問い合わせ',
+            contactMsg: 'お問い合わせは下記メールアドレスまでお送りください。',
             landing: {
                 'dog-ai': { title: 'AI犬 理想ワールドカップ', subtitle: 'AIが作った8匹の犬から好みの犬を選ぼう！' },
                 'female-ai-animation': { title: '女性AIアニメ理想ワールドカップ', subtitle: '8人のAIアニメキャラから理想のタイプを選ぼう！' },
@@ -392,6 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
             signUp: '注册',
             signUpRequired: '需要登录。（Coming soon）',
             contact: '联系我们',
+            contactTitle: '联系我们',
+            contactMsg: '请将您的问题发送至以下邮箱。',
             landing: {
                 'dog-ai': { title: 'AI狗狗理想世界杯', subtitle: '从8只AI生成的狗狗中选出你最喜欢的！' },
                 'female-ai-animation': { title: '女性AI动画理想世界杯', subtitle: '从8位AI动画角色中选出你的理想型！' },
@@ -461,6 +469,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
         document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
         document.getElementById('contact-btn').textContent = lang.contact;
+        document.getElementById('contact-modal-title').textContent = lang.contactTitle;
+        document.getElementById('contact-msg').textContent = lang.contactMsg;
 
         // Novel modal texts
         const novelModal = document.getElementById('novel-modal-overlay');
@@ -907,9 +917,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Contact button - show email
+    // Contact modal
+    const contactModalOverlay = document.getElementById('contact-modal-overlay');
     document.getElementById('contact-btn').addEventListener('click', () => {
-        alert('aiidealworldcup@gmail.com');
+        contactModalOverlay.style.display = 'flex';
+    });
+    document.getElementById('contact-modal-close').addEventListener('click', () => {
+        contactModalOverlay.style.display = 'none';
+    });
+    contactModalOverlay.addEventListener('click', (e) => {
+        if (e.target === contactModalOverlay) contactModalOverlay.style.display = 'none';
     });
 
     // Initialize: show landing with preview grid

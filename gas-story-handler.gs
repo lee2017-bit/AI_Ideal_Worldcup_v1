@@ -146,9 +146,12 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
     '- Their personality should reflect the aesthetic and vibe of the AI model (creative, mysterious, bold, gentle, etc.).',
     '',
     'RULES:',
-    '- Generate ONLY a Prologue (프롤로그). Do NOT write Episode 1 or beyond.',
+    '- First, write a short CHARACTER & WORLD introduction (3-5 sentences): introduce the protagonist (name, key trait, role) and the world/setting briefly.',
+    '- Then write the Prologue below it.',
+    '- Do NOT write Episode 1 or beyond.',
+    '- The character/world intro should be 150-250 characters.',
     '- The prologue should be 800-1200 characters long.',
-    '- Start with an engaging hook.',
+    '- Start the prologue with an engaging hook.',
     '- End with a cliffhanger or intriguing question that makes readers want Episode 1.',
     '',
     'TONE INSTRUCTIONS:',
@@ -162,9 +165,11 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
     '',
     userNote ? 'ADDITIONAL USER REQUEST:\n' + userNote + '\n' : '',
     'OUTPUT FORMAT:',
-    'First line: the story title (just the title text, no prefix).',
-    'Then a blank line.',
-    'Then the prologue text.'
+    'Line 1: the story title (just the title text, no prefix).',
+    'Blank line.',
+    'Character & world intro (short paragraph).',
+    'Blank line.',
+    'The prologue text.'
   ].join('\n');
 
   return systemPrompt;

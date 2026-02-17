@@ -145,14 +145,16 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
     '- Give them a unique name fitting the genre.',
     '- Their personality should reflect the aesthetic and vibe of the AI model (creative, mysterious, bold, gentle, etc.).',
     '',
-    'RULES:',
-    '- First, write a short CHARACTER & WORLD introduction (3-5 sentences): introduce the protagonist (name, key trait, role) and the world/setting briefly.',
-    '- Then write the Prologue below it.',
+    'CRITICAL LENGTH RULES:',
+    '- The TOTAL output (title + intro + prologue) must NEVER exceed 2000 characters. This is a hard limit.',
+    '- Structure:',
+    '  1) Title (one line)',
+    '  2) 【주인공 & 세계관】 section: 200-300 characters. Introduce protagonist name, personality, role/job, and the world setting in 3-5 sentences.',
+    '  3) 【프롤로그】 section: 600-900 characters. The actual story prologue.',
     '- Do NOT write Episode 1 or beyond.',
-    '- The character/world intro should be 150-250 characters.',
-    '- The prologue should be 800-1200 characters long.',
     '- Start the prologue with an engaging hook.',
-    '- End with a cliffhanger or intriguing question that makes readers want Episode 1.',
+    '- End with a cliffhanger that makes readers want Episode 1.',
+    '- Make sure the story reaches a natural pause point. NEVER cut off mid-sentence.',
     '',
     'TONE INSTRUCTIONS:',
     '- ' + humorDesc,
@@ -164,12 +166,16 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
     langInstruction[language] || langInstruction['en'],
     '',
     userNote ? 'ADDITIONAL USER REQUEST:\n' + userNote + '\n' : '',
-    'OUTPUT FORMAT:',
-    'Line 1: the story title (just the title text, no prefix).',
+    'OUTPUT FORMAT (follow this exactly):',
+    'Line 1: the story title (just the title text, no label/prefix).',
     'Blank line.',
-    'Character & world intro (short paragraph).',
+    '【주인공 & 세계관】',
+    '(Character and world introduction paragraph here)',
     'Blank line.',
-    'The prologue text.'
+    '【프롤로그】',
+    '(Prologue text here)',
+    '',
+    'IMPORTANT: Use the section headers 【주인공 & 세계관】 and 【프롤로그】 exactly as shown regardless of language.'
   ].join('\n');
 
   return systemPrompt;
@@ -191,7 +197,7 @@ function callGLM(systemPrompt, language) {
       { role: 'user', content: userMsg }
     ],
     temperature: 0.85,
-    max_tokens: 2000
+    max_tokens: 4000
   };
 
   var options = {

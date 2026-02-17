@@ -90,7 +90,9 @@ function handleGenerateStory(e) {
   var coherence       = parseInt(p.coherence) || 50;
 
   var userNote = p.userNote || '';
-  var prompt = buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote);
+  var tournamentType = p.tournamentType || 'female-ai-animation';
+  var gender = tournamentType.indexOf('female') >= 0 ? 'female' : 'male';
+  var prompt = buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote, gender);
 
   try {
     var result = callGLM(prompt, language);
@@ -107,7 +109,7 @@ function handleGenerateStory(e) {
 // ============================================================
 // 프롬프트 빌드
 // ============================================================
-function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote) {
+function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, coherence, userNote, gender) {
   var langInstruction = {
     'ko': '한국어로 작성하세요.',
     'en': 'Write in English.',
@@ -138,8 +140,11 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
   else if (coherence > 70) coherenceDesc = 'Ensure all plot elements are logical and plausible. Clear cause-and-effect, grounded world-building, no unexplained jumps.';
   else coherenceDesc = 'Keep the story mostly grounded but allow some creative liberties. Balance realism with imagination.';
 
+  var genderDesc = gender === 'female' ? '주인공은 반드시 여성이다. 여성 이름을 사용하고, "그녀"로 지칭해.' : '주인공은 반드시 남성이다. 남성 이름을 사용하고, "그"로 지칭해.';
+
   var systemPrompt = '짧은 웹소설 작가. 실존 인물/IP 캐릭터 사용 금지.\n' +
     '"' + winnerModelName + '"에서 영감받은 독창적 주인공을 만들어.\n' +
+    genderDesc + '\n' +
     '장르: ' + (genreMap[genre] || genre) + '\n' +
     '톤: ' + humorDesc + ' ' + catharsisDesc + ' ' + coherenceDesc + '\n' +
     (userNote ? '추가 요청: ' + userNote + '\n' : '') +

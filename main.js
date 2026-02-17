@@ -1,65 +1,138 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const images = [
-        { id: 1, src: 'videos/Female AI Animation Ideal Worldcup/GPT-image.mp4', img: 'images/Female AI Animation Ideal Worldcup/GPT-image.png', ai: 'GPT Image' },
-        { id: 2, src: 'videos/Female AI Animation Ideal Worldcup/nanobanana_pro.mp4', img: 'images/Female AI Animation Ideal Worldcup/nanobanana_pro.png', ai: 'NanoBanana Pro' },
-        { id: 3, src: 'videos/Female AI Animation Ideal Worldcup/Hunyuan.mp4', img: 'images/Female AI Animation Ideal Worldcup/Hunyuan.jpg', ai: 'Hunyuan' },
-        { id: 4, src: 'videos/Female AI Animation Ideal Worldcup/seedream.mp4', img: 'images/Female AI Animation Ideal Worldcup/seedream.jpeg', ai: 'Seedream' },
-        { id: 5, src: 'videos/Female AI Animation Ideal Worldcup/flux2.pro.mp4', img: 'images/Female AI Animation Ideal Worldcup/Flux2.pro.png', ai: 'Flux 2 Pro' },
-        { id: 6, src: 'videos/Female AI Animation Ideal Worldcup/Recraft.mp4', img: 'images/Female AI Animation Ideal Worldcup/Recraft.png', ai: 'Recraft' },
-        { id: 7, src: 'videos/Female AI Animation Ideal Worldcup/Reve.mp4', img: 'images/Female AI Animation Ideal Worldcup/Reve.jpg', ai: 'Reve' },
-        { id: 8, src: 'videos/Female AI Animation Ideal Worldcup/Grok.mp4', img: 'images/Female AI Animation Ideal Worldcup/Grok.jpg', ai: 'Grok' },
-    ];
-
-    const winnerDescriptions = {
-        'GPT Image': {
-            ko: '당신은 안정적인 완성도와 밸런스를 가장 중요하게 여기는 사람입니다.\n과하지 않지만 깔끔한 미감, 누구나 공감할 수 있는 정돈된 아름다움을 선호하죠.\n"잘 만든 정공법"에 신뢰를 두는 타입입니다.',
-            en: 'You value balance and reliable quality above everything else.\nClean composition and polished beauty matter more than extreme style.\nYou trust well-made, classic approaches.',
-            ja: 'あなたは安定した完成度とバランスを最も大切にする人です。\n派手すぎないけれど洗練された美しさ、誰もが共感できる整った美しさを好みます。\n「王道の完成形」を信頼するタイプです。',
-            zh: '你是一个最看重稳定完成度和平衡感的人。\n不过分但干净的美感，任何人都能共鸣的整洁之美。\n你信赖"精心打造的正统派"。',
+    // ===== Category Data =====
+    const categories = {
+        'dog-ai': {
+            images: [
+                { id: 1, src: 'videos/Dog AI Ideal Worldcup/GPT-Image.mp4', img: 'images/Dog AI Ideal Worldcup/GPT-Image.png', ai: 'GPT Image' },
+                { id: 2, src: 'videos/Dog AI Ideal Worldcup/Nanobanana-pro.mp4', img: 'images/Dog AI Ideal Worldcup/Nanobanana-pro.png', ai: 'NanoBanana Pro' },
+                { id: 3, src: 'videos/Dog AI Ideal Worldcup/Higgsfield.mp4', img: 'images/Dog AI Ideal Worldcup/Higgsfield.png', ai: 'Higgsfield' },
+                { id: 4, src: 'videos/Dog AI Ideal Worldcup/Kling_O1.mp4', img: 'images/Dog AI Ideal Worldcup/KLING_O1.png', ai: 'KLING O1' },
+                { id: 5, src: 'videos/Dog AI Ideal Worldcup/Seedream4.5.mp4', img: 'images/Dog AI Ideal Worldcup/Seedream4.5.jpeg', ai: 'Seedream 4.5' },
+                { id: 6, src: 'videos/Dog AI Ideal Worldcup/Reve.mp4', img: 'images/Dog AI Ideal Worldcup/Reve.jpg', ai: 'Reve' },
+                { id: 7, src: 'videos/Dog AI Ideal Worldcup/wan2.2.mp4', img: 'images/Dog AI Ideal Worldcup/Wan2.2.png', ai: 'Wan 2.2' },
+                { id: 8, src: 'videos/Dog AI Ideal Worldcup/Grok.mp4', img: 'images/Dog AI Ideal Worldcup/Grok.jpg', ai: 'Grok' },
+            ],
+            winnerDescriptions: {
+                'GPT Image': {
+                    ko: '당신은 따뜻하고 안정적인 존재에 끌리는 사람입니다.\n화려하진 않지만 곁에 있으면 마음이 편안해지는 느낌을 좋아하죠.\n"믿음직한 동반자"를 가장 중요하게 여기는 타입입니다.',
+                    en: 'You are drawn to warm, steady companions.\nNot flashy, but comforting just by being there.\nYou value a "reliable partner" above all else.',
+                    ja: 'あなたは温かくて安定した存在に惹かれる人です。\n派手ではないけれど、そばにいるだけで心が落ち着く感覚が好きです。\n「信頼できるパートナー」を最も大切にするタイプです。',
+                    zh: '你是一个被温暖稳定的存在所吸引的人。\n不华丽，但在身边就能让人安心。\n你最看重"可靠的伙伴"。',
+                },
+                'NanoBanana Pro': {
+                    ko: '당신은 꾸밈없는 야생의 매력에 끌리는 사람입니다.\n강인하면서도 진솔한 눈빛, 있는 그대로의 모습을 사랑하죠.\n"자연스러운 멋"을 아는 타입입니다.',
+                    en: 'You are attracted to raw, untamed charm.\nStrong yet honest eyes — you love authenticity as it is.\nYou appreciate "natural coolness" over polish.',
+                    ja: 'あなたは飾らない野生の魅力に惹かれる人です。\n力強くも誠実な眼差し、ありのままの姿を愛します。\n「自然体のかっこよさ」を知っているタイプです。',
+                    zh: '你是一个被质朴野性魅力吸引的人。\n强健却真诚的眼神，你爱的是最本真的样子。\n你懂得欣赏"自然之美"。',
+                },
+                'Higgsfield': {
+                    ko: '당신은 세련되고 우아한 분위기를 선호하는 사람입니다.\n깔끔한 라인과 단정한 인상에 마음을 빼앗기죠.\n"품격 있는 아름다움"에 눈이 가는 타입입니다.',
+                    en: 'You prefer refined and graceful vibes.\nClean lines and a neat impression win your heart.\nYou have an eye for "elegant beauty".',
+                    ja: 'あなたは洗練された優雅な雰囲気を好む人です。\nすっきりしたラインと端正な印象に心を奪われます。\n「品格ある美しさ」に目がいくタイプです。',
+                    zh: '你是一个偏爱优雅精致氛围的人。\n干净的线条和端庄的印象最打动你。\n你对"有品格的美"情有独钟。',
+                },
+                'KLING O1': {
+                    ko: '당신은 솔직하고 충직한 눈빛에 약한 사람입니다.\n꾸밈없이 바라보는 그 눈에서 진심을 읽어내죠.\n"한결같은 마음"을 알아보는 타입입니다.',
+                    en: 'You are a sucker for honest, loyal eyes.\nYou read sincerity in an unguarded gaze.\nYou recognize and value "unwavering devotion".',
+                    ja: 'あなたは素直で忠実な眼差しに弱い人です。\n飾らずに見つめるその目から本心を読み取ります。\n「一途な心」を見抜くタイプです。',
+                    zh: '你是一个对坦诚忠实的眼神毫无抵抗力的人。\n你能从毫无修饰的目光中读出真心。\n你是能看穿"始终如一的心"的类型。',
+                },
+                'Seedream 4.5': {
+                    ko: '당신은 몽환적이고 감성적인 분위기에 끌리는 사람입니다.\n은빛 털과 호박색 눈동자처럼, 신비로운 아름다움을 사랑하죠.\n"이야기가 담긴 눈빛"에 빠지는 타입입니다.',
+                    en: 'You are drawn to dreamy, emotional atmospheres.\nLike silver fur and amber eyes — you love mysterious beauty.\nYou fall for "eyes that tell a story".',
+                    ja: 'あなたは夢幻的で感性的な雰囲気に惹かれる人です。\n銀色の毛と琥珀色の瞳のように、神秘的な美しさを愛します。\n「物語を宿した眼差し」に落ちるタイプです。',
+                    zh: '你是一个被梦幻感性氛围所吸引的人。\n如同银色毛发和琥珀色眼眸，你爱的是神秘之美。\n你会被"蕴含故事的眼神"打动。',
+                },
+                'Reve': {
+                    ko: '당신은 조용하고 부드러운 감성을 사랑하는 사람입니다.\n흑백 사진 속 한 장면처럼, 잔잔한 여운이 남는 순간을 좋아하죠.\n"고요한 아름다움"을 느끼는 타입입니다.',
+                    en: 'You love quiet, gentle emotions.\nLike a scene from a black-and-white photo — you enjoy lingering moments.\nYou feel "beauty in stillness".',
+                    ja: 'あなたは静かで優しい感性を愛する人です。\nモノクロ写真の一場面のように、静かな余韻が残る瞬間が好きです。\n「静寂の美しさ」を感じるタイプです。',
+                    zh: '你是一个热爱安静温柔情感的人。\n如同黑白照片中的一幕，你喜欢留有余韵的瞬间。\n你能感受到"静谧之美"。',
+                },
+                'Wan 2.2': {
+                    ko: '당신은 또렷한 개성과 강한 존재감에 끌리는 사람입니다.\n선명한 색감과 당당한 눈빛, 한눈에 사로잡는 매력을 좋아하죠.\n"첫눈에 반하는" 타입입니다.',
+                    en: 'You are drawn to vivid personality and strong presence.\nBold colors and a confident gaze — you love instant magnetism.\nYou are the "love at first sight" type.',
+                    ja: 'あなたは鮮明な個性と強い存在感に惹かれる人です。\nはっきりした色合いと堂々とした眼差し、一目で魅了する力が好きです。\n「一目惚れする」タイプです。',
+                    zh: '你是一个被鲜明个性和强大存在感吸引的人。\n鲜艳的色彩和自信的目光，你爱的是瞬间的吸引力。\n你是"一见钟情"的类型。',
+                },
+                'Grok': {
+                    ko: '당신은 묵직한 존재감과 깊은 눈빛을 가진 상대에 끌리는 사람입니다.\n말없이 바라보는 것만으로 위로가 되는, 그런 따뜻함을 좋아하죠.\n"듬직한 수호자"를 원하는 타입입니다.',
+                    en: 'You are drawn to a solid presence with deep, soulful eyes.\nJust a quiet gaze is enough to comfort you.\nYou want a "dependable guardian" by your side.',
+                    ja: 'あなたはどっしりとした存在感と深い眼差しを持つ相手に惹かれる人です。\n黙って見つめるだけで癒される、そんな温かさが好きです。\n「頼もしい守護者」を求めるタイプです。',
+                    zh: '你是一个被沉稳存在感和深邃目光所吸引的人。\n只是静静注视就能带来慰藉，你喜欢这样的温暖。\n你想要的是"可靠的守护者"。',
+                },
+            },
+            tournamentType: 'dog-ai',
         },
-        'NanoBanana Pro': {
-            ko: '당신은 선명한 캐릭터성과 직관적인 매력에 끌리는 사람입니다.\n한눈에 들어오는 표정과 또렷한 인상이 중요하죠.\n"캐릭터는 기억에 남아야 한다"고 생각하는 타입입니다.',
-            en: 'You are drawn to clear character identity and instant appeal.\nStrong expressions and memorable faces matter to you.\nYou believe a character should stand out immediately.',
-            ja: 'あなたは鮮明なキャラクター性と直感的な魅力に惹かれる人です。\n一目で分かる表情とはっきりした印象が大切です。\n「キャラクターは記憶に残るべき」と考えるタイプです。',
-            zh: '你是一个被鲜明角色特性和直观魅力所吸引的人。\n一眼就能看到的表情和清晰的印象很重要。\n你认为"角色应该让人记住"。',
-        },
-        'Hunyuan': {
-            ko: '당신은 부드럽고 감성적인 분위기를 사랑하는 사람입니다.\n조용하지만 깊은 여운, 은은한 감정을 느끼는 순간을 선호하죠.\n이미지에서 "공기감"을 읽는 타입입니다.',
-            en: 'You appreciate soft, emotional atmospheres.\nSubtle feelings and gentle moods resonate with you.\nYou enjoy images that feel calm yet meaningful.',
-            ja: 'あなたは柔らかく感性的な雰囲気を愛する人です。\n静かだけど深い余韻、穏やかな感情を感じる瞬間を好みます。\nイメージから「空気感」を読み取るタイプです。',
-            zh: '你是一个热爱柔和感性氛围的人。\n安静但有深深余韵，喜欢感受淡淡情感的瞬间。\n你是能从图像中读出"氛围感"的类型。',
-        },
-        'Seedream': {
-            ko: '당신은 몽환적이고 서정적인 세계관에 끌리는 사람입니다.\n현실과 꿈의 경계 같은 분위기를 좋아하죠.\n이미지를 보며 이야기를 상상하는 타입입니다.',
-            en: 'You are attracted to dreamlike and poetic visuals.\nYou enjoy worlds that feel like a quiet fantasy.\nImages spark stories in your imagination.',
-            ja: 'あなたは夢幻的で叙情的な世界観に惹かれる人です。\n現実と夢の境界のような雰囲気が好きです。\nイメージを見ながら物語を想像するタイプです。',
-            zh: '你是一个被梦幻般诗意世界观所吸引的人。\n喜欢现实与梦境交界处般的氛围。\n你是看着图像想象故事的类型。',
-        },
-        'Flux 2 Pro': {
-            ko: '당신은 강한 스타일과 현대적인 감각을 선호하는 사람입니다.\n디자인적인 임팩트와 개성을 중요하게 보죠.\n"평범한 건 재미없다"고 느끼는 타입입니다.',
-            en: 'You prefer bold style and modern aesthetics.\nVisual impact and uniqueness matter to you.\nYou\'re not interested in anything ordinary.',
-            ja: 'あなたは強いスタイルと現代的なセンスを好む人です。\nデザイン的なインパクトと個性を重視します。\n「平凡なものはつまらない」と感じるタイプです。',
-            zh: '你是一个偏爱强烈风格和现代感的人。\n设计冲击力和个性对你很重要。\n你觉得"平凡的东西没意思"。',
-        },
-        'Recraft': {
-            ko: '당신은 그래픽 디자인 감각과 구조적인 미를 중시하는 사람입니다.\n정돈된 선, 또렷한 형태, 아이콘 같은 이미지를 좋아하죠.\n디자이너 성향이 강한 타입입니다.',
-            en: 'You value graphic clarity and structural beauty.\nClean lines and icon-like visuals appeal to you.\nYou have a strong designer mindset.',
-            ja: 'あなたはグラフィックデザインのセンスと構造的な美を重視する人です。\n整った線、はっきりした形、アイコンのようなイメージが好きです。\nデザイナー気質が強いタイプです。',
-            zh: '你是一个重视平面设计感和结构美的人。\n整齐的线条、清晰的形态、像图标一样的图像。\n你有很强的设计师倾向。',
-        },
-        'Reve': {
-            ko: '당신은 부드러운 현실감과 인간적인 표정을 좋아하는 사람입니다.\n과한 연출보다 자연스러운 매력을 선호하죠.\n"진짜 사람 같은 캐릭터"에 끌리는 타입입니다.',
-            en: 'You prefer natural expressions and human-like realism.\nSubtle charm feels more attractive than exaggeration.\nYou\'re drawn to characters that feel real.',
-            ja: 'あなたは柔らかなリアリティと人間的な表情が好きな人です。\n過剰な演出より自然な魅力を好みます。\n「本物の人みたいなキャラクター」に惹かれるタイプです。',
-            zh: '你是一个喜欢柔和真实感和人性化表情的人。\n比起过度演绎更偏爱自然魅力。\n你被"像真人一样的角色"所吸引。',
-        },
-        'Grok': {
-            ko: '당신은 강렬한 분위기와 독특한 개성을 추구하는 사람입니다.\n일반적인 미감보다는 실험적인 감각에 끌리죠.\n취향이 확실한 타입입니다.',
-            en: 'You seek strong atmosphere and unconventional style.\nExperimental visuals appeal more than mainstream beauty.\nYou have a very distinct taste.',
-            ja: 'あなたは強烈な雰囲気と独特な個性を追求する人です。\n一般的な美感より実験的なセンスに惹かれます。\n好みがはっきりしているタイプです。',
-            zh: '你是一个追求强烈氛围和独特个性的人。\n比起一般审美更被实验性的感觉所吸引。\n你是品味非常明确的类型。',
+        'female-ai-animation': {
+            images: [
+                { id: 1, src: 'videos/Female AI Animation Ideal Worldcup/GPT-image.mp4', img: 'images/Female AI Animation Ideal Worldcup/GPT-image.png', ai: 'GPT Image' },
+                { id: 2, src: 'videos/Female AI Animation Ideal Worldcup/nanobanana_pro.mp4', img: 'images/Female AI Animation Ideal Worldcup/nanobanana_pro.png', ai: 'NanoBanana Pro' },
+                { id: 3, src: 'videos/Female AI Animation Ideal Worldcup/Hunyuan.mp4', img: 'images/Female AI Animation Ideal Worldcup/Hunyuan.jpg', ai: 'Hunyuan' },
+                { id: 4, src: 'videos/Female AI Animation Ideal Worldcup/seedream.mp4', img: 'images/Female AI Animation Ideal Worldcup/seedream.jpeg', ai: 'Seedream' },
+                { id: 5, src: 'videos/Female AI Animation Ideal Worldcup/flux2.pro.mp4', img: 'images/Female AI Animation Ideal Worldcup/Flux2.pro.png', ai: 'Flux 2 Pro' },
+                { id: 6, src: 'videos/Female AI Animation Ideal Worldcup/Recraft.mp4', img: 'images/Female AI Animation Ideal Worldcup/Recraft.png', ai: 'Recraft' },
+                { id: 7, src: 'videos/Female AI Animation Ideal Worldcup/Reve.mp4', img: 'images/Female AI Animation Ideal Worldcup/Reve.jpg', ai: 'Reve' },
+                { id: 8, src: 'videos/Female AI Animation Ideal Worldcup/Grok.mp4', img: 'images/Female AI Animation Ideal Worldcup/Grok.jpg', ai: 'Grok' },
+            ],
+            winnerDescriptions: {
+                'GPT Image': {
+                    ko: '당신은 안정적인 완성도와 밸런스를 가장 중요하게 여기는 사람입니다.\n과하지 않지만 깔끔한 미감, 누구나 공감할 수 있는 정돈된 아름다움을 선호하죠.\n"잘 만든 정공법"에 신뢰를 두는 타입입니다.',
+                    en: 'You value balance and reliable quality above everything else.\nClean composition and polished beauty matter more than extreme style.\nYou trust well-made, classic approaches.',
+                    ja: 'あなたは安定した完成度とバランスを最も大切にする人です。\n派手すぎないけれど洗練された美しさ、誰もが共感できる整った美しさを好みます。\n「王道の完成形」を信頼するタイプです。',
+                    zh: '你是一个最看重稳定完成度和平衡感的人。\n不过分但干净的美感，任何人都能共鸣的整洁之美。\n你信赖"精心打造的正统派"。',
+                },
+                'NanoBanana Pro': {
+                    ko: '당신은 선명한 캐릭터성과 직관적인 매력에 끌리는 사람입니다.\n한눈에 들어오는 표정과 또렷한 인상이 중요하죠.\n"캐릭터는 기억에 남아야 한다"고 생각하는 타입입니다.',
+                    en: 'You are drawn to clear character identity and instant appeal.\nStrong expressions and memorable faces matter to you.\nYou believe a character should stand out immediately.',
+                    ja: 'あなたは鮮明なキャラクター性と直感的な魅力に惹かれる人です。\n一目で分かる表情とはっきりした印象が大切です。\n「キャラクターは記憶に残るべき」と考えるタイプです。',
+                    zh: '你是一个被鲜明角色特性和直观魅力所吸引的人。\n一眼就能看到的表情和清晰的印象很重要。\n你认为"角色应该让人记住"。',
+                },
+                'Hunyuan': {
+                    ko: '당신은 부드럽고 감성적인 분위기를 사랑하는 사람입니다.\n조용하지만 깊은 여운, 은은한 감정을 느끼는 순간을 선호하죠.\n이미지에서 "공기감"을 읽는 타입입니다.',
+                    en: 'You appreciate soft, emotional atmospheres.\nSubtle feelings and gentle moods resonate with you.\nYou enjoy images that feel calm yet meaningful.',
+                    ja: 'あなたは柔らかく感性的な雰囲気を愛する人です。\n静かだけど深い余韻、穏やかな感情を感じる瞬間を好みます。\nイメージから「空気感」を読み取るタイプです。',
+                    zh: '你是一个热爱柔和感性氛围的人。\n安静但有深深余韵，喜欢感受淡淡情感的瞬间。\n你是能从图像中读出"氛围感"的类型。',
+                },
+                'Seedream': {
+                    ko: '당신은 몽환적이고 서정적인 세계관에 끌리는 사람입니다.\n현실과 꿈의 경계 같은 분위기를 좋아하죠.\n이미지를 보며 이야기를 상상하는 타입입니다.',
+                    en: 'You are attracted to dreamlike and poetic visuals.\nYou enjoy worlds that feel like a quiet fantasy.\nImages spark stories in your imagination.',
+                    ja: 'あなたは夢幻的で叙情的な世界観に惹かれる人です。\n現実と夢の境界のような雰囲気が好きです。\nイメージを見ながら物語を想像するタイプです。',
+                    zh: '你是一个被梦幻般诗意世界观所吸引的人。\n喜欢现实与梦境交界处般的氛围。\n你是看着图像想象故事的类型。',
+                },
+                'Flux 2 Pro': {
+                    ko: '당신은 강한 스타일과 현대적인 감각을 선호하는 사람입니다.\n디자인적인 임팩트와 개성을 중요하게 보죠.\n"평범한 건 재미없다"고 느끼는 타입입니다.',
+                    en: 'You prefer bold style and modern aesthetics.\nVisual impact and uniqueness matter to you.\nYou\'re not interested in anything ordinary.',
+                    ja: 'あなたは強いスタイルと現代的なセンスを好む人です。\nデザイン的なインパクトと個性を重視します。\n「平凡なものはつまらない」と感じるタイプです。',
+                    zh: '你是一个偏爱强烈风格和现代感的人。\n设计冲击力和个性对你很重要。\n你觉得"平凡的东西没意思"。',
+                },
+                'Recraft': {
+                    ko: '당신은 그래픽 디자인 감각과 구조적인 미를 중시하는 사람입니다.\n정돈된 선, 또렷한 형태, 아이콘 같은 이미지를 좋아하죠.\n디자이너 성향이 강한 타입입니다.',
+                    en: 'You value graphic clarity and structural beauty.\nClean lines and icon-like visuals appeal to you.\nYou have a strong designer mindset.',
+                    ja: 'あなたはグラフィックデザインのセンスと構造的な美を重視する人です。\n整った線、はっきりした形、アイコンのようなイメージが好きです。\nデザイナー気質が強いタイプです。',
+                    zh: '你是一个重视平面设计感和结构美的人。\n整齐的线条、清晰的形态、像图标一样的图像。\n你有很强的设计师倾向。',
+                },
+                'Reve': {
+                    ko: '당신은 부드러운 현실감과 인간적인 표정을 좋아하는 사람입니다.\n과한 연출보다 자연스러운 매력을 선호하죠.\n"진짜 사람 같은 캐릭터"에 끌리는 타입입니다.',
+                    en: 'You prefer natural expressions and human-like realism.\nSubtle charm feels more attractive than exaggeration.\nYou\'re drawn to characters that feel real.',
+                    ja: 'あなたは柔らかなリアリティと人間的な表情が好きな人です。\n過剰な演出より自然な魅力を好みます。\n「本物の人みたいなキャラクター」に惹かれるタイプです。',
+                    zh: '你是一个喜欢柔和真实感和人性化表情的人。\n比起过度演绎更偏爱自然魅力。\n你被"像真人一样的角色"所吸引。',
+                },
+                'Grok': {
+                    ko: '당신은 강렬한 분위기와 독특한 개성을 추구하는 사람입니다.\n일반적인 미감보다는 실험적인 감각에 끌리죠.\n취향이 확실한 타입입니다.',
+                    en: 'You seek strong atmosphere and unconventional style.\nExperimental visuals appeal more than mainstream beauty.\nYou have a very distinct taste.',
+                    ja: 'あなたは強烈な雰囲気と独特な個性を追求する人です。\n一般的な美感より実験的なセンスに惹かれます。\n好みがはっきりしているタイプです。',
+                    zh: '你是一个追求强烈氛围和独特个性的人。\n比起一般审美更被实验性的感觉所吸引。\n你是品味非常明确的类型。',
+                },
+            },
+            tournamentType: 'female-ai-animation',
         },
     };
+
+    // Current category & helpers
+    let currentCategory = 'dog-ai';
+    function getCurrentImages() { return categories[currentCategory].images; }
+    function getCurrentDescriptions() { return categories[currentCategory].winnerDescriptions; }
 
     const i18n = {
         ko: {
@@ -71,10 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
             quarterFinals: '8강',
             semiFinals: '4강',
             final: '결승',
-            landingTitle: '여자 AI 애니메이션 이상형월드컵',
-            landingSubtitle: '8명의 AI 애니메이션 캐릭터 중 나의 이상형을 골라보세요!',
             startBtn: '시작하기',
             sidebarTitle: 'AI 이상형 월드컵',
+            categoryDog: 'AI 강아지\n이상형월드컵',
             categoryFemale: '여자 AI 애니메이션\n이상형월드컵',
             categoryMale: '남자 AI 애니메이션\n이상형월드컵',
             comingSoon: '준비중',
@@ -122,6 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '영화',
             signUp: '가입하기',
             signUpRequired: '가입이 필요합니다. (Coming soon)',
+            // Category-specific landing
+            landing: {
+                'dog-ai': { title: 'AI 강아지 이상형월드컵', subtitle: 'AI로 만든 8마리 강아지 중 내 취향인 강아지를 골라보세요!' },
+                'female-ai-animation': { title: '여자 AI 애니메이션 이상형월드컵', subtitle: '8명의 AI 애니메이션 캐릭터 중 나의 이상형을 골라보세요!' },
+            },
         },
         en: {
             round: (round) => `Round of ${round}`,
@@ -132,10 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
             quarterFinals: 'Quarter-Finals',
             semiFinals: 'Semi-Finals',
             final: 'Final',
-            landingTitle: 'Female AI Animation Ideal Worldcup',
-            landingSubtitle: 'Pick your ideal among 8 AI animation characters!',
             startBtn: 'Start',
             sidebarTitle: 'AI Ideal Worldcup',
+            categoryDog: 'AI Dog\nIdeal Worldcup',
             categoryFemale: 'Female AI Animation\nIdeal Worldcup',
             categoryMale: 'Male AI Animation\nIdeal Worldcup',
             comingSoon: 'Coming Soon',
@@ -183,6 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: 'Movie',
             signUp: 'Sign Up',
             signUpRequired: 'Sign-in required. (Coming soon)',
+            landing: {
+                'dog-ai': { title: 'AI Dog Ideal Worldcup', subtitle: 'Pick your favorite among 8 AI-generated dogs!' },
+                'female-ai-animation': { title: 'Female AI Animation Ideal Worldcup', subtitle: 'Pick your ideal among 8 AI animation characters!' },
+            },
         },
         ja: {
             round: (round) => `ベスト${round}`,
@@ -193,10 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
             quarterFinals: '準々決勝',
             semiFinals: '準決勝',
             final: '決勝',
-            landingTitle: '女性AIアニメ理想ワールドカップ',
-            landingSubtitle: '8人のAIアニメキャラから理想のタイプを選ぼう！',
             startBtn: 'スタート',
             sidebarTitle: 'AI理想ワールドカップ',
+            categoryDog: 'AI犬\n理想ワールドカップ',
             categoryFemale: '女性AIアニメ\n理想ワールドカップ',
             categoryMale: '男性AIアニメ\n理想ワールドカップ',
             comingSoon: '準備中',
@@ -244,6 +323,10 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '映画',
             signUp: '新規登録',
             signUpRequired: 'ログインが必要です。（Coming soon）',
+            landing: {
+                'dog-ai': { title: 'AI犬 理想ワールドカップ', subtitle: 'AIが作った8匹の犬から好みの犬を選ぼう！' },
+                'female-ai-animation': { title: '女性AIアニメ理想ワールドカップ', subtitle: '8人のAIアニメキャラから理想のタイプを選ぼう！' },
+            },
         },
         zh: {
             round: (round) => `${round}强赛`,
@@ -254,10 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
             quarterFinals: '八强赛',
             semiFinals: '半决赛',
             final: '决赛',
-            landingTitle: '女性AI动画理想世界杯',
-            landingSubtitle: '从8位AI动画角色中选出你的理想型！',
             startBtn: '开始',
             sidebarTitle: 'AI理想世界杯',
+            categoryDog: 'AI狗狗\n理想世界杯',
             categoryFemale: '女性AI动画\n理想世界杯',
             categoryMale: '男性AI动画\n理想世界杯',
             comingSoon: '即将推出',
@@ -305,12 +387,16 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '电影',
             signUp: '注册',
             signUpRequired: '需要登录。（Coming soon）',
+            landing: {
+                'dog-ai': { title: 'AI狗狗理想世界杯', subtitle: '从8只AI生成的狗狗中选出你最喜欢的！' },
+                'female-ai-animation': { title: '女性AI动画理想世界杯', subtitle: '从8位AI动画角色中选出你的理想型！' },
+            },
         },
     };
 
     let currentLang = 'ko';
     let currentRound = 8;
-    let contenders = [...images];
+    let contenders = [...getCurrentImages()];
     let winners = [];
     let currentWinner = null;
 
@@ -321,19 +407,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const winnerContainer = document.getElementById('winner-container');
     const langButtons = document.querySelectorAll('.lang-selector button');
 
+    function updatePreviewGrid() {
+        const grid = document.querySelector('.preview-grid');
+        grid.innerHTML = getCurrentImages().map(item => `
+            <div class="preview-item">
+                <video autoplay loop muted playsinline>
+                    <source src="${item.src}" type="video/mp4">
+                </video>
+            </div>
+        `).join('');
+    }
+
     function updateTexts() {
         const lang = i18n[currentLang];
         document.title = lang.sidebarTitle;
 
         // Sidebar texts
         document.querySelector('.sidebar-title').textContent = lang.sidebarTitle;
+        document.querySelector('#category-dog .category-label').innerHTML = lang.categoryDog.replace('\n', '<br>');
         document.querySelector('#category-female .category-label').innerHTML = lang.categoryFemale.replace('\n', '<br>');
         document.querySelector('#category-male .category-label').innerHTML = lang.categoryMale.replace('\n', '<br>');
         document.querySelector('.coming-soon').textContent = lang.comingSoon;
 
-        // Landing page texts
-        document.querySelector('.landing-title').textContent = lang.landingTitle;
-        document.querySelector('.landing-subtitle').textContent = lang.landingSubtitle;
+        // Landing page texts (category-specific)
+        const landingTexts = lang.landing[currentCategory];
+        document.querySelector('.landing-title').textContent = landingTexts.title;
+        document.querySelector('.landing-subtitle').textContent = landingTexts.subtitle;
         document.getElementById('start-btn').textContent = lang.startBtn;
 
         // Game texts
@@ -402,13 +501,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentWinner) return;
         document.getElementById('winner-ai').textContent = `${i18n[currentLang].createdBy} ${currentWinner.ai}`;
         const descEl = document.getElementById('winner-description');
-        const desc = winnerDescriptions[currentWinner.ai];
+        const desc = getCurrentDescriptions()[currentWinner.ai];
         if (desc) {
             descEl.textContent = desc[currentLang] || desc['en'];
             descEl.style.display = 'block';
         } else {
             descEl.style.display = 'none';
         }
+    }
+
+    const categoryToSidebar = {
+        'dog-ai': 'category-dog',
+        'female-ai-animation': 'category-female',
+    };
+
+    function switchCategory(categoryId) {
+        currentCategory = categoryId;
+        // Update sidebar active state
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.classList.toggle('active', item.id === categoryToSidebar[categoryId]);
+        });
+        updatePreviewGrid();
+        showLanding();
     }
 
     function showLanding() {
@@ -420,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startTournament() {
         landingPage.style.display = 'none';
         gameArea.style.display = 'block';
-        contenders = [...images];
+        contenders = [...getCurrentImages()];
         currentRound = 8;
         currentWinner = null;
         winnerContainer.style.display = 'none';
@@ -504,6 +618,7 @@ document.addEventListener('DOMContentLoaded', () => {
             winner: winnerFile,
             ai: winner.ai,
             lang: currentLang,
+            category: currentCategory,
         });
         fetch(SCRIPT_URL + '?' + voteParams.toString(), { mode: 'no-cors' }).catch(() => {});
     }
@@ -513,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 비디오 파일명 → 이미지 경로 매핑
     function getImageFromVideo(videoFilename) {
-        const entry = images.find(item => item.src.endsWith(videoFilename));
+        const entry = getCurrentImages().find(item => item.src.endsWith(videoFilename));
         return entry ? entry.img : null;
     }
 
@@ -527,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('rankings-container').style.display = 'block';
 
         try {
-            let url = SCRIPT_URL + '?action=getRankings';
+            let url = SCRIPT_URL + '?action=getRankings&category=' + currentCategory;
             if (filterByLang) url += '&lang=' + currentLang;
             const res = await fetch(url);
             const data = await res.json();
@@ -593,6 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 feedback: feedback,
                 timestamp: new Date().toISOString(),
                 lang: currentLang,
+                category: currentCategory,
             });
             await fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' });
             statusEl.textContent = i18n[currentLang].feedbackSuccess;
@@ -609,8 +725,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start button
     document.getElementById('start-btn').addEventListener('click', startTournament);
 
-    // Sidebar category click
-    document.getElementById('category-female').addEventListener('click', showLanding);
+    // Sidebar category clicks
+    document.getElementById('category-dog').addEventListener('click', () => switchCategory('dog-ai'));
+    document.getElementById('category-female').addEventListener('click', () => switchCategory('female-ai-animation'));
 
     // Language selector
     langButtons.forEach(button => {
@@ -700,7 +817,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 action: 'generateStory',
                 winnerModelName: currentWinner.ai,
                 winnerImageUrl: currentWinner.src,
-                tournamentType: 'female-ai-animation',
+                tournamentType: categories[currentCategory].tournamentType,
                 language: currentLang,
                 genre: genre,
                 humor: humor,
@@ -784,6 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Show landing page on load
+    // Initialize: show landing with preview grid
+    updatePreviewGrid();
     showLanding();
 });

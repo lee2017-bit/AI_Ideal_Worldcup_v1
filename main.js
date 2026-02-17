@@ -907,6 +907,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Contact button - show email
+    document.getElementById('contact-btn').addEventListener('click', () => {
+        alert('aiidealworldcup@gmail.com');
+    });
+
     // Initialize: show landing with preview grid
     updatePreviewGrid();
     showLanding();

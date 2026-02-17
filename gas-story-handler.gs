@@ -195,11 +195,33 @@ function callGLM(systemPrompt, language) {
   var json = JSON.parse(body);
   var content = json.choices[0].message.content;
 
-  // title = 첫 줄, storyText = 나머지
+  // 빈 응답 체크
+  if (!content || content.trim().length === 0) {
+    throw new Error('GLM returned empty response');
+  }
+
+  // 마크다운 기호 정리
+  content = content.replace(/\*\*/g, '').replace(/^#+\s*/gm, '');
+
+  // title = 첫 줄 (빈 줄 스킵), storyText = 나머지
   var lines = content.split('\n');
-  var title = lines[0].trim();
-  var storyText = lines.slice(1).join('\n').trim();
-  storyText = storyText.replace(/^\n+/, '');
+  var title = '';
+  var storyStartIdx = 0;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (line.length > 0) {
+      title = line.replace(/^제목[:\s]*/i, '');
+      storyStartIdx = i + 1;
+      break;
+    }
+  }
+  var storyText = lines.slice(storyStartIdx).join('\n').trim();
+
+  // title이 여전히 비어있으면 전체를 storyText로
+  if (!title) {
+    title = '무제';
+    storyText = content.trim();
+  }
 
   return {
     title: title,

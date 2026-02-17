@@ -723,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(data.error);
             }
 
-            if (data.title && data.storyText) {
+            if (data.title !== undefined && data.storyText !== undefined && (data.title.length > 0 || data.storyText.length > 0)) {
                 // 제목에서 마크다운 기호 제거
                 novelResultTitle.textContent = data.title.replace(/\*\*/g, '').replace(/^#+\s*/, '').replace(/^제목:\s*/i, '');
                 novelResultText.textContent = data.storyText;

@@ -711,7 +711,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (userNote) params.append('userNote', userNote);
 
             const res = await fetch(SCRIPT_URL + '?' + params.toString(), { redirect: 'follow' });
-            const data = await res.json();
+            const text = await res.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (parseErr) {
+                throw new Error('JSON parse failed: ' + text.substring(0, 100));
+            }
 
             if (data.error) {
                 throw new Error(data.error);
@@ -731,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Invalid response');
             }
         } catch (err) {
-            novelStatus.textContent = lang.generateError;
+            novelStatus.textContent = lang.generateError + ' (' + err.message + ')';
             novelStatus.className = 'novel-status error';
         } finally {
             novelGenerateBtn.disabled = false;

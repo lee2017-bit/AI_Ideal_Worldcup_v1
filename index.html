@@ -11,6 +11,7 @@
 </head>
 <body>
     <header class="top-bar">
+        <button class="signup-btn-locked" id="signup-btn" disabled>Sign Up <span class="btn-lock-badge">🔒</span></button>
         <div class="lang-selector">
             <button data-lang="ko"><span class="fi fi-kr"></span> 한국어</button>
             <button data-lang="en" class="active"><span class="fi fi-us"></span> English</button>
@@ -69,7 +70,11 @@
                     <div id="feedback-status" class="feedback-status"></div>
                     <p class="feedback-notice">We plan to create a second edition based on your feedback.</p>
                 </div>
-                <button id="write-novel-btn" class="write-novel-btn">Write a Novel</button>
+                <div class="studio-buttons">
+                    <button id="write-novel-btn" class="write-novel-btn">Write a Novel</button>
+                    <button class="studio-btn-locked" id="write-webtoon-btn" disabled>Webtoon <span class="btn-lock-badge">🔒</span></button>
+                    <button class="studio-btn-locked" id="write-movie-btn" disabled>Movie <span class="btn-lock-badge">🔒</span></button>
+                </div>
                 <div class="rankings-buttons">
                     <button id="show-rankings-all" class="rankings-btn">Overall Rankings</button>
                     <button id="show-rankings-lang" class="rankings-btn rankings-btn-lang">Language Rankings</button>

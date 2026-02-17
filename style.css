@@ -460,6 +460,48 @@ body {
     color: #f44336;
 }
 
+/* ===== Studio Buttons (Novel / Webtoon / Movie) ===== */
+.studio-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.studio-btn-locked {
+    background: #333;
+    color: #666;
+    border: 1px solid #444;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: not-allowed;
+    opacity: 0.6;
+    position: relative;
+}
+
+.btn-lock-badge {
+    font-size: 0.8rem;
+    margin-left: 2px;
+}
+
+/* ===== Sign Up Button (Top Bar) ===== */
+.signup-btn-locked {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: #666;
+    border: 1px solid #444;
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* ===== Write a Novel Button ===== */
 .write-novel-btn {
     background: linear-gradient(135deg, #00c853, #009624);
@@ -955,6 +997,20 @@ body {
     .lang-selector button {
         padding: 6px 10px;
         font-size: 0.75rem;
+    }
+    .signup-btn-locked {
+        position: static;
+        transform: none;
+        margin-bottom: 6px;
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+    .studio-buttons {
+        gap: 6px;
+    }
+    .studio-btn-locked {
+        padding: 8px 16px;
+        font-size: 0.85rem;
     }
     /* Novel Modal Mobile */
     .novel-modal-overlay {

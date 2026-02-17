@@ -118,6 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: '미스터리',
             genreSF: 'SF',
             genreHealing: '힐링',
+            webtoon: '웹툰',
+            movie: '영화',
+            signUp: '가입하기',
+            signUpRequired: '가입이 필요합니다. (Coming soon)',
         },
         en: {
             round: (round) => `Round of ${round}`,
@@ -175,6 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: 'Mystery',
             genreSF: 'SF',
             genreHealing: 'Healing',
+            webtoon: 'Webtoon',
+            movie: 'Movie',
+            signUp: 'Sign Up',
+            signUpRequired: 'Sign-in required. (Coming soon)',
         },
         ja: {
             round: (round) => `ベスト${round}`,
@@ -232,6 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: 'ミステリー',
             genreSF: 'SF',
             genreHealing: 'ヒーリング',
+            webtoon: 'ウェブトゥーン',
+            movie: '映画',
+            signUp: '新規登録',
+            signUpRequired: 'ログインが必要です。（Coming soon）',
         },
         zh: {
             round: (round) => `${round}强赛`,
@@ -289,6 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: '悬疑',
             genreSF: '科幻',
             genreHealing: '治愈',
+            webtoon: '网漫',
+            movie: '电影',
+            signUp: '注册',
+            signUpRequired: '需要登录。（Coming soon）',
         },
     };
 
@@ -335,6 +351,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('show-rankings-all').textContent = lang.showRankingsAll;
         document.getElementById('show-rankings-lang').textContent = lang.showRankingsLang;
         document.querySelector('.feedback-notice').textContent = lang.feedbackNotice;
+
+        // Studio buttons & Sign Up
+        document.getElementById('write-webtoon-btn').childNodes[0].textContent = lang.webtoon + ' ';
+        document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
+        document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
 
         // Novel modal texts
         const novelModal = document.getElementById('novel-modal-overlay');
@@ -696,6 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 novelResultTitle.textContent = data.title;
                 novelResultText.textContent = data.storyText;
                 novelResult.style.display = 'block';
+                novelGenerateBtn.style.display = 'none';
                 novelRegenerateBtn.style.display = 'inline-block';
                 novelCopyBtn.style.display = 'inline-block';
                 novelStatus.textContent = '';
@@ -712,7 +734,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     novelGenerateBtn.addEventListener('click', generateStory);
-    novelRegenerateBtn.addEventListener('click', generateStory);
+    novelRegenerateBtn.addEventListener('click', () => {
+        // 결과 숨기고 설정 화면으로 돌아가기
+        novelResult.style.display = 'none';
+        novelRegenerateBtn.style.display = 'none';
+        novelCopyBtn.style.display = 'none';
+        novelGenerateBtn.style.display = 'inline-block';
+        novelStatus.textContent = '';
+        novelStatus.className = 'novel-status';
+    });
 
     // Copy story
     novelCopyBtn.addEventListener('click', async () => {

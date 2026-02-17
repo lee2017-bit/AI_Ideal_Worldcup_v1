@@ -194,6 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '영화',
             signUp: '가입하기',
             signUpRequired: '가입이 필요합니다. (Coming soon)',
+            // Footer
+            terms: '이용약관',
+            privacy: '개인정보 처리방침',
+            adNotice: '광고 안내',
             // Community
             community: '커뮤니티',
             communityTitle: '커뮤니티',
@@ -267,6 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: 'Movie',
             signUp: 'Sign Up',
             signUpRequired: 'Sign-in required. (Coming soon)',
+            terms: 'Terms of Service',
+            privacy: 'Privacy Policy',
+            adNotice: 'Ad Notice',
             community: 'Community',
             communityTitle: 'Community',
             communityBack: 'Back',
@@ -337,6 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '映画',
             signUp: '新規登録',
             signUpRequired: 'ログインが必要です。（Coming soon）',
+            terms: '利用規約',
+            privacy: 'プライバシーポリシー',
+            adNotice: '広告について',
             community: 'コミュニティ',
             communityTitle: 'コミュニティ',
             communityBack: '戻る',
@@ -407,6 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '电影',
             signUp: '注册',
             signUpRequired: '需要登录。（Coming soon）',
+            terms: '服务条款',
+            privacy: '隐私政策',
+            adNotice: '广告说明',
             community: '社区',
             communityTitle: '社区',
             communityBack: '返回',
@@ -482,6 +495,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
         document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
         document.getElementById('contact-btn').textContent = lang.contact;
+        document.getElementById('footer-terms').textContent = lang.terms;
+        document.getElementById('footer-privacy').textContent = lang.privacy;
+        document.getElementById('footer-ad').textContent = lang.adNotice;
         document.getElementById('community-btn').textContent = lang.community;
         document.getElementById('community-title').textContent = lang.communityTitle;
         document.getElementById('community-back-btn').textContent = lang.communityBack;
@@ -1007,6 +1023,30 @@ document.addEventListener('DOMContentLoaded', () => {
         communityPost.style.display = 'none';
         communityList.style.display = 'flex';
     });
+
+    // ===== Legal Modal (Footer) =====
+    const legalModalOverlay = document.getElementById('legal-modal-overlay');
+    const legalModalTitle = document.getElementById('legal-modal-title');
+    const legalModalContent = document.getElementById('legal-modal-content');
+
+    async function openLegal(file, titleKey) {
+        const lang = i18n[currentLang];
+        legalModalTitle.textContent = lang[titleKey];
+        legalModalContent.textContent = 'Loading...';
+        legalModalOverlay.style.display = 'flex';
+        try {
+            const res = await fetch('posts/' + file);
+            legalModalContent.textContent = await res.text();
+        } catch (err) {
+            legalModalContent.textContent = 'Failed to load.';
+        }
+    }
+
+    document.getElementById('footer-terms').addEventListener('click', (e) => { e.preventDefault(); openLegal('terms.txt', 'terms'); });
+    document.getElementById('footer-privacy').addEventListener('click', (e) => { e.preventDefault(); openLegal('privacy.txt', 'privacy'); });
+    document.getElementById('footer-ad').addEventListener('click', (e) => { e.preventDefault(); openLegal('ad-notice.txt', 'adNotice'); });
+    document.getElementById('legal-modal-close').addEventListener('click', () => { legalModalOverlay.style.display = 'none'; });
+    legalModalOverlay.addEventListener('click', (e) => { if (e.target === legalModalOverlay) legalModalOverlay.style.display = 'none'; });
 
     // Contact modal
     const contactModalOverlay = document.getElementById('contact-modal-overlay');

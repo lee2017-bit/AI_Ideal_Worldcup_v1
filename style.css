@@ -1006,6 +1006,52 @@ body {
     white-space: pre-line;
 }
 
+/* ===== Footer ===== */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 260px;
+    right: 0;
+    background: #0d0d1a;
+    border-top: 1px solid #333;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    z-index: 50;
+}
+
+.footer-link {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #007bff;
+}
+
+.footer-sep {
+    color: #555;
+    margin: 0 8px;
+}
+
+/* ===== Legal Modal ===== */
+.legal-modal {
+    max-width: 600px;
+    max-height: 80vh;
+}
+
+.legal-modal .novel-modal-body {
+    max-height: 65vh;
+    overflow-y: auto;
+}
+
+.legal-modal .post-content {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: #ccc;
+}
+
 /* ===== Responsive: Tablet ===== */
 @media (max-width: 1024px) {
     .sidebar {
@@ -1189,6 +1235,12 @@ body {
     }
     .community-card {
         padding: 15px 18px;
+    }
+    .site-footer {
+        left: 0;
+        bottom: auto;
+        position: relative;
+        padding-bottom: 80px;
     }
     .studio-buttons {
         gap: 6px;

@@ -267,8 +267,9 @@ body {
 .preview-item video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
+    background: #000;
 }
 
 .start-btn {
@@ -1268,7 +1269,8 @@ body {
     }
     .image-wrapper video {
         max-height: 35vh;
-        object-fit: cover;
+        object-fit: contain;
+        background: #000;
     }
     .image-wrapper p {
         bottom: 5px;

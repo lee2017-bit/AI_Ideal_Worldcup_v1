@@ -212,7 +212,7 @@ function callOpenAI(systemPrompt, language, model) {
       { role: 'user', content: '작성해줘.' }
     ],
     temperature: 0.8,
-    max_tokens: 1200
+    max_completion_tokens: 1200
   };
 
   var options = {

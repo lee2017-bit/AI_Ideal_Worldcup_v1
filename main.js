@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreSF: 'SF',
             genreHealing: '힐링',
             aiModelLabel: 'AI 모델',
+            generateMovie: '영화 생성',
             webtoon: '웹툰',
             movie: '영화',
             signUp: '가입하기',
@@ -276,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreSF: 'SF',
             genreHealing: 'Healing',
             aiModelLabel: 'AI Model',
+            generateMovie: 'Generate Movie',
             webtoon: 'Webtoon',
             movie: 'Movie',
             signUp: 'Sign Up',
@@ -356,6 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreSF: 'SF',
             genreHealing: 'ヒーリング',
             aiModelLabel: 'AIモデル',
+            generateMovie: '映画生成',
             webtoon: 'ウェブトゥーン',
             movie: '映画',
             signUp: '新規登録',
@@ -436,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreSF: '科幻',
             genreHealing: '治愈',
             aiModelLabel: 'AI模型',
+            generateMovie: '生成电影',
             webtoon: '网漫',
             movie: '电影',
             signUp: '注册',
@@ -565,6 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('novel-copy-btn').textContent = lang.copy;
             document.getElementById('novel-length-label').textContent = lang.length;
             document.getElementById('novel-model-label').textContent = lang.aiModelLabel;
+            document.getElementById('novel-movie-text').textContent = lang.generateMovie;
             // Genre options
             const genreSelect = document.getElementById('novel-genre');
             const genreKeys = ['genreModernFantasy', 'genreRomance', 'genreMystery', 'genreSF', 'genreHealing'];
@@ -938,6 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 novelGenerateBtn.style.display = 'none';
                 novelRegenerateBtn.style.display = 'inline-block';
                 novelCopyBtn.style.display = 'inline-block';
+                document.getElementById('novel-movie-btn').style.display = 'inline-block';
                 novelStatus.textContent = '';
                 novelStatus.className = 'novel-status';
             } else {
@@ -957,6 +963,7 @@ document.addEventListener('DOMContentLoaded', () => {
         novelResult.style.display = 'none';
         novelRegenerateBtn.style.display = 'none';
         novelCopyBtn.style.display = 'none';
+        document.getElementById('novel-movie-btn').style.display = 'none';
         novelGenerateBtn.style.display = 'inline-block';
         novelStatus.textContent = '';
         novelStatus.className = 'novel-status';

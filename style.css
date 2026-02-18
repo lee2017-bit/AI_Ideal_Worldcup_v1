@@ -980,6 +980,14 @@ body {
     color: #fff;
 }
 
+.novel-btn-movie-locked {
+    background: #333;
+    color: #666;
+    border: 1px solid #444;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* ===== Community Page ===== */
 .community-header {
     display: flex;

@@ -190,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: '미스터리',
             genreSF: 'SF',
             genreHealing: '힐링',
+            aiModelLabel: 'AI 모델',
             webtoon: '웹툰',
             movie: '영화',
             signUp: '가입하기',
@@ -274,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: 'Mystery',
             genreSF: 'SF',
             genreHealing: 'Healing',
+            aiModelLabel: 'AI Model',
             webtoon: 'Webtoon',
             movie: 'Movie',
             signUp: 'Sign Up',
@@ -353,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: 'ミステリー',
             genreSF: 'SF',
             genreHealing: 'ヒーリング',
+            aiModelLabel: 'AIモデル',
             webtoon: 'ウェブトゥーン',
             movie: '映画',
             signUp: '新規登録',
@@ -432,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
             genreMystery: '悬疑',
             genreSF: '科幻',
             genreHealing: '治愈',
+            aiModelLabel: 'AI模型',
             webtoon: '网漫',
             movie: '电影',
             signUp: '注册',
@@ -560,6 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('novel-regenerate-btn').textContent = lang.regenerate;
             document.getElementById('novel-copy-btn').textContent = lang.copy;
             document.getElementById('novel-length-label').textContent = lang.length;
+            document.getElementById('novel-model-label').textContent = lang.aiModelLabel;
             // Genre options
             const genreSelect = document.getElementById('novel-genre');
             const genreKeys = ['genreModernFantasy', 'genreRomance', 'genreMystery', 'genreSF', 'genreHealing'];
@@ -886,6 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const catharsis = document.getElementById('novel-catharsis').value;
         const coherence = document.getElementById('novel-coherence').value;
         const userNote = document.getElementById('novel-usernote').value.trim();
+        const aiModel = document.getElementById('novel-model').value;
 
         // UI state: loading
         novelGenerateBtn.disabled = true;
@@ -907,6 +913,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 catharsis: catharsis,
                 coherence: coherence,
                 lengthMode: 'prologue',
+                aiModel: aiModel,
             });
             if (userNote) params.append('userNote', userNote);
 

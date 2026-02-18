@@ -1,5 +1,5 @@
 // ============================================================
-// Code.gs — 완성본 (기존 코드 + GLM-5 소설 생성)
+// Code.gs — 완성본 (GLM-5 + OpenAI GPT 소설 생성)
 // Google Apps Script 에디터에서 Code.gs 전체를 이 코드로 교체하세요.
 // ============================================================
 
@@ -7,6 +7,10 @@
 var GLM_API_KEY = '8d184c97c16b4c8c99d4c37592be2b94.g1PqXfir72KvgYiY';
 var GLM_API_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 var GLM_MODEL   = 'glm-5';
+
+// OpenAI API 설정
+var OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE'; // Apps Script에서 직접 입력하세요
+var OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 
 function doGet(e) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -68,7 +72,7 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
 
-  // ===== 소설 생성 (GLM-5) =====
+  // ===== 소설 생성 =====
   } else if (action === 'generateStory') {
     return handleGenerateStory(e);
 
@@ -98,6 +102,7 @@ function handleGenerateStory(e) {
   var humor           = parseInt(p.humor) || 50;
   var catharsis       = parseInt(p.catharsis) || 50;
   var coherence       = parseInt(p.coherence) || 50;
+  var aiModel         = p.aiModel || 'gpt-5.1';
 
   var userNote = p.userNote || '';
   var tournamentType = p.tournamentType || 'female-ai-animation';
@@ -111,7 +116,11 @@ function handleGenerateStory(e) {
     var result;
     for (var attempt = 0; attempt < 2; attempt++) {
       try {
-        result = callGLM(prompt, language);
+        if (aiModel === 'glm-5') {
+          result = callGLM(prompt, language);
+        } else {
+          result = callOpenAI(prompt, language, aiModel);
+        }
         break; // 성공하면 루프 탈출
       } catch (retryErr) {
         if (attempt === 1) throw retryErr; // 2번째도 실패하면 에러
@@ -193,6 +202,54 @@ function buildStoryPrompt(winnerModelName, language, genre, humor, catharsis, co
 }
 
 // ============================================================
+// OpenAI API 호출
+// ============================================================
+function callOpenAI(systemPrompt, language, model) {
+  var payload = {
+    model: model,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: '작성해줘.' }
+    ],
+    temperature: 0.8,
+    max_tokens: 1200
+  };
+
+  var options = {
+    method: 'post',
+    contentType: 'application/json',
+    headers: {
+      'Authorization': 'Bearer ' + OPENAI_API_KEY
+    },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
+
+  var response = UrlFetchApp.fetch(OPENAI_API_URL, options);
+  var code = response.getResponseCode();
+  var body = response.getContentText();
+
+  if (code !== 200) {
+    throw new Error('OpenAI API error: ' + code + ' - ' + body);
+  }
+
+  var json = JSON.parse(body);
+
+  if (!json.choices || json.choices.length === 0 || !json.choices[0].message) {
+    throw new Error('OpenAI invalid structure: ' + body.substring(0, 200));
+  }
+
+  var content = json.choices[0].message.content;
+
+  if (!content || content.trim().length === 0) {
+    var finishReason = json.choices[0].finish_reason || 'unknown';
+    throw new Error('OpenAI empty (finish: ' + finishReason + ')');
+  }
+
+  return parseStoryContent(content);
+}
+
+// ============================================================
 // GLM-5 API 호출
 // ============================================================
 function callGLM(systemPrompt, language) {
@@ -238,6 +295,13 @@ function callGLM(systemPrompt, language) {
     throw new Error('GLM empty (finish: ' + finishReason + ')');
   }
 
+  return parseStoryContent(content);
+}
+
+// ============================================================
+// 소설 응답 파싱 (공통)
+// ============================================================
+function parseStoryContent(content) {
   // 마크다운 기호 정리
   content = content.replace(/\*\*/g, '').replace(/^#+\s*/gm, '');
 

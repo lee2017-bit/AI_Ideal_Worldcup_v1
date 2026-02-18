@@ -711,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Google Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8XZ1QlLJ4alJV_YFRtubqc2ppxcsa20LbUvSVMMWdOeqzXlaMRLYX0O8n--MbHPF2/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmc6jsFWBrxfrqk-JpqfkfHdcok0iwg3mG5LaWv3SqKfv1vlqGwo3doFZ80TDPzoA0/exec';
 
     // 비디오 파일명 → 이미지 경로 매핑
     function getImageFromVideo(videoFilename) {

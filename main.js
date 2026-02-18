@@ -145,10 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
             semiFinals: '4강',
             final: '결승',
             startBtn: '시작하기',
-            sidebarTitle: 'AI 이상형 월드컵',
-            categoryDog: 'AI 강아지\n이상형월드컵',
-            categoryFemale: '여자 AI 애니메이션\n이상형월드컵',
-            categoryMale: '남자 AI 애니메이션\n이상형월드컵',
+            sidebarTitle: 'AI 주인공 월드컵',
+            categoryDog: 'AI 강아지\n주인공월드컵',
+            categoryFemale: '여자 AI 애니메이션\n주인공월드컵',
+            categoryMale: '남자 AI 애니메이션\n주인공월드컵',
             comingSoon: '준비중',
             showRankingsAll: '전체 랭킹보기',
             showRankingsLang: '언어별 랭킹보기',
@@ -215,8 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contactMsg: '문의 내용은 아래 이메일로 보내주세요.',
             // Category-specific landing
             landing: {
-                'dog-ai': { title: 'AI 강아지 이상형월드컵', subtitle: 'AI로 만든 8마리 강아지 중 내 취향인 강아지를 골라보세요!' },
-                'female-ai-animation': { title: '여자 AI 애니메이션 이상형월드컵', subtitle: '8명의 AI 애니메이션 캐릭터 중 나의 이상형을 골라보세요!' },
+                'dog-ai': { title: 'AI 강아지 주인공월드컵', subtitle: 'AI로 만든 8마리 강아지 중 내 취향인 강아지를 골라보세요!' },
+                'female-ai-animation': { title: '여자 AI 애니메이션 주인공월드컵', subtitle: '8명의 AI 애니메이션 캐릭터 중 나의 주인공을 골라보세요!' },
             },
         },
         en: {
@@ -229,10 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
             semiFinals: 'Semi-Finals',
             final: 'Final',
             startBtn: 'Start',
-            sidebarTitle: 'AI Ideal Worldcup',
-            categoryDog: 'AI Dog\nIdeal Worldcup',
-            categoryFemale: 'Female AI Animation\nIdeal Worldcup',
-            categoryMale: 'Male AI Animation\nIdeal Worldcup',
+            sidebarTitle: 'AI Protagonist Worldcup',
+            categoryDog: 'AI Dog\nProtagonist Worldcup',
+            categoryFemale: 'Female AI Animation\nProtagonist Worldcup',
+            categoryMale: 'Male AI Animation\nProtagonist Worldcup',
             comingSoon: 'Coming Soon',
             showRankingsAll: 'Overall Rankings',
             showRankingsLang: 'Language Rankings',
@@ -294,8 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contactTitle: 'Contact Us',
             contactMsg: 'Please send your inquiries to the email below.',
             landing: {
-                'dog-ai': { title: 'AI Dog Ideal Worldcup', subtitle: 'Pick your favorite among 8 AI-generated dogs!' },
-                'female-ai-animation': { title: 'Female AI Animation Ideal Worldcup', subtitle: 'Pick your ideal among 8 AI animation characters!' },
+                'dog-ai': { title: 'AI Dog Protagonist Worldcup', subtitle: 'Pick your favorite among 8 AI-generated dogs!' },
+                'female-ai-animation': { title: 'Female AI Animation Protagonist Worldcup', subtitle: 'Pick your protagonist among 8 AI animation characters!' },
             },
         },
         ja: {
@@ -308,10 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
             semiFinals: '準決勝',
             final: '決勝',
             startBtn: 'スタート',
-            sidebarTitle: 'AI理想ワールドカップ',
-            categoryDog: 'AI犬\n理想ワールドカップ',
-            categoryFemale: '女性AIアニメ\n理想ワールドカップ',
-            categoryMale: '男性AIアニメ\n理想ワールドカップ',
+            sidebarTitle: 'AI主人公ワールドカップ',
+            categoryDog: 'AI犬\n主人公ワールドカップ',
+            categoryFemale: '女性AIアニメ\n主人公ワールドカップ',
+            categoryMale: '男性AIアニメ\n主人公ワールドカップ',
             comingSoon: '準備中',
             showRankingsAll: '全体ランキング',
             showRankingsLang: '言語別ランキング',
@@ -373,8 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contactTitle: 'お問い合わせ',
             contactMsg: 'お問い合わせは下記メールアドレスまでお送りください。',
             landing: {
-                'dog-ai': { title: 'AI犬 理想ワールドカップ', subtitle: 'AIが作った8匹の犬から好みの犬を選ぼう！' },
-                'female-ai-animation': { title: '女性AIアニメ理想ワールドカップ', subtitle: '8人のAIアニメキャラから理想のタイプを選ぼう！' },
+                'dog-ai': { title: 'AI犬 主人公ワールドカップ', subtitle: 'AIが作った8匹の犬から好みの犬を選ぼう！' },
+                'female-ai-animation': { title: '女性AIアニメ主人公ワールドカップ', subtitle: '8人のAIアニメキャラから主人公を選ぼう！' },
             },
         },
         zh: {
@@ -387,10 +387,10 @@ document.addEventListener('DOMContentLoaded', () => {
             semiFinals: '半决赛',
             final: '决赛',
             startBtn: '开始',
-            sidebarTitle: 'AI理想世界杯',
-            categoryDog: 'AI狗狗\n理想世界杯',
-            categoryFemale: '女性AI动画\n理想世界杯',
-            categoryMale: '男性AI动画\n理想世界杯',
+            sidebarTitle: 'AI主角世界杯',
+            categoryDog: 'AI狗狗\n主角世界杯',
+            categoryFemale: '女性AI动画\n主角世界杯',
+            categoryMale: '男性AI动画\n主角世界杯',
             comingSoon: '即将推出',
             showRankingsAll: '总排名',
             showRankingsLang: '语言排名',
@@ -452,8 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
             contactTitle: '联系我们',
             contactMsg: '请将您的问题发送至以下邮箱。',
             landing: {
-                'dog-ai': { title: 'AI狗狗理想世界杯', subtitle: '从8只AI生成的狗狗中选出你最喜欢的！' },
-                'female-ai-animation': { title: '女性AI动画理想世界杯', subtitle: '从8位AI动画角色中选出你的理想型！' },
+                'dog-ai': { title: 'AI狗狗主角世界杯', subtitle: '从8只AI生成的狗狗中选出你最喜欢的！' },
+                'female-ai-animation': { title: '女性AI动画主角世界杯', subtitle: '从8位AI动画角色中选出你的主角！' },
             },
         },
     };
@@ -706,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Google Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz24V-PX52X6WK1H5DLKjjom9bHNAJEMEXiMXkUucYltPWXtjgAhSClx_PkJXmCNiFF/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykt32pZOJlN6UYwLeee9UsK6RC6E67Q5vBpBpTIvaRaFc-DAoUrol8DsBZQSbFGAOx/exec';
 
     // 비디오 파일명 → 이미지 경로 매핑
     function getImageFromVideo(videoFilename) {

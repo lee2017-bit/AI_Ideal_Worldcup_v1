@@ -11,14 +11,23 @@
 </head>
 <body>
     <header class="top-bar">
-        <button class="signup-btn-locked" id="signup-btn" disabled>Sign Up <span class="btn-lock-badge">🔒</span></button>
-        <button class="community-btn" id="community-btn">Community</button>
-        <button class="contact-btn" id="contact-btn">Contact</button>
-        <div class="lang-selector">
-            <button data-lang="ko" class="active"><span class="fi fi-kr"></span> 한국어</button>
-            <button data-lang="en"><span class="fi fi-us"></span> English</button>
-            <button data-lang="ja"><span class="fi fi-jp"></span> 日本語</button>
-            <button data-lang="zh"><span class="fi fi-cn"></span> 中文</button>
+        <div class="globe-menu">
+            <button class="globe-btn" id="globe-btn">🌐</button>
+            <div class="globe-dropdown" id="globe-dropdown">
+                <button data-lang="ko" class="active"><span class="fi fi-kr"></span> 한국어</button>
+                <button data-lang="en"><span class="fi fi-us"></span> English</button>
+                <button data-lang="ja"><span class="fi fi-jp"></span> 日本語</button>
+                <button data-lang="zh"><span class="fi fi-cn"></span> 中文</button>
+            </div>
+        </div>
+        <span class="top-bar-title">AI Ideal Worldcup</span>
+        <div class="hamburger-menu">
+            <button class="hamburger-btn" id="hamburger-btn">☰</button>
+            <div class="hamburger-dropdown" id="hamburger-dropdown">
+                <button id="menu-signup" disabled>🔒 <span id="menu-signup-text">Sign Up</span></button>
+                <button id="menu-community"><span id="menu-community-text">Community</span></button>
+                <button id="menu-contact"><span id="menu-contact-text">Contact</span></button>
+            </div>
         </div>
     </header>
 
@@ -89,11 +98,20 @@
                 <h1 id="community-title">Community</h1>
                 <button class="community-back-btn" id="community-back-btn">Back</button>
             </div>
+            <div class="community-controls">
+                <div class="community-tabs">
+                    <button class="community-tab active" data-filter="all" id="tab-all">전체</button>
+                    <button class="community-tab" data-filter="notice" id="tab-notice">공지</button>
+                    <button class="community-tab" data-filter="novel" id="tab-novel">소설</button>
+                </div>
+                <button class="community-write-btn" disabled>🔒 <span id="community-write-text">글쓰기</span></button>
+            </div>
             <div id="community-list" class="community-list"></div>
             <div id="community-post" class="community-post" style="display:none;">
                 <button class="community-back-btn" id="post-back-btn">Back</button>
                 <h2 id="post-title" class="post-title"></h2>
                 <p id="post-date" class="post-date"></p>
+                <p id="post-author" class="post-author"></p>
                 <div id="post-content" class="post-content"></div>
             </div>
         </div>

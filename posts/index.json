@@ -3,6 +3,8 @@
         "id": "inhibition-release",
         "file": "억제_해제_버튼은_농담이었다_출판급_완전판.txt",
         "date": "2026-02-17",
+        "category": "novel",
+        "author": "jakwon",
         "title": {
             "ko": "억제 해제 버튼은 농담이었다",
             "en": "The Inhibition Release Button Was a Joke",
@@ -20,6 +22,8 @@
         "id": "suitable",
         "file": "(단편)적합.txt",
         "date": "2026-02-17",
+        "category": "novel",
+        "author": "jakwon",
         "title": {
             "ko": "적합 (단편)",
             "en": "Suitable (Short Story)",
@@ -37,6 +41,7 @@
         "id": "sample",
         "file": "sample.txt",
         "date": "2026-02-17",
+        "category": "notice",
         "title": {
             "ko": "AI 이상형 월드컵에 오신 것을 환영합니다!",
             "en": "Welcome to AI Ideal Worldcup!",

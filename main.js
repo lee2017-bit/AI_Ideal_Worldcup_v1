@@ -203,6 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
             community: '커뮤니티',
             communityTitle: '커뮤니티',
             communityBack: '돌아가기',
+            // Community tabs
+            communityAll: '전체',
+            communityNotice: '공지',
+            communityNovel: '소설',
+            communityWrite: '글쓰기',
+            communityAuthor: '작가',
             // Contact
             contact: '문의',
             contactTitle: '문의하기',
@@ -279,6 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
             community: 'Community',
             communityTitle: 'Community',
             communityBack: 'Back',
+            communityAll: 'All',
+            communityNotice: 'Notice',
+            communityNovel: 'Novel',
+            communityWrite: 'Write',
+            communityAuthor: 'Author',
             contact: 'Contact',
             contactTitle: 'Contact Us',
             contactMsg: 'Please send your inquiries to the email below.',
@@ -353,6 +364,11 @@ document.addEventListener('DOMContentLoaded', () => {
             community: 'コミュニティ',
             communityTitle: 'コミュニティ',
             communityBack: '戻る',
+            communityAll: '全体',
+            communityNotice: 'お知らせ',
+            communityNovel: '小説',
+            communityWrite: '投稿',
+            communityAuthor: '作家',
             contact: 'お問い合わせ',
             contactTitle: 'お問い合わせ',
             contactMsg: 'お問い合わせは下記メールアドレスまでお送りください。',
@@ -427,6 +443,11 @@ document.addEventListener('DOMContentLoaded', () => {
             community: '社区',
             communityTitle: '社区',
             communityBack: '返回',
+            communityAll: '全部',
+            communityNotice: '公告',
+            communityNovel: '小说',
+            communityWrite: '写文章',
+            communityAuthor: '作者',
             contact: '联系我们',
             contactTitle: '联系我们',
             contactMsg: '请将您的问题发送至以下邮箱。',
@@ -448,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const roundTitleEl = document.getElementById('round-title');
     const tournamentContainer = document.getElementById('tournament-container');
     const winnerContainer = document.getElementById('winner-container');
-    const langButtons = document.querySelectorAll('.lang-selector button');
+    const langButtons = document.querySelectorAll('#globe-dropdown button');
 
     function updatePreviewGrid() {
         const grid = document.querySelector('.preview-grid');
@@ -494,21 +515,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('show-rankings-lang').textContent = lang.showRankingsLang;
         document.querySelector('.feedback-notice').textContent = lang.feedbackNotice;
 
-        // Studio buttons & Sign Up & Contact
+        // Studio buttons & Header menus
         document.getElementById('write-webtoon-btn').childNodes[0].textContent = lang.webtoon + ' ';
         document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
-        document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
-        document.getElementById('contact-btn').textContent = lang.contact;
+        document.getElementById('menu-signup-text').textContent = lang.signUp;
+        document.getElementById('menu-community-text').textContent = lang.community;
+        document.getElementById('menu-contact-text').textContent = lang.contact;
         document.getElementById('footer-about').textContent = lang.about;
         document.getElementById('footer-terms').textContent = lang.terms;
         document.getElementById('footer-privacy').textContent = lang.privacy;
         document.getElementById('footer-ad').textContent = lang.adNotice;
-        document.getElementById('community-btn').textContent = lang.community;
         document.getElementById('community-title').textContent = lang.communityTitle;
         document.getElementById('community-back-btn').textContent = lang.communityBack;
         document.getElementById('post-back-btn').textContent = lang.communityBack;
         document.getElementById('contact-modal-title').textContent = lang.contactTitle;
         document.getElementById('contact-msg').textContent = lang.contactMsg;
+
+        // Community tabs & write btn
+        document.getElementById('tab-all').textContent = lang.communityAll;
+        document.getElementById('tab-notice').textContent = lang.communityNotice;
+        document.getElementById('tab-novel').textContent = lang.communityNovel;
+        document.getElementById('community-write-text').textContent = lang.communityWrite;
 
         // Novel modal texts
         const novelModal = document.getElementById('novel-modal-overlay');
@@ -788,6 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
             currentLang = button.dataset.lang;
+            globeDropdown.classList.remove('open');
             updateTexts();
         });
     });
@@ -956,11 +984,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ===== Dropdown Menus =====
+    const globeBtn = document.getElementById('globe-btn');
+    const globeDropdown = document.getElementById('globe-dropdown');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const hamburgerDropdown = document.getElementById('hamburger-dropdown');
+
+    globeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        globeDropdown.classList.toggle('open');
+        hamburgerDropdown.classList.remove('open');
+    });
+
+    hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburgerDropdown.classList.toggle('open');
+        globeDropdown.classList.remove('open');
+    });
+
+    document.addEventListener('click', () => {
+        globeDropdown.classList.remove('open');
+        hamburgerDropdown.classList.remove('open');
+    });
+
+    globeDropdown.addEventListener('click', (e) => e.stopPropagation());
+    hamburgerDropdown.addEventListener('click', (e) => e.stopPropagation());
+
     // ===== Community =====
     const communityPage = document.getElementById('community-page');
     const communityList = document.getElementById('community-list');
     const communityPost = document.getElementById('community-post');
     let communityPosts = [];
+    let communityFilter = 'all';
 
     function showCommunity() {
         landingPage.style.display = 'none';
@@ -968,6 +1023,7 @@ document.addEventListener('DOMContentLoaded', () => {
         communityPage.style.display = 'block';
         communityList.style.display = 'flex';
         communityPost.style.display = 'none';
+        hamburgerDropdown.classList.remove('open');
         loadCommunityList();
     }
 
@@ -987,14 +1043,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCommunityList() {
-        communityList.innerHTML = communityPosts.map(post => {
+        const lang = i18n[currentLang];
+        const filtered = communityFilter === 'all'
+            ? communityPosts
+            : communityPosts.filter(p => p.category === communityFilter);
+
+        communityList.innerHTML = filtered.map(post => {
             const title = post.title[currentLang] || post.title['en'];
             const summary = post.summary[currentLang] || post.summary['en'];
+            const authorHtml = post.author
+                ? `<div class="community-card-author">${lang.communityAuthor}: ${post.author}</div>`
+                : '';
             return `
                 <div class="community-card" data-id="${post.id}">
                     <div class="community-card-title">${title}</div>
                     <div class="community-card-summary">${summary}</div>
                     <div class="community-card-date">${post.date}</div>
+                    ${authorHtml}
                 </div>
             `;
         }).join('');
@@ -1004,14 +1069,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Community tab clicks
+    document.querySelectorAll('.community-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            communityFilter = tab.dataset.filter;
+            document.querySelectorAll('.community-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderCommunityList();
+        });
+    });
+
     async function openPost(postId) {
         const post = communityPosts.find(p => p.id === postId);
         if (!post) return;
 
+        const lang = i18n[currentLang];
         communityList.style.display = 'none';
         communityPost.style.display = 'block';
         document.getElementById('post-title').textContent = post.title[currentLang] || post.title['en'];
         document.getElementById('post-date').textContent = post.date;
+
+        const authorEl = document.getElementById('post-author');
+        if (post.author) {
+            authorEl.textContent = `${lang.communityAuthor}: ${post.author}`;
+            authorEl.style.display = 'block';
+        } else {
+            authorEl.style.display = 'none';
+        }
 
         try {
             const res = await fetch('posts/' + post.file);
@@ -1022,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.getElementById('community-btn').addEventListener('click', showCommunity);
+    document.getElementById('menu-community').addEventListener('click', showCommunity);
     document.getElementById('community-back-btn').addEventListener('click', hideCommunity);
     document.getElementById('post-back-btn').addEventListener('click', () => {
         communityPost.style.display = 'none';
@@ -1056,7 +1140,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Contact modal
     const contactModalOverlay = document.getElementById('contact-modal-overlay');
-    document.getElementById('contact-btn').addEventListener('click', () => {
+    document.getElementById('menu-contact').addEventListener('click', () => {
+        hamburgerDropdown.classList.remove('open');
         contactModalOverlay.style.display = 'flex';
     });
     document.getElementById('contact-modal-close').addEventListener('click', () => {

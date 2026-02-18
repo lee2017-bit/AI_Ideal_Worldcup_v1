@@ -19,7 +19,7 @@ body {
     background-color: #1a1a2e;
     border-right: 1px solid #333;
     padding: 20px 15px;
-    padding-top: 65px;
+    padding-top: 56px;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -92,35 +92,127 @@ body {
     top: 0;
     left: 0;
     width: 100%;
+    height: 48px;
     background-color: #0d0d1a;
     border-bottom: 1px solid #333;
-    padding: 10px 0;
     z-index: 100;
-    text-align: center;
-}
-
-.lang-selector {
     display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
 }
 
-.lang-selector button {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    border: 1px solid #333;
-    padding: 8px 14px;
-    border-radius: 5px;
+.top-bar-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e0e0e0;
+}
+
+/* Globe Menu (Language) */
+.globe-menu {
+    position: relative;
+}
+
+.globe-btn {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 0.85rem;
+    padding: 4px 8px;
+    line-height: 1;
 }
 
-.lang-selector button:hover,
-.lang-selector button.active {
-    background-color: #007bff;
+.globe-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 200;
+    min-width: 150px;
+}
+
+.globe-dropdown.open {
+    display: flex;
+    flex-direction: column;
+}
+
+.globe-dropdown button {
+    background: none;
+    border: none;
+    color: #ccc;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.globe-dropdown button:hover {
+    background: #16213e;
+}
+
+.globe-dropdown button.active {
+    background: #007bff;
+    color: #fff;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    position: relative;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+}
+
+.hamburger-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 200;
+    min-width: 160px;
+}
+
+.hamburger-dropdown.open {
+    display: flex;
+    flex-direction: column;
+}
+
+.hamburger-dropdown button {
+    background: none;
+    border: none;
+    color: #ccc;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.hamburger-dropdown button:hover:not(:disabled) {
+    background: #16213e;
+}
+
+.hamburger-dropdown button:disabled {
+    color: #555;
+    cursor: not-allowed;
 }
 
 /* ===== Main Content ===== */
@@ -128,7 +220,7 @@ body {
     margin-left: 260px;
     flex: 1;
     padding: 30px;
-    padding-top: 65px;
+    padding-top: 56px;
     text-align: center;
 }
 
@@ -486,27 +578,6 @@ body {
     margin-left: 2px;
 }
 
-/* ===== Contact Button (Top Bar) ===== */
-.contact-btn {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-decoration: none;
-}
-
-.contact-btn:hover {
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.4);
-}
 
 /* ===== Contact Modal ===== */
 .contact-modal {
@@ -531,21 +602,6 @@ body {
     user-select: all;
 }
 
-/* ===== Sign Up Button (Top Bar) ===== */
-.signup-btn-locked {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #333;
-    color: #666;
-    border: 1px solid #444;
-    padding: 6px 14px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
 
 /* ===== Write a Novel Button ===== */
 .write-novel-btn {
@@ -892,27 +948,6 @@ body {
     color: #fff;
 }
 
-/* ===== Community Button (Top Bar) ===== */
-.community-btn {
-    position: absolute;
-    left: 130px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.community-btn:hover {
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 2px 10px rgba(156, 39, 176, 0.4);
-}
-
 /* ===== Community Page ===== */
 .community-header {
     display: flex;
@@ -1004,6 +1039,71 @@ body {
     line-height: 1.9;
     color: #e0e0e0;
     white-space: pre-line;
+}
+
+/* Community Controls (Tabs + Write) */
+.community-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 12px;
+}
+
+.community-tabs {
+    display: flex;
+    gap: 6px;
+}
+
+.community-tab {
+    background: #1e1e1e;
+    color: #aaa;
+    border: 1px solid #333;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.community-tab:hover {
+    background: #2a2a3e;
+    color: #fff;
+}
+
+.community-tab.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.community-write-btn {
+    background: #333;
+    color: #666;
+    border: 1px solid #444;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: not-allowed;
+    opacity: 0.6;
+    white-space: nowrap;
+}
+
+/* Post Author */
+.post-author {
+    font-size: 0.8rem;
+    color: #9c27b0;
+    margin-bottom: 1.5rem;
+}
+
+/* Community Card Author */
+.community-card-author {
+    font-size: 0.75rem;
+    color: #9c27b0;
+    margin-top: 4px;
 }
 
 /* ===== Footer ===== */
@@ -1118,12 +1218,13 @@ body {
     .main-content {
         margin-left: 0;
         padding: 15px;
-        padding-top: 60px;
+        padding-top: 56px;
         padding-bottom: 70px;
     }
     .landing-title {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         padding: 0 10px;
+        word-break: keep-all;
     }
     .landing-subtitle {
         font-size: 0.9rem;
@@ -1199,36 +1300,13 @@ body {
         width: 50px;
         height: 50px;
     }
-    .lang-selector button {
-        padding: 6px 10px;
-        font-size: 0.75rem;
+    .community-controls {
+        flex-direction: row;
+        gap: 8px;
     }
-    .signup-btn-locked {
-        position: static;
-        transform: none;
-        margin-bottom: 6px;
-        font-size: 0.7rem;
-        padding: 4px 10px;
-    }
-    .contact-btn {
-        position: static;
-        transform: none;
-        margin-bottom: 6px;
-        font-size: 0.7rem;
-        padding: 4px 10px;
-    }
-    .contact-btn:hover {
-        transform: scale(1.05);
-    }
-    .community-btn {
-        position: static;
-        transform: none;
-        margin-bottom: 6px;
-        font-size: 0.7rem;
-        padding: 4px 10px;
-    }
-    .community-btn:hover {
-        transform: scale(1.05);
+    .community-tab {
+        padding: 5px 12px;
+        font-size: 0.8rem;
     }
     .community-header h1 {
         font-size: 1.3rem;
@@ -1279,7 +1357,7 @@ body {
 /* ===== Responsive: Small Mobile ===== */
 @media (max-width: 400px) {
     .landing-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .preview-grid {
         gap: 5px;
@@ -1287,17 +1365,13 @@ body {
     .image-wrapper {
         max-width: 92vw;
     }
-    .lang-selector {
-        gap: 4px;
-    }
-    .lang-selector button {
-        padding: 5px 7px;
-        font-size: 0.7rem;
-    }
     .category-item {
         padding: 6px 8px;
     }
     .category-label {
         font-size: 0.65rem;
+    }
+    .top-bar-title {
+        font-size: 0.85rem;
     }
 }

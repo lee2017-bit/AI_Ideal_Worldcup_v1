@@ -1,0 +1,45 @@
+AI 이상형 월드컵 소개
+
+AI 이상형 월드컵은 다양한 AI 이미지·영상 생성 모델의 결과물을 직접 비교하고 체험할 수 있는 플랫폼입니다.
+
+
+서비스 소개
+
+AI 기술의 발전과 함께 수많은 이미지·영상 생성 모델이 등장하고 있습니다. GPT Image, NanoBanana Pro, Hunyuan, Seedream, Flux, Recraft, Reve, Grok, KLING, Higgsfield, Wan 등 각기 다른 특성을 가진 AI 모델들이 만들어낸 결과물을, 이상형 월드컵이라는 재미있는 형식으로 비교해볼 수 있습니다.
+
+사용자는 토너먼트 방식으로 8개의 AI 생성 콘텐츠를 비교하며 자신의 취향을 발견하고, 우승 캐릭터로 AI 소설까지 자동 생성할 수 있습니다.
+
+
+현재 카테고리
+
+- AI 강아지 이상형월드컵: 8개 AI 모델이 만든 강아지 이미지·영상 비교
+- 여자 AI 애니메이션 이상형월드컵: 8개 AI 모델이 만든 애니메이션 캐릭터 비교
+- 남자 AI 애니메이션 이상형월드컵: 준비 중
+
+
+주요 기능
+
+1. 이상형 월드컵: 8강 토너먼트 방식으로 AI 생성 콘텐츠 비교
+2. AI 소설 생성: 우승 캐릭터를 주인공으로 한 프롤로그 자동 생성 (장르, 톤 커스터마이징 가능)
+3. 랭킹 시스템: 전체/언어별 인기 투표 결과 확인
+4. 커뮤니티: 창작 소설 및 콘텐츠 공유
+5. 다국어 지원: 한국어, English, 日本語, 中文
+
+
+기술 스택
+
+- Frontend: HTML, CSS, JavaScript (Vanilla)
+- Backend: Google Apps Script
+- AI 소설 생성: GLM-5 API
+- 배포: Cloudflare Pages
+- AI 이미지/영상: GPT Image, NanoBanana Pro, Hunyuan, Seedream, Flux 2 Pro, Recraft, Reve, Grok, KLING O1, Higgsfield, Wan 2.2
+
+
+운영 정보
+
+- 운영자: AI Ideal Worldcup Team
+- 문의: aiidealworldcup@gmail.com
+- 사이트: https://ai-ideal-worldcup-v1.pages.dev/
+
+
+본 서비스는 AI 생성 결과를 비교하는 플랫폼이며, 각 AI 모델의 기술 및 생성 정책은 해당 운영사에 귀속됩니다.

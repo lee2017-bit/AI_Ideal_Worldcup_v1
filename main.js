@@ -195,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signUp: '가입하기',
             signUpRequired: '가입이 필요합니다. (Coming soon)',
             // Footer
+            about: '소개',
             terms: '이용약관',
             privacy: '개인정보 처리방침',
             adNotice: '광고 안내',
@@ -271,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: 'Movie',
             signUp: 'Sign Up',
             signUpRequired: 'Sign-in required. (Coming soon)',
+            about: 'About',
             terms: 'Terms of Service',
             privacy: 'Privacy Policy',
             adNotice: 'Ad Notice',
@@ -344,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '映画',
             signUp: '新規登録',
             signUpRequired: 'ログインが必要です。（Coming soon）',
+            about: '紹介',
             terms: '利用規約',
             privacy: 'プライバシーポリシー',
             adNotice: '広告について',
@@ -417,6 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
             movie: '电影',
             signUp: '注册',
             signUpRequired: '需要登录。（Coming soon）',
+            about: '关于',
             terms: '服务条款',
             privacy: '隐私政策',
             adNotice: '广告说明',
@@ -495,6 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('write-movie-btn').childNodes[0].textContent = lang.movie + ' ';
         document.getElementById('signup-btn').childNodes[0].textContent = lang.signUp + ' ';
         document.getElementById('contact-btn').textContent = lang.contact;
+        document.getElementById('footer-about').textContent = lang.about;
         document.getElementById('footer-terms').textContent = lang.terms;
         document.getElementById('footer-privacy').textContent = lang.privacy;
         document.getElementById('footer-ad').textContent = lang.adNotice;
@@ -1042,6 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    document.getElementById('footer-about').addEventListener('click', (e) => { e.preventDefault(); openLegal('about.txt', 'about'); });
     document.getElementById('footer-terms').addEventListener('click', (e) => { e.preventDefault(); openLegal('terms.txt', 'terms'); });
     document.getElementById('footer-privacy').addEventListener('click', (e) => { e.preventDefault(); openLegal('privacy.txt', 'privacy'); });
     document.getElementById('footer-ad').addEventListener('click', (e) => { e.preventDefault(); openLegal('ad-notice.txt', 'adNotice'); });

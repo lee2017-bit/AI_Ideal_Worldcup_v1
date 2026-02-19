@@ -108,9 +108,34 @@ body {
     color: #e0e0e0;
 }
 
+/* Top-bar left group (globe + community) */
+.top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
 /* Globe Menu (Language) */
 .globe-menu {
     position: relative;
+}
+
+/* Community nav button (top-bar) */
+.community-nav-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 16px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.community-nav-btn:hover {
+    background: #1a1a2e;
+    color: #fff;
 }
 
 .globe-btn {

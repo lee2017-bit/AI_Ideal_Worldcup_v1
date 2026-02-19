@@ -1223,11 +1223,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         try {
-            await fetch(SCRIPT_URL + '?' + params.toString(), { redirect: 'follow' });
+            fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' });
         } catch (err) { /* ignore */ }
 
         authorInput.value = '';
         contentInput.value = '';
+        // GAS 처리 시간 대기 후 댓글 목록 갱신
+        await new Promise(r => setTimeout(r, 1800));
         submitBtn.disabled = false;
         await loadComments(currentPostId);
     });

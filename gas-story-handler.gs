@@ -72,90 +72,15 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
 
-  // ===== 댓글 목록 =====
+  // ===== 댓글 관련 (별도 함수로 분리 — var 충돌 방지) =====
   } else if (action === 'getComments') {
-    var commentsSheet = ss.getSheetByName('Comments');
-    var postId = e.parameter.postId || '';
-    var result = [];
-    if (commentsSheet && commentsSheet.getLastRow() > 1) {
-      var data = commentsSheet.getDataRange().getValues();
-      for (var i = 1; i < data.length; i++) {
-        var row = data[i];
-        var rowId = String(row[0]);
-        // UUID: 36자, 하이픈 4개 → 신규 스키마 [id, postId, author, content, timestamp, password]
-        var isNew = (rowId.length === 36 && rowId.split('-').length === 5);
-        if (isNew) {
-          if (row[1] === postId) {
-            result.push({ id: row[0], author: row[2], content: row[3], timestamp: row[4] });
-          }
-        } else {
-          // 구버전 스키마 [postId, author, content, timestamp]
-          if (row[0] === postId) {
-            result.push({ id: '', author: row[1], content: row[2], timestamp: row[3] });
-          }
-        }
-      }
-    }
-    return ContentService.createTextOutput(JSON.stringify(result))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  // ===== 댓글 추가 =====
+    return gasGetComments(e);
   } else if (action === 'addComment') {
-    var commentsSheet = ss.getSheetByName('Comments');
-    if (!commentsSheet) {
-      commentsSheet = ss.insertSheet('Comments');
-      commentsSheet.appendRow(['id', 'postId', 'author', 'content', 'timestamp', 'password']);
-    }
-    var postId = e.parameter.postId || '';
-    var author = (e.parameter.author || '익명').substring(0, 30);
-    var content = (e.parameter.content || '').substring(0, 500);
-    var password = (e.parameter.password || '').substring(0, 50);
-    if (postId && content.trim().length > 0) {
-      var newId = Utilities.getUuid();
-      commentsSheet.appendRow([newId, postId, author, content, new Date().toISOString(), password]);
-    }
-    return ContentService.createTextOutput('ok');
-
-  // ===== 댓글 삭제 =====
+    return gasAddComment(e);
   } else if (action === 'deleteComment') {
-    var commentsSheet = ss.getSheetByName('Comments');
-    if (!commentsSheet) return ContentService.createTextOutput('error');
-    var targetId = e.parameter.id || '';
-    var password = e.parameter.password || '';
-    if (!targetId) return ContentService.createTextOutput('error');
-    var data = commentsSheet.getDataRange().getValues();
-    for (var i = 1; i < data.length; i++) {
-      if (String(data[i][0]) === targetId) {
-        if (String(data[i][5]) === password) {
-          commentsSheet.deleteRow(i + 1);
-          return ContentService.createTextOutput('ok');
-        } else {
-          return ContentService.createTextOutput('wrong_password');
-        }
-      }
-    }
-    return ContentService.createTextOutput('not_found');
-
-  // ===== 댓글 수정 =====
+    return gasDeleteComment(e);
   } else if (action === 'updateComment') {
-    var commentsSheet = ss.getSheetByName('Comments');
-    if (!commentsSheet) return ContentService.createTextOutput('error');
-    var targetId = e.parameter.id || '';
-    var password = e.parameter.password || '';
-    var newContent = (e.parameter.content || '').substring(0, 500);
-    if (!targetId || !newContent.trim()) return ContentService.createTextOutput('error');
-    var data = commentsSheet.getDataRange().getValues();
-    for (var i = 1; i < data.length; i++) {
-      if (String(data[i][0]) === targetId) {
-        if (String(data[i][5]) === password) {
-          commentsSheet.getRange(i + 1, 4).setValue(newContent); // 4번째 열 = content
-          return ContentService.createTextOutput('ok');
-        } else {
-          return ContentService.createTextOutput('wrong_password');
-        }
-      }
-    }
-    return ContentService.createTextOutput('not_found');
+    return gasUpdateComment(e);
 
   // ===== 소설 생성 =====
   } else if (action === 'generateStory') {
@@ -414,4 +339,111 @@ function parseStoryContent(content) {
     title: title,
     storyText: storyText
   };
+}
+
+// ============================================================
+// 댓글 핸들러 — doGet 에서 var 충돌 방지를 위해 별도 함수로 분리
+// ============================================================
+function gasGetComments(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName('Comments');
+    var pid = e.parameter.postId || '';
+    var out = [];
+    if (!sheet || sheet.getLastRow() < 2) {
+      return ContentService.createTextOutput(JSON.stringify(out))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var rows = sheet.getDataRange().getValues();
+    for (var i = 1; i < rows.length; i++) {
+      var r = rows[i];
+      if (!r[0]) continue; // 빈 행 스킵
+      var rid = String(r[0]);
+      // UUID 형식(36자, 하이픈 4개) → 신규 스키마 [id, postId, author, content, timestamp, password]
+      var isUUID = (rid.length === 36 && rid.split('-').length === 5);
+      if (isUUID) {
+        if (String(r[1]) === pid) {
+          out.push({ id: rid, author: String(r[2] || '익명'), content: String(r[3] || ''), timestamp: String(r[4] || '') });
+        }
+      } else {
+        // 구버전 스키마 [postId, author, content, timestamp]
+        if (rid === pid) {
+          out.push({ id: '', author: String(r[1] || '익명'), content: String(r[2] || ''), timestamp: String(r[3] || '') });
+        }
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify(out))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify([]))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function gasAddComment(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName('Comments');
+    if (!sheet) {
+      sheet = ss.insertSheet('Comments');
+      sheet.appendRow(['id', 'postId', 'author', 'content', 'timestamp', 'password']);
+    }
+    var pid    = e.parameter.postId || '';
+    var author = String(e.parameter.author  || '익명').substring(0, 30);
+    var body   = String(e.parameter.content || '').substring(0, 500);
+    var pw     = String(e.parameter.password || '').substring(0, 50);
+    if (pid && body.trim()) {
+      sheet.appendRow([Utilities.getUuid(), pid, author, body, new Date().toISOString(), pw]);
+    }
+  } catch (err) { /* 기록 실패 무시 */ }
+  return ContentService.createTextOutput('ok');
+}
+
+function gasDeleteComment(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName('Comments');
+    if (!sheet) return ContentService.createTextOutput('error');
+    var tid = e.parameter.id || '';
+    var pw  = e.parameter.password || '';
+    if (!tid) return ContentService.createTextOutput('error');
+    var rows = sheet.getDataRange().getValues();
+    for (var i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]) === tid) {
+        if (String(rows[i][5]) === pw) {
+          sheet.deleteRow(i + 1);
+          return ContentService.createTextOutput('ok');
+        }
+        return ContentService.createTextOutput('wrong_password');
+      }
+    }
+    return ContentService.createTextOutput('not_found');
+  } catch (err) {
+    return ContentService.createTextOutput('error');
+  }
+}
+
+function gasUpdateComment(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName('Comments');
+    if (!sheet) return ContentService.createTextOutput('error');
+    var tid        = e.parameter.id || '';
+    var pw         = e.parameter.password || '';
+    var newContent = String(e.parameter.content || '').substring(0, 500);
+    if (!tid || !newContent.trim()) return ContentService.createTextOutput('error');
+    var rows = sheet.getDataRange().getValues();
+    for (var i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]) === tid) {
+        if (String(rows[i][5]) === pw) {
+          sheet.getRange(i + 1, 4).setValue(newContent);
+          return ContentService.createTextOutput('ok');
+        }
+        return ContentService.createTextOutput('wrong_password');
+      }
+    }
+    return ContentService.createTextOutput('not_found');
+  } catch (err) {
+    return ContentService.createTextOutput('error');
+  }
 }

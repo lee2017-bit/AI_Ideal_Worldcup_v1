@@ -1209,8 +1209,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = SCRIPT_URL + '?action=getComments&postId=' + encodeURIComponent(postId);
             const res = await fetch(url, { redirect: 'follow' });
             const comments = await res.json();
-            renderComments(comments);
-            return comments;
+            const list = Array.isArray(comments) ? comments : [];
+            renderComments(list);
+            return list;
         } catch (err) {
             renderComments([]);
             return [];
@@ -1231,8 +1232,9 @@ document.addEventListener('DOMContentLoaded', () => {
         commentList.innerHTML = comments.map(c => {
             const author = (c.author || lang.commentAnon).replace(/</g, '&lt;').replace(/>/g, '&gt;');
             const date = c.timestamp ? new Date(c.timestamp).toLocaleDateString(currentLang, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
-            const content = c.content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            const safeContent = c.content.replace(/"/g, '&quot;');
+            const rawContent = c.content || '';
+            const content = rawContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const safeContent = rawContent.replace(/"/g, '&quot;');
             const editDeleteBtns = c.id ? `
                 <div class="comment-actions">
                     <button class="comment-edit-btn">${lang.commentEdit}</button>

@@ -72,6 +72,41 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
 
+  // ===== 댓글 목록 =====
+  } else if (action === 'getComments') {
+    var commentsSheet = ss.getSheetByName('Comments');
+    var postId = e.parameter.postId || '';
+    var result = [];
+    if (commentsSheet && commentsSheet.getLastRow() > 1) {
+      var data = commentsSheet.getDataRange().getValues();
+      for (var i = 1; i < data.length; i++) {
+        if (data[i][0] === postId) {
+          result.push({
+            author: data[i][1],
+            content: data[i][2],
+            timestamp: data[i][3]
+          });
+        }
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  // ===== 댓글 추가 =====
+  } else if (action === 'addComment') {
+    var commentsSheet = ss.getSheetByName('Comments');
+    if (!commentsSheet) {
+      commentsSheet = ss.insertSheet('Comments');
+      commentsSheet.appendRow(['postId', 'author', 'content', 'timestamp']);
+    }
+    var postId = e.parameter.postId || '';
+    var author = (e.parameter.author || '익명').substring(0, 30);
+    var content = (e.parameter.content || '').substring(0, 500);
+    if (postId && content.trim().length > 0) {
+      commentsSheet.appendRow([postId, author, content, new Date().toISOString()]);
+    }
+    return ContentService.createTextOutput('ok');
+
   // ===== 소설 생성 =====
   } else if (action === 'generateStory') {
     return handleGenerateStory(e);

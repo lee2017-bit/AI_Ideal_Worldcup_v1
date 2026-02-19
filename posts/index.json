@@ -1,5 +1,24 @@
 [
     {
+        "id": "soonsali-walk",
+        "file": "철학하는 강아지, 순살이의 존재론적 산책.txt",
+        "date": "2026-02-19",
+        "category": "novel",
+        "author": "jakwon",
+        "title": {
+            "ko": "철학하는 강아지, 순살이의 존재론적 산책",
+            "en": "The Philosophical Dog, Soonsali's Existential Walk",
+            "ja": "哲学する犬、スンサリの存在論的散歩",
+            "zh": "哲学狗顺撒儿的存在论散步"
+        },
+        "summary": {
+            "ko": "현대 판타지 / 힐링 / 철학 — 퇴사한 철학 교수의 영혼이 믹스견 순살이로 환생해 짖음 하나로 동네 사람들의 삶을 흔드는 이야기",
+            "en": "Modern Fantasy / Healing / Philosophy — A retired philosophy professor's soul reincarnates as a mixed-breed dog named Soonsali, shaking up people's lives with a single bark.",
+            "ja": "現代ファンタジー / ヒーリング / 哲学 — 退職した哲学教授の魂が雑種犬スンサリに転生し、一吠えで町の人々の人生を揺さぶる物語",
+            "zh": "现代幻想 / 治愈 / 哲学 — 退休哲学教授的灵魂转世为杂种犬顺撒儿，用一声吠叫撼动街坊邻居人生的故事"
+        }
+    },
+    {
         "id": "inhibition-release",
         "file": "억제_해제_버튼은_농담이었다_출판급_완전판.txt",
         "date": "2026-02-17",

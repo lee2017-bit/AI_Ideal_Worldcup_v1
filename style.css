@@ -1081,6 +1081,144 @@ body {
     white-space: pre-line;
 }
 
+/* ===== Comment Section ===== */
+.comment-section {
+    margin-top: 3rem;
+}
+
+.comment-divider {
+    border-top: 1px solid #333;
+    margin-bottom: 1.5rem;
+}
+
+.comment-heading {
+    font-size: 1rem;
+    color: #ccc;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment-count {
+    background: #333;
+    color: #aaa;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 400;
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.comment-item {
+    background: #1a1a2e;
+    border: 1px solid #2a2a3e;
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+
+.comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.comment-author {
+    font-size: 0.8rem;
+    color: #9c27b0;
+    font-weight: 600;
+}
+
+.comment-date {
+    font-size: 0.75rem;
+    color: #555;
+}
+
+.comment-content {
+    font-size: 0.9rem;
+    color: #ddd;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.comment-empty {
+    color: #555;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 1rem;
+}
+
+.comment-author-input {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    outline: none;
+    width: 180px;
+    transition: border-color 0.2s;
+}
+
+.comment-author-input:focus {
+    border-color: #007bff;
+}
+
+.comment-input {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    outline: none;
+    resize: vertical;
+    min-height: 72px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.comment-input:focus {
+    border-color: #007bff;
+}
+
+.comment-submit-btn {
+    align-self: flex-end;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.comment-submit-btn:hover {
+    background: #0056b3;
+}
+
+.comment-submit-btn:disabled {
+    background: #444;
+    cursor: not-allowed;
+}
+
 /* Community Controls (Tabs + Write) */
 .community-controls {
     display: flex;

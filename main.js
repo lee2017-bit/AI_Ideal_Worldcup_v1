@@ -211,6 +211,14 @@ document.addEventListener('DOMContentLoaded', () => {
             communityNovel: '소설',
             communityWrite: '글쓰기',
             communityAuthor: '작가',
+            // Comments
+            commentHeading: '댓글',
+            commentPlaceholderAuthor: '닉네임 (선택)',
+            commentPlaceholderContent: '댓글을 입력하세요...',
+            commentSubmit: '등록',
+            commentEmpty: '아직 댓글이 없습니다.',
+            commentAnon: '익명',
+            commentLoading: '댓글 불러오는 중...',
             // Contact
             contact: '문의',
             contactTitle: '문의하기',
@@ -294,6 +302,14 @@ document.addEventListener('DOMContentLoaded', () => {
             communityNovel: 'Novel',
             communityWrite: 'Write',
             communityAuthor: 'Author',
+            // Comments
+            commentHeading: 'Comments',
+            commentPlaceholderAuthor: 'Nickname (optional)',
+            commentPlaceholderContent: 'Write a comment...',
+            commentSubmit: 'Post',
+            commentEmpty: 'No comments yet.',
+            commentAnon: 'Anonymous',
+            commentLoading: 'Loading comments...',
             contact: 'Contact',
             contactTitle: 'Contact Us',
             contactMsg: 'Please send your inquiries to the email below.',
@@ -375,6 +391,14 @@ document.addEventListener('DOMContentLoaded', () => {
             communityNovel: '小説',
             communityWrite: '投稿',
             communityAuthor: '作家',
+            // Comments
+            commentHeading: 'コメント',
+            commentPlaceholderAuthor: 'ニックネーム（任意）',
+            commentPlaceholderContent: 'コメントを入力してください...',
+            commentSubmit: '投稿',
+            commentEmpty: 'まだコメントはありません。',
+            commentAnon: '匿名',
+            commentLoading: 'コメント読み込み中...',
             contact: 'お問い合わせ',
             contactTitle: 'お問い合わせ',
             contactMsg: 'お問い合わせは下記メールアドレスまでお送りください。',
@@ -456,6 +480,14 @@ document.addEventListener('DOMContentLoaded', () => {
             communityNovel: '小说',
             communityWrite: '写文章',
             communityAuthor: '作者',
+            // Comments
+            commentHeading: '评论',
+            commentPlaceholderAuthor: '昵称（可选）',
+            commentPlaceholderContent: '写下评论...',
+            commentSubmit: '发布',
+            commentEmpty: '暂无评论。',
+            commentAnon: '匿名',
+            commentLoading: '加载评论中...',
             contact: '联系我们',
             contactTitle: '联系我们',
             contactMsg: '请将您的问题发送至以下邮箱。',
@@ -544,6 +576,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('tab-notice').textContent = lang.communityNotice;
         document.getElementById('tab-novel').textContent = lang.communityNovel;
         document.getElementById('community-write-text').textContent = lang.communityWrite;
+
+        // Comment section
+        document.getElementById('comment-heading-text').textContent = lang.commentHeading;
+        document.getElementById('comment-author-input').placeholder = lang.commentPlaceholderAuthor;
+        document.getElementById('comment-input').placeholder = lang.commentPlaceholderContent;
+        document.getElementById('comment-submit').textContent = lang.commentSubmit;
 
         // Novel modal texts
         const novelModal = document.getElementById('novel-modal-overlay');
@@ -1093,10 +1131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    let currentPostId = null;
+
     async function openPost(postId) {
         const post = communityPosts.find(p => p.id === postId);
         if (!post) return;
 
+        currentPostId = postId;
         const lang = i18n[currentLang];
         communityList.style.display = 'none';
         communityPost.style.display = 'block';
@@ -1118,7 +1159,78 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             document.getElementById('post-content').textContent = 'Failed to load content.';
         }
+
+        loadComments(postId);
     }
+
+    // ===== Comments =====
+    async function loadComments(postId) {
+        const lang = i18n[currentLang];
+        const commentList = document.getElementById('comment-list');
+        commentList.innerHTML = `<p class="comment-empty">${lang.commentLoading}</p>`;
+        try {
+            const url = SCRIPT_URL + '?action=getComments&postId=' + encodeURIComponent(postId);
+            const res = await fetch(url, { redirect: 'follow' });
+            const comments = await res.json();
+            renderComments(comments);
+        } catch (err) {
+            renderComments([]);
+        }
+    }
+
+    function renderComments(comments) {
+        const lang = i18n[currentLang];
+        const commentList = document.getElementById('comment-list');
+        const countEl = document.getElementById('comment-count');
+        countEl.textContent = comments.length;
+
+        if (comments.length === 0) {
+            commentList.innerHTML = `<p class="comment-empty">${lang.commentEmpty}</p>`;
+            return;
+        }
+
+        commentList.innerHTML = comments.map(c => {
+            const author = c.author || lang.commentAnon;
+            const date = c.timestamp ? new Date(c.timestamp).toLocaleDateString(currentLang, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+            const content = c.content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return `<div class="comment-item">
+                <div class="comment-meta">
+                    <span class="comment-author">${author}</span>
+                    <span class="comment-date">${date}</span>
+                </div>
+                <div class="comment-content">${content}</div>
+            </div>`;
+        }).join('');
+    }
+
+    document.getElementById('comment-submit').addEventListener('click', async () => {
+        if (!currentPostId) return;
+        const lang = i18n[currentLang];
+        const authorInput = document.getElementById('comment-author-input');
+        const contentInput = document.getElementById('comment-input');
+        const author = authorInput.value.trim() || lang.commentAnon;
+        const content = contentInput.value.trim();
+        if (!content) return;
+
+        const submitBtn = document.getElementById('comment-submit');
+        submitBtn.disabled = true;
+
+        const params = new URLSearchParams({
+            action: 'addComment',
+            postId: currentPostId,
+            author: author,
+            content: content
+        });
+
+        try {
+            await fetch(SCRIPT_URL + '?' + params.toString(), { redirect: 'follow' });
+        } catch (err) { /* ignore */ }
+
+        authorInput.value = '';
+        contentInput.value = '';
+        submitBtn.disabled = false;
+        await loadComments(currentPostId);
+    });
 
     document.getElementById('menu-community').addEventListener('click', showCommunity);
     document.getElementById('community-back-btn').addEventListener('click', hideCommunity);

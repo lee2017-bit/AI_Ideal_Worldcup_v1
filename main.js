@@ -127,6 +127,69 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             tournamentType: 'female-ai-animation',
         },
+        'male-ai-animation': {
+            images: [
+                { id: 1, src: 'videos/Male AI Animation Ideal Worldcup/GPT-Image.mp4', img: 'images/Male AI Animation Ideal Worldcup/GPT-image.jpg', ai: 'GPT Image' },
+                { id: 2, src: 'videos/Male AI Animation Ideal Worldcup/Grok.mp4', img: 'images/Male AI Animation Ideal Worldcup/Grok.jpg', ai: 'Grok' },
+                { id: 3, src: 'videos/Male AI Animation Ideal Worldcup/Kling_O1.mp4', img: 'images/Male AI Animation Ideal Worldcup/Kling_O1.png', ai: 'KLING O1' },
+                { id: 4, src: 'videos/Male AI Animation Ideal Worldcup/Midjourney.mp4', img: 'images/Male AI Animation Ideal Worldcup/Midjourney.png', ai: 'Midjourney' },
+                { id: 5, src: 'videos/Male AI Animation Ideal Worldcup/Nanobanana-pro.mp4', img: 'images/Male AI Animation Ideal Worldcup/Nanobanana_pro.png', ai: 'NanoBanana Pro' },
+                { id: 6, src: 'videos/Male AI Animation Ideal Worldcup/Reve.mp4', img: 'images/Male AI Animation Ideal Worldcup/Reve.png', ai: 'Reve' },
+                { id: 7, src: 'videos/Male AI Animation Ideal Worldcup/Seedream.mp4', img: 'images/Male AI Animation Ideal Worldcup/seedream.jpg', ai: 'Seedream' },
+                { id: 8, src: 'videos/Male AI Animation Ideal Worldcup/Z-image.mp4', img: 'images/Male AI Animation Ideal Worldcup/Z-Image.png', ai: 'Z-Image' },
+            ],
+            winnerDescriptions: {
+                'GPT Image': {
+                    ko: '당신은 안정감 있고 신뢰할 수 있는 존재에 끌리는 사람입니다.\n완성도 높은 외형보다 함께 있을 때 편안함을 주는 동반자를 원하죠.\n"든든한 버팀목"을 가장 가치 있게 여기는 타입입니다.',
+                    en: 'You are drawn to steady, trustworthy companions.\nYou value comfort over perfection — a reliable partner matters most.\nYou are the type who cherishes a "solid pillar of support".',
+                    ja: 'あなたは安定感があり信頼できる存在に惹かれる人です。\n完成度より一緒にいる時の居心地よさを求めます。\n「頼れる存在」を最も大切にするタイプです。',
+                    zh: '你是一个被稳重可靠的存在所吸引的人。\n比起完美的外表，你更看重相处时的舒适感。\n你最珍视"可靠的支柱"。',
+                },
+                'Grok': {
+                    ko: '당신은 개성 강하고 실험적인 감각을 지닌 존재에 끌리는 사람입니다.\n낯설지만 매력적인, 뭔가 다른 느낌을 좋아하죠.\n"독특한 미학"에 반하는 타입입니다.',
+                    en: 'You are drawn to bold personalities with experimental aesthetics.\nUnfamiliar yet magnetic — you appreciate something distinctly different.\nYou are captivated by "unconventional beauty".',
+                    ja: 'あなたは個性が強く実験的なセンスを持つ存在に惹かれる人です。\n見慣れないけど魅力的な、何か違う感じが好きです。\n「独特な美学」に惚れるタイプです。',
+                    zh: '你是一个被个性强烈、充满实验感的存在所吸引的人。\n陌生却充满魅力，喜欢与众不同的感觉。\n你会被"独特的美学"所倾倒。',
+                },
+                'KLING O1': {
+                    ko: '당신은 진솔하고 충직한 눈빛을 가진 존재에 끌리는 사람입니다.\n꾸밈없이 바라보는 그 눈에서 따뜻한 진심을 읽어내죠.\n"한결같은 신뢰"를 소중히 여기는 타입입니다.',
+                    en: 'You are drawn to honest, unwavering eyes.\nYou read warmth and sincerity in a steady, unguarded gaze.\nYou cherish "consistent trust" above all.',
+                    ja: 'あなたは誠実で一途な眼差しを持つ存在に惹かれる人です。\n飾らない眼差しから温かな本音を読み取ります。\n「変わらない信頼」を大切にするタイプです。',
+                    zh: '你是一个被真诚坚定的眼神所吸引的人。\n你能从那毫无修饰的目光中读出温暖与真心。\n你珍视"始终如一的信任"。',
+                },
+                'Midjourney': {
+                    ko: '당신은 몽환적이고 예술적인 분위기를 사랑하는 사람입니다.\n현실과 판타지의 경계에서 피어나는 감성에 끌리죠.\n"상상 속 존재"에 마음을 빼앗기는 타입입니다.',
+                    en: 'You love dreamlike, artistic atmospheres.\nYou are drawn to the feeling that blooms between reality and fantasy.\nYou lose your heart to "beings from your imagination".',
+                    ja: 'あなたは夢幻的で芸術的な雰囲気を愛する人です。\n現実とファンタジーの境界で咲く感性に惹かれます。\n「想像の中の存在」に心を奪われるタイプです。',
+                    zh: '你是一个热爱梦幻艺术氛围的人。\n你喜欢那种盛放在现实与幻想边界的情感。\n你会被"想象中的存在"深深打动。',
+                },
+                'NanoBanana Pro': {
+                    ko: '당신은 선명한 캐릭터성과 생동감 넘치는 존재에 끌리는 사람입니다.\n한눈에 기억되는 강렬한 인상, 뚜렷한 개성이 중요하죠.\n"캐릭터는 존재감으로 말한다"고 느끼는 타입입니다.',
+                    en: 'You are drawn to vivid character identity and lively presence.\nA strong impression that stays with you — bold individuality is key.\nYou feel that "a character speaks through their presence".',
+                    ja: 'あなたは鮮明なキャラクター性と生き生きとした存在感に惹かれる人です。\n一目で記憶に残る強烈な印象と個性が大切です。\n「キャラクターは存在感で語る」と感じるタイプです。',
+                    zh: '你是一个被鲜明角色特性和充满活力的存在所吸引的人。\n让人一眼难忘的强烈印象和鲜明个性最重要。\n你觉得"角色靠气场说话"。',
+                },
+                'Reve': {
+                    ko: '당신은 부드럽고 자연스러운 매력에 끌리는 사람입니다.\n과장 없이도 충분히 매력적인, 진짜 같은 분위기를 좋아하죠.\n"꾸밈없는 따뜻함"에 마음이 가는 타입입니다.',
+                    en: 'You are attracted to soft, natural charm.\nNaturally appealing without exaggeration — real-feeling vibes win you over.\nYou are drawn to "unadorned warmth".',
+                    ja: 'あなたは柔らかくて自然な魅力に惹かれる人です。\n誇張せずとも十分に魅力的な、本物らしい雰囲気が好きです。\n「飾らない温かさ」に心が傾くタイプです。',
+                    zh: '你是一个被柔和自然魅力所吸引的人。\n不夸张却依然迷人，喜欢那种真实感的氛围。\n你会被"不加修饰的温暖"打动。',
+                },
+                'Seedream': {
+                    ko: '당신은 서정적이고 감성적인 세계관을 가진 존재에 끌리는 사람입니다.\n꿈속 같은 분위기 속에서 이야기를 상상하는 걸 좋아하죠.\n"보는 것만으로 이야기가 떠오르는" 이미지를 사랑하는 타입입니다.',
+                    en: 'You are drawn to lyrical, emotionally rich characters.\nYou love imagining stories within dreamy atmospheres.\nYou are the type who loves images "that tell a story at first glance".',
+                    ja: 'あなたは叙情的で感性的な世界観を持つ存在に惹かれる人です。\n夢のような雰囲気の中で物語を想像するのが好きです。\n「見るだけで物語が浮かぶ」イメージを愛するタイプです。',
+                    zh: '你是一个被具有抒情感性世界观的存在所吸引的人。\n喜欢在梦幻般的氛围中想象故事。\n你热爱那种"一眼就能联想到故事"的图像。',
+                },
+                'Z-Image': {
+                    ko: '당신은 강렬한 존재감과 날카로운 개성을 가진 존재에 끌리는 사람입니다.\n단순하지 않고, 뭔가 비밀이 있을 것 같은 느낌을 좋아하죠.\n"깊이 있는 눈빛"에 이끌리는 타입입니다.',
+                    en: 'You are drawn to intense presence and sharp individuality.\nNot simple — you love the feeling that something deeper is hidden within.\nYou are drawn to "eyes that hold secrets".',
+                    ja: 'あなたは強烈な存在感と鋭い個性を持つ存在に惹かれる人です。\n単純ではなく、何か秘密がありそうな感じが好きです。\n「深みのある眼差し」に惹かれるタイプです。',
+                    zh: '你是一个被强烈存在感和犀利个性所吸引的人。\n不简单，喜欢那种感觉背后似乎隐藏着什么的感觉。\n你会被"深邃的眼神"所吸引。',
+                },
+            },
+            tournamentType: 'male-ai-animation',
+        },
     };
 
     // Current category & helpers
@@ -149,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryDog: 'AI 강아지\n주인공월드컵',
             categoryFemale: '여자 AI 애니메이션\n주인공월드컵',
             categoryMale: '남자 AI 애니메이션\n주인공월드컵',
+            categoryFemaleReal: '여자 실사\n주인공월드컵',
             comingSoon: '준비중',
             showRankingsAll: '전체 랭킹보기',
             showRankingsLang: '언어별 랭킹보기',
@@ -236,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             landing: {
                 'dog-ai': { title: 'AI 강아지 주인공월드컵', subtitle: 'AI로 만든 8마리 강아지 중 내 취향인 강아지를 골라보세요!' },
                 'female-ai-animation': { title: '여자 AI 애니메이션 주인공월드컵', subtitle: '8명의 AI 애니메이션 캐릭터 중 나의 주인공을 골라보세요!' },
+                'male-ai-animation': { title: '남자 AI 애니메이션 주인공월드컵', subtitle: '8명의 AI 애니메이션 남자 캐릭터 중 나의 주인공을 골라보세요!' },
             },
         },
         en: {
@@ -252,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryDog: 'AI Dog\nProtagonist Worldcup',
             categoryFemale: 'Female AI Animation\nProtagonist Worldcup',
             categoryMale: 'Male AI Animation\nProtagonist Worldcup',
+            categoryFemaleReal: 'Female Live-action\nProtagonist Worldcup',
             comingSoon: 'Coming Soon',
             showRankingsAll: 'Overall Rankings',
             showRankingsLang: 'Language Rankings',
@@ -334,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
             landing: {
                 'dog-ai': { title: 'AI Dog Protagonist Worldcup', subtitle: 'Pick your favorite among 8 AI-generated dogs!' },
                 'female-ai-animation': { title: 'Female AI Animation Protagonist Worldcup', subtitle: 'Pick your protagonist among 8 AI animation characters!' },
+                'male-ai-animation': { title: 'Male AI Animation Protagonist Worldcup', subtitle: 'Pick your protagonist among 8 AI animation male characters!' },
             },
         },
         ja: {
@@ -350,6 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryDog: 'AI犬\n主人公ワールドカップ',
             categoryFemale: '女性AIアニメ\n主人公ワールドカップ',
             categoryMale: '男性AIアニメ\n主人公ワールドカップ',
+            categoryFemaleReal: '女性実写\n主人公ワールドカップ',
             comingSoon: '準備中',
             showRankingsAll: '全体ランキング',
             showRankingsLang: '言語別ランキング',
@@ -432,6 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
             landing: {
                 'dog-ai': { title: 'AI犬 主人公ワールドカップ', subtitle: 'AIが作った8匹の犬から好みの犬を選ぼう！' },
                 'female-ai-animation': { title: '女性AIアニメ主人公ワールドカップ', subtitle: '8人のAIアニメキャラから主人公を選ぼう！' },
+                'male-ai-animation': { title: '男性AIアニメ主人公ワールドカップ', subtitle: '8人のAIアニメ男性キャラから主人公を選ぼう！' },
             },
         },
         zh: {
@@ -448,6 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryDog: 'AI狗狗\n主角世界杯',
             categoryFemale: '女性AI动画\n主角世界杯',
             categoryMale: '男性AI动画\n主角世界杯',
+            categoryFemaleReal: '女性真人\n主角世界杯',
             comingSoon: '即将推出',
             showRankingsAll: '总排名',
             showRankingsLang: '语言排名',
@@ -530,6 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
             landing: {
                 'dog-ai': { title: 'AI狗狗主角世界杯', subtitle: '从8只AI生成的狗狗中选出你最喜欢的！' },
                 'female-ai-animation': { title: '女性AI动画主角世界杯', subtitle: '从8位AI动画角色中选出你的主角！' },
+                'male-ai-animation': { title: '男性AI动画主角世界杯', subtitle: '从8位AI动画男性角色中选出你的主角！' },
             },
         },
     };
@@ -567,7 +638,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#category-dog .category-label').innerHTML = lang.categoryDog.replace('\n', '<br>');
         document.querySelector('#category-female .category-label').innerHTML = lang.categoryFemale.replace('\n', '<br>');
         document.querySelector('#category-male .category-label').innerHTML = lang.categoryMale.replace('\n', '<br>');
-        document.querySelector('.coming-soon').textContent = lang.comingSoon;
+        document.querySelector('#category-female-real .category-label').innerHTML = lang.categoryFemaleReal.replace('\n', '<br>');
+        document.querySelectorAll('.coming-soon').forEach(el => el.textContent = lang.comingSoon);
 
         // Landing page texts (category-specific)
         const landingTexts = lang.landing[currentCategory];
@@ -679,6 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryToSidebar = {
         'dog-ai': 'category-dog',
         'female-ai-animation': 'category-female',
+        'male-ai-animation': 'category-male',
     };
 
     function switchCategory(categoryId) {
@@ -895,6 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sidebar category clicks
     document.getElementById('category-dog').addEventListener('click', () => switchCategory('dog-ai'));
     document.getElementById('category-female').addEventListener('click', () => switchCategory('female-ai-animation'));
+    document.getElementById('category-male').addEventListener('click', () => switchCategory('male-ai-animation'));
 
     // Language selector
     langButtons.forEach(button => {

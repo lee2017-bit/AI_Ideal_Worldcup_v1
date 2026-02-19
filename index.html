@@ -124,7 +124,10 @@
                     </h3>
                     <div id="comment-list" class="comment-list"></div>
                     <div class="comment-form">
-                        <input type="text" id="comment-author-input" class="comment-author-input" placeholder="닉네임 (선택)" maxlength="20">
+                        <div class="comment-form-top">
+                            <input type="text" id="comment-author-input" class="comment-author-input" placeholder="닉네임 (선택)" maxlength="20">
+                            <input type="password" id="comment-password-input" class="comment-password-input" placeholder="비밀번호 (수정/삭제용)" maxlength="30">
+                        </div>
                         <textarea id="comment-input" class="comment-input" placeholder="댓글을 입력하세요..." maxlength="500" rows="3"></textarea>
                         <button id="comment-submit" class="comment-submit-btn">등록</button>
                     </div>

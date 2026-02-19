@@ -80,12 +80,19 @@ function doGet(e) {
     if (commentsSheet && commentsSheet.getLastRow() > 1) {
       var data = commentsSheet.getDataRange().getValues();
       for (var i = 1; i < data.length; i++) {
-        if (data[i][0] === postId) {
-          result.push({
-            author: data[i][1],
-            content: data[i][2],
-            timestamp: data[i][3]
-          });
+        var row = data[i];
+        var rowId = String(row[0]);
+        // UUID: 36자, 하이픈 4개 → 신규 스키마 [id, postId, author, content, timestamp, password]
+        var isNew = (rowId.length === 36 && rowId.split('-').length === 5);
+        if (isNew) {
+          if (row[1] === postId) {
+            result.push({ id: row[0], author: row[2], content: row[3], timestamp: row[4] });
+          }
+        } else {
+          // 구버전 스키마 [postId, author, content, timestamp]
+          if (row[0] === postId) {
+            result.push({ id: '', author: row[1], content: row[2], timestamp: row[3] });
+          }
         }
       }
     }
@@ -97,15 +104,58 @@ function doGet(e) {
     var commentsSheet = ss.getSheetByName('Comments');
     if (!commentsSheet) {
       commentsSheet = ss.insertSheet('Comments');
-      commentsSheet.appendRow(['postId', 'author', 'content', 'timestamp']);
+      commentsSheet.appendRow(['id', 'postId', 'author', 'content', 'timestamp', 'password']);
     }
     var postId = e.parameter.postId || '';
     var author = (e.parameter.author || '익명').substring(0, 30);
     var content = (e.parameter.content || '').substring(0, 500);
+    var password = (e.parameter.password || '').substring(0, 50);
     if (postId && content.trim().length > 0) {
-      commentsSheet.appendRow([postId, author, content, new Date().toISOString()]);
+      var newId = Utilities.getUuid();
+      commentsSheet.appendRow([newId, postId, author, content, new Date().toISOString(), password]);
     }
     return ContentService.createTextOutput('ok');
+
+  // ===== 댓글 삭제 =====
+  } else if (action === 'deleteComment') {
+    var commentsSheet = ss.getSheetByName('Comments');
+    if (!commentsSheet) return ContentService.createTextOutput('error');
+    var targetId = e.parameter.id || '';
+    var password = e.parameter.password || '';
+    if (!targetId) return ContentService.createTextOutput('error');
+    var data = commentsSheet.getDataRange().getValues();
+    for (var i = 1; i < data.length; i++) {
+      if (String(data[i][0]) === targetId) {
+        if (String(data[i][5]) === password) {
+          commentsSheet.deleteRow(i + 1);
+          return ContentService.createTextOutput('ok');
+        } else {
+          return ContentService.createTextOutput('wrong_password');
+        }
+      }
+    }
+    return ContentService.createTextOutput('not_found');
+
+  // ===== 댓글 수정 =====
+  } else if (action === 'updateComment') {
+    var commentsSheet = ss.getSheetByName('Comments');
+    if (!commentsSheet) return ContentService.createTextOutput('error');
+    var targetId = e.parameter.id || '';
+    var password = e.parameter.password || '';
+    var newContent = (e.parameter.content || '').substring(0, 500);
+    if (!targetId || !newContent.trim()) return ContentService.createTextOutput('error');
+    var data = commentsSheet.getDataRange().getValues();
+    for (var i = 1; i < data.length; i++) {
+      if (String(data[i][0]) === targetId) {
+        if (String(data[i][5]) === password) {
+          commentsSheet.getRange(i + 1, 4).setValue(newContent); // 4번째 열 = content
+          return ContentService.createTextOutput('ok');
+        } else {
+          return ContentService.createTextOutput('wrong_password');
+        }
+      }
+    }
+    return ContentService.createTextOutput('not_found');
 
   // ===== 소설 생성 =====
   } else if (action === 'generateStory') {

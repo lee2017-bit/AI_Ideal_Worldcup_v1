@@ -214,11 +214,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // Comments
             commentHeading: '댓글',
             commentPlaceholderAuthor: '닉네임 (선택)',
+            commentPasswordPlaceholder: '비밀번호 (수정/삭제용)',
             commentPlaceholderContent: '댓글을 입력하세요...',
             commentSubmit: '등록',
             commentEmpty: '아직 댓글이 없습니다.',
             commentAnon: '익명',
             commentLoading: '댓글 불러오는 중...',
+            commentEdit: '수정',
+            commentDelete: '삭제',
+            commentDeleteConfirm: '삭제 확인',
+            commentSave: '저장',
+            commentCancel: '취소',
+            commentProcessing: '처리 중...',
+            commentWrongPassword: '비밀번호가 틀렸습니다.',
+            commentPasswordHint: '비밀번호를 입력하세요',
             // Contact
             contact: '문의',
             contactTitle: '문의하기',
@@ -305,11 +314,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // Comments
             commentHeading: 'Comments',
             commentPlaceholderAuthor: 'Nickname (optional)',
+            commentPasswordPlaceholder: 'Password (for edit/delete)',
             commentPlaceholderContent: 'Write a comment...',
             commentSubmit: 'Post',
             commentEmpty: 'No comments yet.',
             commentAnon: 'Anonymous',
             commentLoading: 'Loading comments...',
+            commentEdit: 'Edit',
+            commentDelete: 'Delete',
+            commentDeleteConfirm: 'Confirm Delete',
+            commentSave: 'Save',
+            commentCancel: 'Cancel',
+            commentProcessing: 'Processing...',
+            commentWrongPassword: 'Wrong password.',
+            commentPasswordHint: 'Enter password',
             contact: 'Contact',
             contactTitle: 'Contact Us',
             contactMsg: 'Please send your inquiries to the email below.',
@@ -394,11 +412,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // Comments
             commentHeading: 'コメント',
             commentPlaceholderAuthor: 'ニックネーム（任意）',
+            commentPasswordPlaceholder: 'パスワード（修正/削除用）',
             commentPlaceholderContent: 'コメントを入力してください...',
             commentSubmit: '投稿',
             commentEmpty: 'まだコメントはありません。',
             commentAnon: '匿名',
             commentLoading: 'コメント読み込み中...',
+            commentEdit: '修正',
+            commentDelete: '削除',
+            commentDeleteConfirm: '削除確認',
+            commentSave: '保存',
+            commentCancel: 'キャンセル',
+            commentProcessing: '処理中...',
+            commentWrongPassword: 'パスワードが違います。',
+            commentPasswordHint: 'パスワードを入力',
             contact: 'お問い合わせ',
             contactTitle: 'お問い合わせ',
             contactMsg: 'お問い合わせは下記メールアドレスまでお送りください。',
@@ -483,11 +510,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // Comments
             commentHeading: '评论',
             commentPlaceholderAuthor: '昵称（可选）',
+            commentPasswordPlaceholder: '密码（用于编辑/删除）',
             commentPlaceholderContent: '写下评论...',
             commentSubmit: '发布',
             commentEmpty: '暂无评论。',
             commentAnon: '匿名',
             commentLoading: '加载评论中...',
+            commentEdit: '编辑',
+            commentDelete: '删除',
+            commentDeleteConfirm: '确认删除',
+            commentSave: '保存',
+            commentCancel: '取消',
+            commentProcessing: '处理中...',
+            commentWrongPassword: '密码错误。',
+            commentPasswordHint: '请输入密码',
             contact: '联系我们',
             contactTitle: '联系我们',
             contactMsg: '请将您的问题发送至以下邮箱。',
@@ -580,6 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Comment section
         document.getElementById('comment-heading-text').textContent = lang.commentHeading;
         document.getElementById('comment-author-input').placeholder = lang.commentPlaceholderAuthor;
+        document.getElementById('comment-password-input').placeholder = lang.commentPasswordPlaceholder;
         document.getElementById('comment-input').placeholder = lang.commentPlaceholderContent;
         document.getElementById('comment-submit').textContent = lang.commentSubmit;
 
@@ -1173,8 +1210,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch(url, { redirect: 'follow' });
             const comments = await res.json();
             renderComments(comments);
+            return comments;
         } catch (err) {
             renderComments([]);
+            return [];
         }
     }
 
@@ -1190,25 +1229,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         commentList.innerHTML = comments.map(c => {
-            const author = c.author || lang.commentAnon;
+            const author = (c.author || lang.commentAnon).replace(/</g, '&lt;').replace(/>/g, '&gt;');
             const date = c.timestamp ? new Date(c.timestamp).toLocaleDateString(currentLang, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
             const content = c.content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            return `<div class="comment-item">
+            const safeContent = c.content.replace(/"/g, '&quot;');
+            const editDeleteBtns = c.id ? `
+                <div class="comment-actions">
+                    <button class="comment-edit-btn">${lang.commentEdit}</button>
+                    <button class="comment-delete-btn">${lang.commentDelete}</button>
+                </div>` : '';
+            return `<div class="comment-item" data-id="${c.id || ''}" data-content="${safeContent}">
                 <div class="comment-meta">
                     <span class="comment-author">${author}</span>
                     <span class="comment-date">${date}</span>
+                    ${editDeleteBtns}
                 </div>
                 <div class="comment-content">${content}</div>
+                <div class="comment-action-form"></div>
             </div>`;
         }).join('');
     }
+
+    // 댓글 수정/삭제 이벤트 위임
+    document.getElementById('comment-list').addEventListener('click', async function(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const item = btn.closest('.comment-item');
+        if (!item) return;
+        const commentId = item.dataset.id;
+        const actionForm = item.querySelector('.comment-action-form');
+        const lang = i18n[currentLang];
+
+        if (btn.classList.contains('comment-delete-btn')) {
+            actionForm.innerHTML = `
+                <input type="password" class="comment-pw-inline" placeholder="${lang.commentPasswordHint}" maxlength="30">
+                <button class="comment-delete-confirm-btn">${lang.commentDeleteConfirm}</button>
+                <button class="comment-cancel-btn">${lang.commentCancel}</button>`;
+
+        } else if (btn.classList.contains('comment-edit-btn')) {
+            const originalContent = item.dataset.content;
+            actionForm.innerHTML = `
+                <textarea class="comment-edit-textarea" maxlength="500" rows="3">${originalContent.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+                <div class="comment-action-row">
+                    <input type="password" class="comment-pw-inline" placeholder="${lang.commentPasswordHint}" maxlength="30">
+                    <button class="comment-edit-save-btn">${lang.commentSave}</button>
+                    <button class="comment-cancel-btn">${lang.commentCancel}</button>
+                </div>`;
+
+        } else if (btn.classList.contains('comment-cancel-btn')) {
+            actionForm.innerHTML = '';
+
+        } else if (btn.classList.contains('comment-delete-confirm-btn')) {
+            const pw = actionForm.querySelector('.comment-pw-inline').value;
+            if (!pw) return;
+            actionForm.innerHTML = `<span class="comment-processing">${lang.commentProcessing}</span>`;
+            const params = new URLSearchParams({ action: 'deleteComment', id: commentId, password: pw });
+            try { fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' }); } catch (err) {}
+            await new Promise(r => setTimeout(r, 1800));
+            const updated = await loadComments(currentPostId);
+            // 삭제 실패 (비밀번호 오류) 감지: id가 여전히 목록에 있으면
+            if (updated.find(c => c.id === commentId)) {
+                const failItem = document.querySelector(`.comment-item[data-id="${commentId}"] .comment-action-form`);
+                if (failItem) failItem.innerHTML = `<span class="comment-error">${lang.commentWrongPassword}</span>`;
+            }
+
+        } else if (btn.classList.contains('comment-edit-save-btn')) {
+            const pw = actionForm.querySelector('.comment-pw-inline').value;
+            const newContent = actionForm.querySelector('.comment-edit-textarea').value.trim();
+            if (!pw || !newContent) return;
+            actionForm.innerHTML = `<span class="comment-processing">${lang.commentProcessing}</span>`;
+            const params = new URLSearchParams({ action: 'updateComment', id: commentId, password: pw, content: newContent });
+            try { fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' }); } catch (err) {}
+            await new Promise(r => setTimeout(r, 1800));
+            const updated = await loadComments(currentPostId);
+            // 수정 실패 감지: 내용이 그대로면
+            const found = updated.find(c => c.id === commentId);
+            if (found && found.content === item.dataset.content) {
+                const failItem = document.querySelector(`.comment-item[data-id="${commentId}"] .comment-action-form`);
+                if (failItem) failItem.innerHTML = `<span class="comment-error">${lang.commentWrongPassword}</span>`;
+            }
+        }
+    });
 
     document.getElementById('comment-submit').addEventListener('click', async () => {
         if (!currentPostId) return;
         const lang = i18n[currentLang];
         const authorInput = document.getElementById('comment-author-input');
+        const passwordInput = document.getElementById('comment-password-input');
         const contentInput = document.getElementById('comment-input');
         const author = authorInput.value.trim() || lang.commentAnon;
+        const password = passwordInput.value;
         const content = contentInput.value.trim();
         if (!content) return;
 
@@ -1219,6 +1329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             action: 'addComment',
             postId: currentPostId,
             author: author,
+            password: password,
             content: content
         });
 
@@ -1227,8 +1338,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) { /* ignore */ }
 
         authorInput.value = '';
+        passwordInput.value = '';
         contentInput.value = '';
-        // GAS 처리 시간 대기 후 댓글 목록 갱신
         await new Promise(r => setTimeout(r, 1800));
         submitBtn.disabled = false;
         await loadComments(currentPostId);
